@@ -10,7 +10,7 @@ namespace Stage0
     {
       static partial void  Welcome8149()
         {
-            Console.WriteLine("Vehashem itbarach tamid ohev oti vetamid yhiye li rak tov!!!!");
+            Console.WriteLine("Vehashem itbarach tamid ohev oti vetamid yiye li rak tov!!!!");
         }
     }
 }
