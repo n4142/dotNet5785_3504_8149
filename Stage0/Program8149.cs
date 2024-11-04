@@ -8,7 +8,7 @@ namespace Stage0
 {
     partial class Program
     {
-      static partial void  Welcome8149 ()
+      static partial void  Welcome8149()
         {
             Console.WriteLine("Vehashem itbarach tamid ohev oti vetamid yhiye li rak tov!!!!");
         }
