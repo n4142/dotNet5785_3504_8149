@@ -1,4 +1,5 @@
-﻿using DalApi;
+﻿
+using DalApi;
 using DO;
 using System;
 using System.Runtime.CompilerServices;
@@ -46,24 +47,24 @@ namespace DalTest
             }
             MainMenuOptions choice = Console.ReadLine();
             while (choice != MainMenuOptions.Exit)
-                switch (choice)
-                {
-                    case MainMenuOptions.VolunteerSubMenu
-                    case MainMenuOptions.CallSubMenu
-                    case MainMenuOptions.AssignmentSubMenu
-                            DisplayEntityMenu(choice);
+            switch (choice)
+            {
+                case MainMenuOptions.VolunteerSubMenu
+                case MainMenuOptions.CallSubMenu
+                case MainMenuOptions.AssignmentSubMenu
+                        DisplayEntityMenu(choice);
                         break;
-                    case MainMenuOptions.InitializingData
-                            Initialization.Do();
+                case MainMenuOptions.InitializingData
+                        Initialization.Do();
                         break;
-                    case MainMenuOptions.ShowAllData
-                            ShowAllData();
+                case MainMenuOptions.ShowAllData
+                        ShowAllData();
                         break;
-                    case MainMenuOptions.ConfigSubMenu
-                            DisplayConfigSubMenu();
+                case MainMenuOptions.ConfigSubMenu
+                        DisplayConfigSubMenu();
                         break;
-                    case MainMenuOptions.ResetDataAndConfigData
-                            ResetDataAndConfigData();
+                case MainMenuOptions.ResetDataAndConfigData
+                        ResetDataAndConfigData();
                         break;
                 }
         }
@@ -71,15 +72,15 @@ namespace DalTest
 }
 
 static void Main(string[] args)
-{
-    try
-    {
-        DisplayMainMenu();
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine($"An error occurred: {e.Message}");
-    }
-}
+        {
+            try
+            {
+              DisplayMainMenu();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"An error occurred: {e.Message}");
+            }
+        }
     }
 }
