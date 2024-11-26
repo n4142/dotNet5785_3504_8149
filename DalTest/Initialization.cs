@@ -1,4 +1,5 @@
-﻿namespace DalTest;
+﻿
+namespace DalTest;
 using DalApi;
 using DO;
 //לבקש מגיפיטי:
@@ -13,7 +14,8 @@ public class Initialization
     private static IConfig? s_dalConfig;
 
     private static readonly Random s_rand = new();
-    private static void CreateVolunteer() {
+    private static void CreateVolunteer()
+    {
         const int MIN_ID = 100000000;
         const int MAX_ID = 999999999;
         string[] names =
@@ -46,7 +48,8 @@ public class Initialization
         (float latitude, float longitude)[] coordinates = { (1, 2) };
         string[] descriptions = { "" };
         DateTime start = new DateTime(2022, 1, 1);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 50; i++)
+        {
             DateTime startingTime = start.AddDays(s_rand.Next((int)(s_dalConfig!.Clock - start).TotalDays));
             s_dalCall!.Create(new Call(
             (CallType)s_rand.Next(Enum.GetValues(typeof(CallType)).Length),
@@ -59,12 +62,13 @@ public class Initialization
             ));
         };
     }
-//פה עדיין יש באגים לא ברורים
+    //פה עדיין יש באגים לא ברורים
     private static void CreateAssignment()
     {
         List<Volunteer> volunteerList = s_dalVolunteer.ReadAll();
         List<Call> callsList = s_dalCall.ReadAll();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 50; i++)
+        {
             DateTime[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
             s_dalAssignment.Create(new Assignment(
                 callsList[i].Id,
@@ -73,6 +77,6 @@ public class Initialization
                 endingTimeOptions[s_rand.Next(endingTimeOptions.Length)],
  (EndingTimeType)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length - 1)
                 ));
-       };
+        };
     }
 }
