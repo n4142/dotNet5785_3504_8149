@@ -72,7 +72,7 @@ namespace DalTest
             Console.Write("Enter Verbal Description (optional): ");
             string? description = Console.ReadLine();
 
-            return new Call(id, callType, address, latitude, longitude, openingTime, maxTime, description);
+            return new Call( callType, address, latitude, longitude, openingTime, maxTime, description);
         }
 
         private static Assignment CreateAssignment(int id)
@@ -94,7 +94,7 @@ namespace DalTest
             string endingTimeTypeStr = Console.ReadLine()!;
             EndingTimeType? endingTimeType = (EndingTimeType)int.Parse(endingTimeTypeStr);
 
-            return new Assignment(id, callId, volunteerId, entryTime, endingTime, endingTimeType);
+            return new Assignment( callId, volunteerId, entryTime, endingTime, endingTimeType);
         }
 
         private static Volunteer CreateVolunteer(int id)
@@ -346,7 +346,7 @@ namespace DalTest
                         EntityMenu(choice.ToString());
                         break;
                     case MainMenuOptions.InitializingData:
-                        Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+                        Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
                         break;
                     case MainMenuOptions.ShowAllData:
                         ShowAllData();
@@ -361,6 +361,10 @@ namespace DalTest
             }
         }
 
+        private static void ConfigMenu()
+        {
+            //stil need to write this function
+        }
         static void Main(string[] args)
         {
             try

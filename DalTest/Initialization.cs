@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 
 
-public class Initialization()
+public class Initialization
     {
         private static ICall? s_dalCall;
         private static IVolunteer? s_dalVolunteer;
@@ -185,4 +185,4 @@ public class Initialization()
             CreateVolunteer();
         }
     }
-}
+

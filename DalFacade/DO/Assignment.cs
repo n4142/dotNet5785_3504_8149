@@ -25,5 +25,5 @@ public record Assignment
     /// <summary>
     /// Default constructor for stage 3
     /// </summary>
-    public Assignment() : this(0, 0,null, DateTime.MinValue) { }
+    public Assignment() : this(0, 0,null,null, EndingTimeType.CanceledByManager) { }
 }
