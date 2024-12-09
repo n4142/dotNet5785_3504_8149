@@ -4,7 +4,7 @@ namespace Dal;
 using DalApi;
 using DO;
 
-public class AssignmentImplementation : IAssignment
+internal class AssignmentImplementation : IAssignment
 {
     public void Create(Assignment enteredAssignment)
     {
@@ -18,7 +18,7 @@ public class AssignmentImplementation : IAssignment
         Assignment? a = Read(id);
         if (a is null)
         {
-            throw new Exception($"Assignment Object with {id} doesn't exist");
+            throw new DalDoesNotExistException($"Assignment Object with {id} doesn't exist");
         }
         else
         {
@@ -47,7 +47,7 @@ public class AssignmentImplementation : IAssignment
         Assignment? a = Read(updatedAssignment.Id);
         if (a is null)
         {
-            throw new Exception($"Assignment Object with {updatedAssignment.Id} doesn't exist");
+            throw new DalDoesNotExistException($"Assignment Object with {updatedAssignment.Id} doesn't exist");
         }
         else
         {

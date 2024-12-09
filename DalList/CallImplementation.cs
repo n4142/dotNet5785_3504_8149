@@ -5,7 +5,7 @@ using DalApi;
 using DO;
 
 
-public class CallImplementation : ICall
+internal class CallImplementation : ICall
 {
     public void Create(Call enteredCall)
     {
@@ -20,7 +20,7 @@ public class CallImplementation : ICall
         Call? c = Read(id);
         if (c is null)
         {
-            throw new Exception($"Call Object with {id} doesn't exist");
+            throw new DalDoesNotExistException($"Call Object with {id} doesn't exist");
         }
         else
         {
@@ -50,7 +50,7 @@ public class CallImplementation : ICall
         Call? c = Read(updatedCall.Id);
         if (c is null)
         {
-            throw new Exception($"Call Object with {updatedCall.Id} doesn't exist");
+            throw new DalDoesNotExistException($"Call Object with {updatedCall.Id} doesn't exist");
         }
         else
         {

@@ -1,17 +1,16 @@
-﻿
-using DalApi;
-using DO;
+﻿using DO;
 using Dal;
+using DalApi;
 
 namespace DalTest
 {
     internal class Program
     {
-        private static ICall? s_dalCall = new CallImplementation();
-        private static IVolunteer? s_dalVolunteer = new VolunteerImplementation();
-        private static IAssignment? s_dalAssignment = new AssignmentImplementation();
-        private static IConfig? s_dalConfig = new ConfigImplementation();
-
+        //private static ICall? s_dal.Call = new CallImplementation();
+        //private static IVolunteer? s_dalVolunteer = new VolunteerImplementation();
+        //private static IAssignment? s_dalAssignment = new AssignmentImplementation();
+        //private static IConfig? s_dalConfig = new ConfigImplementation();
+        static readonly IDal s_dal = new DalList();//stage 2
         private enum MainMenuOptions
         {
             Exit,
@@ -73,7 +72,7 @@ namespace DalTest
             Console.Write("Enter Verbal Description (optional): ");
             string? description = Console.ReadLine();
 
-            return new Call(id, callType, address, latitude, longitude, openingTime, maxTime, description);
+            return new Call( callType, address, latitude, longitude, openingTime, maxTime, description);
         }
 
         private static Assignment CreateAssignment(int id)
@@ -95,7 +94,7 @@ namespace DalTest
             string endingTimeTypeStr = Console.ReadLine()!;
             EndingTimeType? endingTimeType = (EndingTimeType)int.Parse(endingTimeTypeStr);
 
-            return new Assignment(id, callId, volunteerId, entryTime, endingTime, endingTimeType);
+            return new Assignment( callId, volunteerId, entryTime, endingTime, endingTimeType);
         }
 
         private static Volunteer CreateVolunteer(int id)
@@ -145,15 +144,15 @@ namespace DalTest
             {
                 case "VolunteerSubMenu":
                     Volunteer volunteer = CreateVolunteer(id);
-                    s_dalVolunteer?.Create(volunteer);
+                    s_dal.Volunteer?.Create(volunteer);
                     break;
                 case "CallSubMenu":
                     Call call = CreateCall(id);
-                    s_dalCall?.Create(call);
+                    s_dal.Call?.Create(call);
                     break;
                 case "AssignmentSubMenu":
                     Assignment assignment = CreateAssignment(id);
-                    s_dalAssignment?.Create(assignment);
+                    s_dal.Assignment?.Create(assignment);
                     break;
             }
         }
@@ -163,32 +162,82 @@ namespace DalTest
             switch (entityName)
             {
                 case "VolunteerSubMenu":
-                    Console.WriteLine(s_dalVolunteer?.Read(id));
+                    Console.WriteLine(s_dal.Volunteer?.Read(id));
                     break;
                 case "CallSubMenu":
-                    Console.WriteLine(s_dalCall?.Read(id));
+                    Console.WriteLine(s_dal.Call?.Read(id));
                     break;
                 case "AssignmentSubMenu":
-                    Console.WriteLine(s_dalAssignment?.Read(id));
+                    Console.WriteLine(s_dal.Assignment?.Read(id));
                     break;
             }
         }
 
+        //private static void ReadAll(string entityName)
+        //{
+        //    switch (entityName)
+        //    {
+        //        case "VolunteerSubMenu":
+        //            Console.WriteLine(s_dalVolunteer?.ReadAll());
+        //            break;
+        //        case "CallSubMenu":
+        //            Console.WriteLine(s_dalCall?.ReadAll());
+        //            break;
+        //        case "AssignmentSubMenu":
+        //            Console.WriteLine(s_dalAssignment?.ReadAll());
+        //            break;
+        //    }
+        //}
         private static void ReadAll(string entityName)
         {
             switch (entityName)
             {
                 case "VolunteerSubMenu":
-                    Console.WriteLine(s_dalVolunteer?.ReadAll());
+                    var volunteers = s_dal.Volunteer?.ReadAll();
+                    if (volunteers != null && volunteers.Any())
+                    {
+                        foreach (var volunteer in volunteers)
+                        {
+                            Console.WriteLine(volunteer); // Ensure `Volunteer` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No volunteers found.");
+                    }
                     break;
                 case "CallSubMenu":
-                    Console.WriteLine(s_dalCall?.ReadAll());
+                    var calls = s_dal.Call?.ReadAll();
+                    if (calls != null && calls.Any())
+                    {
+                        foreach (var call in calls)
+                        {
+                            Console.WriteLine(call); // Ensure `Call` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No calls found.");
+                    }
                     break;
                 case "AssignmentSubMenu":
-                    Console.WriteLine(s_dalAssignment?.ReadAll());
+                    var assignments = s_dal.Assignment?.ReadAll();
+                    if (assignments != null && assignments.Any())
+                    {
+                        foreach (var assignment in assignments)
+                        {
+                            Console.WriteLine(assignment); // Ensure `Assignment` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No assignments found.");
+                    }
                     break;
             }
         }
+         
+
 
         private static void Update(string entityName)
         {
@@ -199,17 +248,17 @@ namespace DalTest
             {
                 case "VolunteerSubMenu":
                     Volunteer updatedVolunteer = CreateVolunteer(id);
-                    s_dalVolunteer?.Update(updatedVolunteer);
+                    s_dal.Volunteer?.Update(updatedVolunteer);
                     Console.WriteLine("Volunteer updated successfully!");
                     break;
                 case "CallSubMenu":
                     Call updatedCall = CreateCall(id);
-                    s_dalCall?.Update(updatedCall);
+                    s_dal.Call?.Update(updatedCall);
                     Console.WriteLine("Call updated successfully!");
                     break;
                 case "AssignmentSubMenu":
                     Assignment updatedAssignment = CreateAssignment(id);
-                    s_dalAssignment?.Update(updatedAssignment);
+                    s_dal.Assignment?.Update(updatedAssignment);
                     Console.WriteLine("Assignment updated successfully!");
                     break;
             }
@@ -220,15 +269,15 @@ namespace DalTest
             switch (entityName)
             {
                 case "VolunteerSubMenu":
-                    s_dalVolunteer?.Delete(id);
+                    s_dal.Volunteer?.Delete(id);
                     Console.WriteLine("Volunteer deleted successfully!");
                     break;
                 case "CallSubMenu":
-                    s_dalCall?.Delete(id);
+                    s_dal.Call?.Delete(id);
                     Console.WriteLine("Call deleted successfully!");
                     break;
                 case "AssignmentSubMenu":
-                    s_dalAssignment?.Delete(id);
+                    s_dal.Assignment?.Delete(id);
                     Console.WriteLine("Assignment deleted successfully!");
                     break;
             }
@@ -239,15 +288,15 @@ namespace DalTest
             switch (entityName)
             {
                 case "VolunteerSubMenu":
-                    s_dalVolunteer?.DeleteAll();
+                    s_dal.Volunteer?.DeleteAll();
                     Console.WriteLine("All volunteers deleted!");
                     break;
                 case "CallSubMenu":
-                    s_dalCall?.DeleteAll();
+                    s_dal.Call?.DeleteAll();
                     Console.WriteLine("All calls deleted!");
                     break;
                 case "AssignmentSubMenu":
-                    s_dalAssignment?.DeleteAll();
+                    s_dal.Assignment?.DeleteAll();
                     Console.WriteLine("All assignments deleted!");
                     break;
             }
@@ -310,35 +359,94 @@ namespace DalTest
 
         private static void ShowAllData()
         {
-            Console.WriteLine("Volunteers:");
-            Console.WriteLine(s_dalVolunteer?.ReadAll());
-
-            Console.WriteLine("Calls:");
-            Console.WriteLine(s_dalCall?.ReadAll());
-
-            Console.WriteLine("Assignments:");
-            Console.WriteLine(s_dalAssignment?.ReadAll());
+            var volunteers = s_dal.Volunteer?.ReadAll();
+            if (volunteers != null && volunteers.Any())
+            {
+                Console.WriteLine("Volunteers:");
+                foreach (var volunteer in volunteers)
+                {
+                    Console.WriteLine(volunteer); // Ensure `Volunteer` has a meaningful `ToString()` override
+                }
+                Console.WriteLine("Calls:");
+                var calls = s_dal.Call?.ReadAll();
+                if (calls != null && calls.Any())
+                {
+                    foreach (var call in calls)
+                    {
+                        Console.WriteLine(call); // Ensure `Call` has a meaningful `ToString()` override
+                    }
+                }
+                Console.WriteLine("Assignments:");
+                var assignments = s_dal.Assignment?.ReadAll();
+                if (assignments != null && assignments.Any())
+                {
+                    foreach (var assignment in assignments)
+                    {
+                        Console.WriteLine(assignment); // Ensure `Assignment` has a meaningful `ToString()` override
+                    }
+                }
+            }
         }
 
         private static void ResetDatabase()
         {
-            s_dalConfig.Reset();
-            s_dalVolunteer.DeleteAll();
-            s_dalCall.DeleteAll();
-            s_dalAssignment.DeleteAll();
+            s_dal.Config.Reset();
+            s_dal.Volunteer.DeleteAll();
+            s_dal.Call.DeleteAll();
+            s_dal.Assignment.DeleteAll();
         }
 
+        //private static void DisplayMainMenu()
+        //{
+        //    foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+        //    {
+        //        Console.WriteLine($"{(int)option}. {option}");
+        //    }
+
+        //    MainMenuOptions choice = (MainMenuOptions)int.Parse(Console.ReadLine()!);
+
+        //    while (choice != MainMenuOptions.Exit)
+        //    {
+        //        switch (choice)
+        //        {
+        //            case MainMenuOptions.VolunteerSubMenu:
+        //            case MainMenuOptions.CallSubMenu:
+        //            case MainMenuOptions.AssignmentSubMenu:
+        //                EntityMenu(choice.ToString());
+        //                break;
+        //            case MainMenuOptions.InitializingData:
+        //                Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+        //                break;
+        //            case MainMenuOptions.ShowAllData:
+        //                ShowAllData();
+        //                break;
+        //            case MainMenuOptions.ConfigSubMenu:
+        //                ConfigMenu();
+        //                break;
+        //            case MainMenuOptions.ResetDataAndConfigData:
+        //                ResetDatabase();
+        //                break;
+        //        }
+        //    }
+        //}
         private static void DisplayMainMenu()
         {
-            foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+            MainMenuOptions choice;
+            do
             {
-                Console.WriteLine($"{(int)option}. {option}");
-            }
+                // Display the main menu options
+                foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+                {
+                    Console.WriteLine($"{(int)option}. {option}");
+                }
 
-            MainMenuOptions choice = (MainMenuOptions)int.Parse(Console.ReadLine()!);
+                Console.Write("Enter your choice: ");
+                if (!Enum.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(MainMenuOptions), choice))
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    continue;
+                }
 
-            while (choice != MainMenuOptions.Exit)
-            {
                 switch (choice)
                 {
                     case MainMenuOptions.VolunteerSubMenu:
@@ -347,7 +455,8 @@ namespace DalTest
                         EntityMenu(choice.ToString());
                         break;
                     case MainMenuOptions.InitializingData:
-                        Initialization.Do(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+                        //Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);/
+                        Initialization.Do(s_dal); //stage 2
                         break;
                     case MainMenuOptions.ShowAllData:
                         ShowAllData();
@@ -358,8 +467,91 @@ namespace DalTest
                     case MainMenuOptions.ResetDataAndConfigData:
                         ResetDatabase();
                         break;
+                    case MainMenuOptions.Exit:
+                        Console.WriteLine("Exiting program...");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
                 }
-            }
+            } while (choice != MainMenuOptions.Exit);
+        }
+
+        private static void ConfigMenu()
+        {
+            ConfigSubmenu choice;
+            do
+            {
+                Console.WriteLine("Config Submenu:");
+                foreach (ConfigSubmenu option in Enum.GetValues(typeof(ConfigSubmenu)))
+                {
+                    Console.WriteLine($"{(int)option}. {option}");
+                }
+
+                Console.Write("Enter your choice: ");
+                if (!Enum.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(ConfigSubmenu), choice))
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    continue;
+                }
+
+                try
+                {
+                    switch (choice)
+                    {
+                        case ConfigSubmenu.AdvanceClockByMinute:
+                            s_dal.Config.Clock = s_dal.Config.Clock.AddMinutes(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByHour:
+                            s_dal.Config.Clock = s_dal.Config.Clock.AddHours(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByDay:
+                            s_dal.Config.Clock = s_dal.Config.Clock.AddDays(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByMonth:
+                            s_dal.Config.Clock = s_dal.Config.Clock.AddMonths(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByYear:
+                            s_dal.Config.Clock = s_dal.Config.Clock.AddYears(1);
+                            break;
+
+                        case ConfigSubmenu.DisplayClock:
+                            Console.WriteLine($"Current Clock: {s_dal.Config.Clock}");
+                            break;
+
+                        case ConfigSubmenu.ChangeClockOrRiskRange:
+                            Console.Write("Enter new risk range in hours: ");
+                            double riskHours = double.Parse(Console.ReadLine()!);
+                            s_dal.Config.RiskRange = TimeSpan.FromHours(riskHours);
+                            break;
+
+                        case ConfigSubmenu.DisplayConfigVar:
+                            Console.WriteLine($"Clock: {s_dal.Config.Clock}");
+                            Console.WriteLine($"Risk Range: {s_dal.Config.RiskRange}");
+                            break;
+
+                        case ConfigSubmenu.Reset:
+                            s_dal.Config.Reset();
+                            break;
+
+                        case ConfigSubmenu.Exit:
+                            Console.WriteLine("Exiting Config menu.");
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
+            } while (choice != ConfigSubmenu.Exit);
         }
 
         static void Main(string[] args)
@@ -375,3 +567,5 @@ namespace DalTest
         }
     }
 }
+
+

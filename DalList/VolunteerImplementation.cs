@@ -1,18 +1,17 @@
 ﻿
-
 namespace Dal;
 using DalApi;
 using DO;
 
 
-public class VolunteerImplementation : IVolunteer
+internal class VolunteerImplementation : IVolunteer
 {
     public void Create(Volunteer vol)
     {
         Volunteer? v = Read(vol.Id);
         if (v is not null)
         {
-            throw new Exception($"Volunteer Object with {vol.Id} already exists");
+            throw new DalAlreadyExistException($"Volunteer Object with {vol.Id} already exists");
 
         }
         else
@@ -27,7 +26,7 @@ public class VolunteerImplementation : IVolunteer
         Volunteer? v = Read(id);
         if (v is null)
         {
-            throw new Exception($"Volunteer Object with {id} doesn't exist");
+            throw new DalDoesNotExistException($"Volunteer Object with {id} doesn't exist");
         }
         else
         {
@@ -51,12 +50,13 @@ public class VolunteerImplementation : IVolunteer
         return new List<Volunteer>(DataSource.Volunteers);
     }
 
+
     public void Update(Volunteer vol)
     {
         Volunteer? v = Read(vol.Id);
         if (v is null)
         {
-            throw new Exception($"Volunteer Object with {vol.Id} doesn't exist");
+            throw new DalDoesNotExistException($"Volunteer Object with {vol.Id} doesn't exist");
         }
         else
         {
