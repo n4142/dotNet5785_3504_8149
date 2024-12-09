@@ -479,8 +479,81 @@ namespace DalTest
 
         private static void ConfigMenu()
         {
-            //stil need to write this function
+            ConfigSubmenu choice;
+            do
+            {
+                Console.WriteLine("Config Submenu:");
+                foreach (ConfigSubmenu option in Enum.GetValues(typeof(ConfigSubmenu)))
+                {
+                    Console.WriteLine($"{(int)option}. {option}");
+                }
+
+                Console.Write("Enter your choice: ");
+                if (!Enum.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(ConfigSubmenu), choice))
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    continue;
+                }
+
+                try
+                {
+                    switch (choice)
+                    {
+                        case ConfigSubmenu.AdvanceClockByMinute:
+                            s_dalConfig.Clock = s_dalConfig.Clock.AddMinutes(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByHour:
+                            s_dalConfig.Clock = s_dalConfig.Clock.AddHours(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByDay:
+                            s_dalConfig.Clock = s_dalConfig.Clock.AddDays(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByMonth:
+                            s_dalConfig.Clock = s_dalConfig.Clock.AddMonths(1);
+                            break;
+
+                        case ConfigSubmenu.AdvanceClockByYear:
+                            s_dalConfig.Clock = s_dalConfig.Clock.AddYears(1);
+                            break;
+
+                        case ConfigSubmenu.DisplayClock:
+                            Console.WriteLine($"Current Clock: {s_dalConfig.Clock}");
+                            break;
+
+                        case ConfigSubmenu.ChangeClockOrRiskRange:
+                            Console.Write("Enter new risk range in hours: ");
+                            double riskHours = double.Parse(Console.ReadLine()!);
+                            s_dalConfig.RiskRange = TimeSpan.FromHours(riskHours);
+                            break;
+
+                        case ConfigSubmenu.DisplayConfigVar:
+                            Console.WriteLine($"Clock: {s_dalConfig.Clock}");
+                            Console.WriteLine($"Risk Range: {s_dalConfig.RiskRange}");
+                            break;
+
+                        case ConfigSubmenu.Reset:
+                            s_dalConfig.Reset();
+                            break;
+
+                        case ConfigSubmenu.Exit:
+                            Console.WriteLine("Exiting Config menu.");
+                            break;
+
+                        default:
+                            Console.WriteLine("Invalid choice.");
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                }
+            } while (choice != ConfigSubmenu.Exit);
         }
+
         static void Main(string[] args)
         {
             try
