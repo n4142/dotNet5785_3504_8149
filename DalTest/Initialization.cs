@@ -179,10 +179,11 @@ public class Initialization
             s_dalCall.DeleteAll();
             s_dalAssignment.DeleteAll();
             s_dalVolunteer.DeleteAll();
-            Console.WriteLine("Initializing Students list ...");
-            CreateAssignment();
-            CreateCall();
-            CreateVolunteer();
+            Console.WriteLine("Initializing  lists ...");
+        CreateCall();
+        CreateVolunteer();
+        CreateAssignment();
+     
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DO;
 using Dal;
+using System.Runtime.CompilerServices;
 
 namespace DalTest
 {
@@ -173,21 +174,71 @@ namespace DalTest
             }
         }
 
+        //private static void ReadAll(string entityName)
+        //{
+        //    switch (entityName)
+        //    {
+        //        case "VolunteerSubMenu":
+        //            Console.WriteLine(s_dalVolunteer?.ReadAll());
+        //            break;
+        //        case "CallSubMenu":
+        //            Console.WriteLine(s_dalCall?.ReadAll());
+        //            break;
+        //        case "AssignmentSubMenu":
+        //            Console.WriteLine(s_dalAssignment?.ReadAll());
+        //            break;
+        //    }
+        //}
         private static void ReadAll(string entityName)
         {
             switch (entityName)
             {
                 case "VolunteerSubMenu":
-                    Console.WriteLine(s_dalVolunteer?.ReadAll());
+                    var volunteers = s_dalVolunteer?.ReadAll();
+                    if (volunteers != null && volunteers.Any())
+                    {
+                        foreach (var volunteer in volunteers)
+                        {
+                            Console.WriteLine(volunteer); // Ensure `Volunteer` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No volunteers found.");
+                    }
                     break;
                 case "CallSubMenu":
-                    Console.WriteLine(s_dalCall?.ReadAll());
+                    var calls = s_dalCall?.ReadAll();
+                    if (calls != null && calls.Any())
+                    {
+                        foreach (var call in calls)
+                        {
+                            Console.WriteLine(call); // Ensure `Call` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No calls found.");
+                    }
                     break;
                 case "AssignmentSubMenu":
-                    Console.WriteLine(s_dalAssignment?.ReadAll());
+                    var assignments = s_dalAssignment?.ReadAll();
+                    if (assignments != null && assignments.Any())
+                    {
+                        foreach (var assignment in assignments)
+                        {
+                            Console.WriteLine(assignment); // Ensure `Assignment` has a meaningful `ToString()` override
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No assignments found.");
+                    }
                     break;
             }
         }
+         
+
 
         private static void Update(string entityName)
         {
@@ -309,14 +360,33 @@ namespace DalTest
 
         private static void ShowAllData()
         {
-            Console.WriteLine("Volunteers:");
-            Console.WriteLine(s_dalVolunteer?.ReadAll());
-
-            Console.WriteLine("Calls:");
-            Console.WriteLine(s_dalCall?.ReadAll());
-
-            Console.WriteLine("Assignments:");
-            Console.WriteLine(s_dalAssignment?.ReadAll());
+            var volunteers = s_dalVolunteer?.ReadAll();
+            if (volunteers != null && volunteers.Any())
+            {
+                Console.WriteLine("Volunteers:");
+                foreach (var volunteer in volunteers)
+                {
+                    Console.WriteLine(volunteer); // Ensure `Volunteer` has a meaningful `ToString()` override
+                }
+                Console.WriteLine("Calls:");
+                var calls = s_dalCall?.ReadAll();
+                if (calls != null && calls.Any())
+                {
+                    foreach (var call in calls)
+                    {
+                        Console.WriteLine(call); // Ensure `Call` has a meaningful `ToString()` override
+                    }
+                }
+                Console.WriteLine("Assignments:");
+                var assignments = s_dalAssignment?.ReadAll();
+                if (assignments != null && assignments.Any())
+                {
+                    foreach (var assignment in assignments)
+                    {
+                        Console.WriteLine(assignment); // Ensure `Assignment` has a meaningful `ToString()` override
+                    }
+                }
+            }
         }
 
         private static void ResetDatabase()
@@ -327,17 +397,57 @@ namespace DalTest
             s_dalAssignment.DeleteAll();
         }
 
+        //private static void DisplayMainMenu()
+        //{
+        //    foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+        //    {
+        //        Console.WriteLine($"{(int)option}. {option}");
+        //    }
+
+        //    MainMenuOptions choice = (MainMenuOptions)int.Parse(Console.ReadLine()!);
+
+        //    while (choice != MainMenuOptions.Exit)
+        //    {
+        //        switch (choice)
+        //        {
+        //            case MainMenuOptions.VolunteerSubMenu:
+        //            case MainMenuOptions.CallSubMenu:
+        //            case MainMenuOptions.AssignmentSubMenu:
+        //                EntityMenu(choice.ToString());
+        //                break;
+        //            case MainMenuOptions.InitializingData:
+        //                Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
+        //                break;
+        //            case MainMenuOptions.ShowAllData:
+        //                ShowAllData();
+        //                break;
+        //            case MainMenuOptions.ConfigSubMenu:
+        //                ConfigMenu();
+        //                break;
+        //            case MainMenuOptions.ResetDataAndConfigData:
+        //                ResetDatabase();
+        //                break;
+        //        }
+        //    }
+        //}
         private static void DisplayMainMenu()
         {
-            foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+            MainMenuOptions choice;
+            do
             {
-                Console.WriteLine($"{(int)option}. {option}");
-            }
+                // Display the main menu options
+                foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
+                {
+                    Console.WriteLine($"{(int)option}. {option}");
+                }
 
-            MainMenuOptions choice = (MainMenuOptions)int.Parse(Console.ReadLine()!);
+                Console.Write("Enter your choice: ");
+                if (!Enum.TryParse(Console.ReadLine(), out choice) || !Enum.IsDefined(typeof(MainMenuOptions), choice))
+                {
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    continue;
+                }
 
-            while (choice != MainMenuOptions.Exit)
-            {
                 switch (choice)
                 {
                     case MainMenuOptions.VolunteerSubMenu:
@@ -357,8 +467,14 @@ namespace DalTest
                     case MainMenuOptions.ResetDataAndConfigData:
                         ResetDatabase();
                         break;
+                    case MainMenuOptions.Exit:
+                        Console.WriteLine("Exiting program...");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
                 }
-            }
+            } while (choice != MainMenuOptions.Exit);
         }
 
         private static void ConfigMenu()
@@ -378,3 +494,5 @@ namespace DalTest
         }
     }
 }
+
+
