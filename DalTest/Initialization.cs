@@ -5,12 +5,13 @@ using DO;
 
 public class Initialization
     {
-        private static ICall? s_dalCall;
-        private static IVolunteer? s_dalVolunteer;
-        private static IAssignment? s_dalAssignment;
-        private static IConfig? s_dalConfig;
+    //private static ICall? s_dalCall;
+    //private static IVolunteer? s_dalVolunteer;
+    //private static IAssignment? s_dalAssignment;
+    //private static IConfig? s_dalConfig;
+    private static IDal? s_dal; //stage 2
 
-        private static readonly Random s_rand = new();
+    private static readonly Random s_rand = new();
         private static void CreateVolunteer()
         {
             const int MIN_ID = 100000000;
@@ -23,10 +24,10 @@ public class Initialization
                 {"Herzl St 1, Tel Aviv", "Ben Yehuda St 10, Haifa",  "Hanevi'im St 15, Jerusalem",  "Rothschild Blvd 50, Tel Aviv",  "Jabotinsky St 125, Ramat Gan",  "King George St 20, Jerusalem",  "Allenby St 45, Tel Aviv",  "Bialik St 7, Ramat Gan",  "Dizengoff St 100, Tel Aviv",  "Weizmann St 5, Rehovot",  "Yehuda Halevi St 30, Tel Aviv",  "Hertzl St 10, Beer Sheva",  "Sokolov St 15, Herzliya",  "Begin Blvd 8, Ashdod",  "Ben Gurion St 1, Bat Yam"    };
             (double latitude, double longitude)[] coordinates =
                 {  (32.0595, 34.7705),  (32.8195, 34.9983),  (31.7857, 35.2208),  (32.0633, 34.7735),  (32.0885, 34.8037),  (31.7762, 35.2137),  (32.0641, 34.7698),  (32.0827, 34.8235),  (32.0758, 34.7742),  (31.8947, 34.8112),  (32.0622, 34.7701),  (31.2518, 34.7913),  (32.1663, 34.8426),  (31.8025, 34.6457),  (32.0153, 34.7504) };
-            s_dalVolunteer!.Create(new(s_rand.Next(MIN_ID, MAX_ID), "Nechami", "0525381648", "Nechami@gmail.com", true, Position.Manager, "5555", "Hatikva 6", 31.958240, 34.879992, 10));
+            s_dal!.Volunteer.Create(new(s_rand.Next(MIN_ID, MAX_ID), "Nechami", "0525381648", "Nechami@gmail.com", true, Position.Manager, "5555", "Hatikva 6", 31.958240, 34.879992, 10));
             for (int i = 0; i < 15; i++)
             {
-                s_dalVolunteer!.Create(new(
+                s_dal!.Volunteer.Create(new(
                     s_rand.Next(MIN_ID, MAX_ID),
                     names[i],
                     phons[i],
@@ -139,8 +140,8 @@ public class Initialization
             DateTime start = new DateTime(2022, 1, 1);
             for (int i = 0; i < 50; i++)
             {
-                DateTime startingTime = start.AddDays(s_rand.Next((int)(s_dalConfig!.Clock - start).TotalDays));
-                s_dalCall!.Create(new Call(
+                DateTime startingTime = start.AddDays(s_rand.Next((int)(s_dal!.Config!.Clock - start).TotalDays));
+                s_dal!.Call.Create(new Call(
                 (CallType)s_rand.Next(Enum.GetValues(typeof(CallType)).Length),
                 addresses[i],
                 coordinates[i].latitude,
@@ -153,12 +154,12 @@ public class Initialization
         }
         private static void CreateAssignment()
         {
-            List<Volunteer> volunteerList = s_dalVolunteer.ReadAll();
-            List<Call> callsList = s_dalCall.ReadAll();
+            List<Volunteer> volunteerList = s_dal!.Volunteer.ReadAll();
+            List<Call> callsList = s_dal!.Call.ReadAll();
             for (int i = 0; i < 50; i++)
             {
                 DateTime?[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
-                s_dalAssignment.Create(new Assignment(
+                s_dal!.Assignment.Create(new Assignment(
                     callsList[i].Id,
                     volunteerList[s_rand.Next(volunteerList.Count)].Id,
                     callsList[i].OpeningTime.AddMinutes(s_rand.Next(0, 60)),
@@ -168,22 +169,24 @@ public class Initialization
             };
         }
 
-        public static void DO(IVolunteer? dalVolunteer, ICall? dalCall, IAssignment? dalAssignment, IConfig dalConfig)
-        {
-            s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
-            s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
-            s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
-            s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
-            Console.WriteLine("Reset Configuration values and List values...");
-            s_dalConfig.Reset();
-            s_dalCall.DeleteAll();
-            s_dalAssignment.DeleteAll();
-            s_dalVolunteer.DeleteAll();
-            Console.WriteLine("Initializing  lists ...");
+    public static void Do(IDal dal) //stage 2
+                                    {
+        //s_dalAssignment = dalAssignment ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dalCall = dalCall ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dalConfig = dalConfig ?? throw new NullReferenceException("DAL object can not be null!");
+        //s_dalVolunteer = dalVolunteer ?? throw new NullReferenceException("DAL object can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); // stage 2    
+        Console.WriteLine("Reset Configuration values and List values...");
+        //s_dalConfig.Reset();
+        //s_dalCall.DeleteAll();
+        //s_dalAssignment.DeleteAll();
+        //s_dalVolunteer.DeleteAll();
+        s_dal!.ResetDB();
+        Console.WriteLine("Initializing  lists ...");
         CreateCall();
         CreateVolunteer();
         CreateAssignment();
      
         }
-    }
+    };
 
