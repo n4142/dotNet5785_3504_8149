@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
+<Clock>41</Clock>
+<StartCallId></StartCallId>
+<NextCallId></NextCallId>
+<StartAssignmentId></StartAssignmentId>
+<NextAssignmentId></NextAssignmentId>
+<RiskRange></RiskRange>
 </config>
