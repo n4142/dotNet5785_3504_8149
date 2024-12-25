@@ -1,8 +1,10 @@
 ﻿using DO;
 using Dal;
 using DalApi;
+using System.Data.SqlTypes;
 
 namespace DalTest
+    
 {
     internal class Program
     {
@@ -10,7 +12,9 @@ namespace DalTest
         //private static IVolunteer? s_dalVolunteer = new VolunteerImplementation();
         //private static IAssignment? s_dalAssignment = new AssignmentImplementation();
         //private static IConfig? s_dalConfig = new ConfigImplementation();
-        static readonly IDal s_dal = new DalList();//stage 2
+        //static readonly IDal s_dal = new DalList();//stage 2
+        static readonly IDal s_dal = new DalXML(); //stage 3
+
         private enum MainMenuOptions
         {
             Exit,

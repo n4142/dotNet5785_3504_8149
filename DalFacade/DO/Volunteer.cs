@@ -37,7 +37,6 @@ DistanceType MyDistance = DistanceType.Air
     /// <summary>
     /// Default constructor for stage 3
     /// </summary>
-
     public Volunteer() : this(0, "noName", "noPhone", "noEmail", false, Position.Volunteer) { }
 }
 
