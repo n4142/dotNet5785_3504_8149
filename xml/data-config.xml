@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
-  <Clock>26/12/2024 17:53:33</Clock>
+  <Clock>09/01/2025 22:26:06</Clock>
   <StartCallId>1</StartCallId>
   <NextCallId>51</NextCallId>
   <StartAssignmentId>1</StartAssignmentId>
-  <NextAssignmentId>1</NextAssignmentId>
+  <NextAssignmentId>51</NextAssignmentId>
   <RiskRange>01:00:00</RiskRange>
 </config>

@@ -10,6 +10,8 @@ internal class CallImplementation : ICall
         Call copyCall = enteredCall with { Id = newId };
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
         Calls.Add(copyCall);
+        XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
+
     }
 
     public void Delete(int id)

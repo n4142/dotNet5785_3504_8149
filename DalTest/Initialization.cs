@@ -156,7 +156,6 @@ public class Initialization
         {
             List<Volunteer> volunteerList = s_dal!.Volunteer.ReadAll();
             List<Call> callsList = s_dal!.Call.ReadAll();
-        Console.WriteLine(callsList.Count);
             for (int i = 0; i < 50; i++)
             {
                 DateTime?[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
