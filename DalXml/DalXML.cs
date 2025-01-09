@@ -4,10 +4,13 @@
 //using System.Text;
 //using System.Threading.Tasks;
 using DalApi;
+using System.Diagnostics;
 namespace Dal;
 //stage 3
-sealed public class DalXML : IDal
+sealed internal class DalXML : IDal
 {
+    public static IDal Instance { get; } = new DalXML();
+    private DalXML() { }
     public IConfig Config{ get; } = new ConfigImplementation();
 
     public IAssignment Assignment { get; } = new AssignmentImplementation();
