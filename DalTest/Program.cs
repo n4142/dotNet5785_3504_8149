@@ -12,8 +12,9 @@ namespace DalTest
         //private static IVolunteer? s_dalVolunteer = new VolunteerImplementation();
         //private static IAssignment? s_dalAssignment = new AssignmentImplementation();
         //private static IConfig? s_dalConfig = new ConfigImplementation();
-       //static readonly IDal s_dal = new DalList();//stage 2
-        static readonly IDal s_dal = new DalXML(); //stage 3
+        //static readonly IDal s_dal = new DalList(); //stage 2
+        //static readonly IDal s_dal = new DalXml(); //stage 3
+        static readonly IDal s_dal = Factory.Get; //stage 4
 
         private enum MainMenuOptions
         {
@@ -177,21 +178,6 @@ namespace DalTest
             }
         }
 
-        //private static void ReadAll(string entityName)
-        //{
-        //    switch (entityName)
-        //    {
-        //        case "VolunteerSubMenu":
-        //            Console.WriteLine(s_dalVolunteer?.ReadAll());
-        //            break;
-        //        case "CallSubMenu":
-        //            Console.WriteLine(s_dalCall?.ReadAll());
-        //            break;
-        //        case "AssignmentSubMenu":
-        //            Console.WriteLine(s_dalAssignment?.ReadAll());
-        //            break;
-        //    }
-        //}
         private static void ReadAll(string entityName)
         {
             switch (entityName)
@@ -240,9 +226,6 @@ namespace DalTest
                     break;
             }
         }
-         
-
-
         private static void Update(string entityName)
         {
             Console.WriteLine("Enter your ID:");
@@ -399,40 +382,6 @@ namespace DalTest
             s_dal.Call.DeleteAll();
             s_dal.Assignment.DeleteAll();
         }
-
-        //private static void DisplayMainMenu()
-        //{
-        //    foreach (MainMenuOptions option in Enum.GetValues(typeof(MainMenuOptions)))
-        //    {
-        //        Console.WriteLine($"{(int)option}. {option}");
-        //    }
-
-        //    MainMenuOptions choice = (MainMenuOptions)int.Parse(Console.ReadLine()!);
-
-        //    while (choice != MainMenuOptions.Exit)
-        //    {
-        //        switch (choice)
-        //        {
-        //            case MainMenuOptions.VolunteerSubMenu:
-        //            case MainMenuOptions.CallSubMenu:
-        //            case MainMenuOptions.AssignmentSubMenu:
-        //                EntityMenu(choice.ToString());
-        //                break;
-        //            case MainMenuOptions.InitializingData:
-        //                Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);
-        //                break;
-        //            case MainMenuOptions.ShowAllData:
-        //                ShowAllData();
-        //                break;
-        //            case MainMenuOptions.ConfigSubMenu:
-        //                ConfigMenu();
-        //                break;
-        //            case MainMenuOptions.ResetDataAndConfigData:
-        //                ResetDatabase();
-        //                break;
-        //        }
-        //    }
-        //}
         private static void DisplayMainMenu()
         {
             MainMenuOptions choice;
@@ -460,8 +409,9 @@ namespace DalTest
                         break;
                     case MainMenuOptions.InitializingData:
                         //Initialization.DO(s_dalVolunteer, s_dalCall, s_dalAssignment, s_dalConfig);/
-                        Initialization.Do(s_dal); //stage 2
-                        break;
+                        //Initialization.Do(s_dal); //stage 2
+                        Initialization.Do(); //stage 4
+                         break;
                     case MainMenuOptions.ShowAllData:
                         ShowAllData();
                         break;
