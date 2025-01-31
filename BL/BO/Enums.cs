@@ -35,12 +35,25 @@ public enum EndingTimeType
 
 public enum CallStatus
 {
+    Open,
+    Closed,
     InProgress,
-    AtRisk
+    OpenAtRisk,
+    Expired,
+    InProgressAtRisk
 }
 public enum CompletionType
 {
     Completed,
-    Canceled,
-    Expired
+    SelfCanceled,
+    ExpiredCanceled,
+    AdminCanceled
+}
+public enum TimeUnit
+{
+    Minute,
+    Hour,
+    Day,
+    Month,
+    Year
 }

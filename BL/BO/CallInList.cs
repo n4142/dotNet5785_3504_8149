@@ -8,7 +8,7 @@ namespace BO
 {
     public class CallInList
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public int CallId { get; set; }
         public CallType CallType { get; set; } // ENUM
         public DateTime OpenTime { get; set; }
