@@ -8,45 +8,40 @@ using Newtonsoft.Json.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Helpers;
+internal class Tools
+{
 
-    internal class Tools
+    /// <summary>
+    /// the function gets an address and if the address is legal returns its longitude and latitude        
+    /// </summary>      
+    public static async Task<(double Latitude, double Longitude)> GetCoordinatesFromAddress(string address)
     {
+        string baseUrl = "https://nominatim.openstreetmap.org/search";
+        string requestUrl = $"{baseUrl}?q={Uri.EscapeDataString(address)}&format=json";
 
-        /// <summary>
-        /// the function gets an address and if the address is legal returns its longitude and latitude        
-        /// </summary>
-        public class GeocodingService
-    {
-        private const string baseUrl = "https://nominatim.openstreetmap.org/search";
-
-        public async Task<(double Latitude, double Longitude)> GetCoordinatesFromAddress(string address)
+        using (var httpClient = new HttpClient())
         {
-            string requestUrl = $"{baseUrl}?q={Uri.EscapeDataString(address)}&format=json";
+            var response = await httpClient.GetStringAsync(requestUrl);
+            var json = JArray.Parse(response);
 
-            using (var httpClient = new HttpClient())
+            if (json.Count > 0)
             {
-                var response = await httpClient.GetStringAsync(requestUrl);
-                var json = JArray.Parse(response);
-
-                if (json.Count > 0)
-                {
-                    double latitude = (double)json[0]["lat"];
-                    double longitude = (double)json[0]["lon"];
-
-                    return (latitude, longitude);
-                }
-                else
-                {
-                    throw new Exception("No results were found for the address.");
-                }
+                double latitude = (double)json[0]["lat"];
+                double longitude = (double)json[0]["lon"];
+                return (latitude, longitude);
+            }
+            else
+            {
+                throw new Exception("No results were found for the address.");
             }
         }
     }
+
     /// <summary>
     /// Calculates the distance between 2 addresses represented by latitude and longitude points
     /// </summary>
     public static double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
-        {
+    {
         double DegreesToRadians(double degrees) => degrees * (Math.PI / 180);
         double EarthRadiusKm = 6371.0; // Earth's radius in kilometers
 
@@ -61,5 +56,5 @@ namespace Helpers;
 
         return EarthRadiusKm * c; //The result is in kilometers
     }
-}
+};
 

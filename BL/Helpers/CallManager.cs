@@ -29,21 +29,6 @@ namespace Helpers
 
             return BO.CallStatus.Open;
         }
-        public static object GetFieldValue(BO.Call call, string fieldName)
-        {
-            return fieldName switch
-            {
-                nameof(BO.Call.CallType) => call.CallType!,
-                nameof(BO.Call.FullAddress) => call.FullAddress!,
-                nameof(BO.Call.Latitude) => call.Latitude!,
-                nameof(BO.Call.Longitude) => call.Longitude!,
-                nameof(BO.Call.OpenTime) => call.OpenTime!,
-                nameof(BO.Call.MaxCompletionTime) => call.MaxCompletionTime!,
-                nameof(BO.Call.Description) => call.Description!,
-                nameof(BO.Call.Status) => call.Status!,
-                _ => throw new ArgumentException("Invalid field name", nameof(fieldName))
-            };
-        }
         internal static BO.CallInList ConvertToBOCallInList(DO.Call call)
         {
             var assignments = s_dal.Assignment.ReadAll().Where(a => a.CallId == call.Id).ToList();
@@ -61,8 +46,8 @@ namespace Helpers
                 TimeRemaining = call.MaxTimeFinishCalling - ClockManager.Now,
                 LastVolunteerName = volunteer.FullName,
                 Status = GetCallStatus(call.Id),
-                TotalAssignments= assignments.Count,
-                TotalCompletionTime=lastAssignment.MyEndingTime==EndingTimeType.TakenCareOf? lastAssignment.EndingTimeOfTreatment-lastAssignment.EntryTimeOfTreatment:null
+                TotalAssignments = assignments.Count,
+                TotalCompletionTime = lastAssignment.MyEndingTime == EndingTimeType.TakenCareOf ? lastAssignment.EndingTimeOfTreatment - lastAssignment.EntryTimeOfTreatment : null
             };
         }
         internal static async Task ChecksLogicalValidation(BO.Call call)
@@ -79,10 +64,9 @@ namespace Helpers
             }
 
             double latitude, longitude;
-            var geocodingService = new GeocodingService();
             try
             {
-                (latitude, longitude) = await geocodingService.GetCoordinatesFromAddress(call.FullAddress);
+                (latitude, longitude) = await GetCoordinatesFromAddress(call.FullAddress);
             }
             catch (Exception ex)
             {
@@ -116,6 +100,45 @@ namespace Helpers
             if (call.CallAssignments != null && call.CallAssignments.Any(a => a.EntryTime < call.OpenTime))
             {
                 throw new ArgumentException("Assignments cannot start before the call's open time.");
+            }
+        }
+        internal static void updateExpiredCalls()
+        {
+            // Retrieve all expired calls
+            var expiredCalls = s_dal.Call.ReadAll()
+                .Where(c => CallManager.GetCallStatus(c.Id) == BO.CallStatus.Expired)
+                .ToList(); // Avoid multiple enumerations
+
+            // Get all existing assignments once to avoid redundant queries
+            var assignments = s_dal.Assignment.ReadAll();
+
+            foreach (var call in expiredCalls)
+            {
+                var assignment = assignments.Find(a => a.CallId == call.Id);
+
+                if (assignment != null) // If an assignment exists, update it
+                {
+                    s_dal.Assignment.Update(new DO.Assignment
+                    {
+                        Id = assignment.Id,
+                        CallId = assignment.CallId,
+                        VolunteerId = assignment.VolunteerId,
+                        EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
+                        EndingTimeOfTreatment = ClockManager.Now,
+                        MyEndingTime = DO.EndingTimeType.Expired
+                    });
+                }
+                else // If no assignment exists, create a new one
+                {
+                    s_dal.Assignment.Create(new DO.Assignment
+                    {
+                        CallId = call.Id,
+                        VolunteerId = 0, // Default volunteer ID for expired unassigned calls
+                        EntryTimeOfTreatment = null, // No actual treatment started
+                        EndingTimeOfTreatment = ClockManager.Now,
+                        MyEndingTime = DO.EndingTimeType.Expired
+                    });
+                }
             }
         }
 

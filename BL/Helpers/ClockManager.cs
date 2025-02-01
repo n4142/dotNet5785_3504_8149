@@ -26,24 +26,15 @@ internal static class ClockManager //stage 4
         // }).Start(); // stage 7 as above
     }
 
-    private static void updateClock(DateTime newClock) // prepared for stage 7 as DRY to eliminate needless repetition
+    private static void updateClock(DateTime newClock) // DRY - Eliminates redundant code
     {
-        var oldClock = _dal.Config.Clock; //stage 4
-        _dal.Config.Clock = newClock; //stage 4
-
-        //TO_DO:
-        //Add calls here to any logic method that should be called periodically,
-        //after each clock update
-        //for example, Periodic students' updates:
-        //Go through all students to update properties that are affected by the clock update
-        //(students becomes not active after 5 years etc.)
-        
-        StudentManager.PeriodicStudentsUpdates(oldClock, newClock); //stage 4
-        //etc ...
-
-        //Calling all the observers of clock update
-        ClockUpdatedObservers?.Invoke(); //prepared for stage 5
+        var oldClock = _dal.Config.Clock; // Store the old clock (Stage 4)
+        _dal.Config.Clock = newClock; // Update the clock (Stage 4)
+        CallManager.updateExpiredCalls();
+        // Notify all clock update observers (Stage 5)
+        ClockUpdatedObservers?.Invoke();
     }
+
     #endregion Stage 4
 
 
@@ -94,7 +85,7 @@ internal static class ClockManager //stage 4
             //TO_DO:
             //Add calls here to any logic simulation that was required in stage 7
             //for example: course registration simulation
-            StudentManager.SimulateCourseRegistrationAndGrade(); //stage 7
+            //StudentManager.SimulateCourseRegistrationAndGrade(); //stage 7
 
             //etc...
             #endregion Stage 7
