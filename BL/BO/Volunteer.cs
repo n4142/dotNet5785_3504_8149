@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,14 @@ namespace BO
         public int canceledCalls { get; set; }
         public int expiredCalls { get; set; }
         public BO.CallInProgress? callInProgress { get; set; }
-        public override string ToString() => this.ToStringProperty();
+        public override string ToString() => ToStringProperty();
+
+        public string ToStringProperty()
+        {
+            return string.Join(", ", GetType()
+                .GetProperties()
+                .Select(prop => $"{prop.Name}: {prop.GetValue(this) ?? "null"}"));
+        }
+
     }
 }

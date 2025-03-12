@@ -13,5 +13,7 @@ namespace BO
         public bool IsActive { get; set; } // פעיל
         public int TotalHandledCalls { get; set; } // סך קריאות שטופלו
         public int TotalCanceledCalls { get; set; } // סך קריאות שבוטלו
+        public int CallInTreatmentId {  get; set; } //מספר מזהה של קריאה שבטיפול המתנדב כרגע
+        public CallType CallInTreatmenType { get; set; } //סוג קריאה שבטיפול המתנדב כרגע
     }
 }

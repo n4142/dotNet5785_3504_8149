@@ -14,6 +14,6 @@ namespace BO
         public DateTime OpenTime { get; set; } // זמן פתיחה
         public DateTime StartTime { get; set; } // זמן כניסה לטיפול
         public DateTime? EndTime { get; set; } // זמן סיום הטיפול בפועל
-        public CallStatus EndStatus { get; set; } // סוג סיום הטיפול
+        public EndingTimeType EndStatus { get; set; } // סוג סיום הטיפול
     }
 }
