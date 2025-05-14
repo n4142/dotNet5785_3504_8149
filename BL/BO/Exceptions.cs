@@ -20,6 +20,11 @@ namespace BO
     {
         public BlInvalidTimeUnitException(string? message) : base(message) { }
     }
+    [Serializable]
+    public class BlProgramException : Exception
+    {
+        public BlProgramException(string? message) : base(message) { }
+    }
 
     /// <summary>
     /// Exception thrown when a user attempts an unauthorized action.

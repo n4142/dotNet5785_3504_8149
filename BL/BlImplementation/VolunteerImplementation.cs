@@ -1,6 +1,7 @@
 ﻿
 namespace BlImplementation;
 
+using BO;
 using Helpers;
 
 internal class VolunteerImplementation :BlApi.IVolunteer
@@ -97,29 +98,29 @@ internal class VolunteerImplementation :BlApi.IVolunteer
         }
     }
 
-    public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? filter = null, BO.VolunteerInList? sort = null)
-    {
-        var volunteersList = _dal.Volunteer.ReadAll()
-                                            .Select(v => VolunteerManager.convertToVolunteerInList(v))
-                                            .ToList();
-        if (filter != null)
-        {
-            volunteersList = filter == true
-                ? volunteersList.Where(v => v.IsActive).ToList()
-                : volunteersList.Where(v => v.IsActive == false).ToList();
-        }
-        if (sort != null)
-        {
-            var property = typeof(BO.CallInList).GetProperty(sort.ToString());
-            if (property != null)
-                volunteersList = volunteersList.OrderBy(c => property.GetValue(c)).ToList();
-        }
-        else
-        {
-            volunteersList = volunteersList.OrderBy(c => c.Id).ToList();
-        }
-        return volunteersList;
-    }
+    //public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? filter = null, BO.VolunteerInList? sort = null)
+    //{
+    //    var volunteersList = _dal.Volunteer.ReadAll()
+    //                                        .Select(v => VolunteerManager.convertToVolunteerInList(v))
+    //                                        .ToList();
+    //    if (filter != null)
+    //    {
+    //        volunteersList = filter == true
+    //            ? volunteersList.Where(v => v.IsActive).ToList()
+    //            : volunteersList.Where(v => v.IsActive == false).ToList();
+    //    }
+    //    if (sort != null)
+    //    {
+    //        var property = typeof(BO.CallInList).GetProperty(sort.ToString());
+    //        if (property != null)
+    //            volunteersList = volunteersList.OrderBy(c => property.GetValue(c)).ToList();
+    //    }
+    //    else
+    //    {
+    //        volunteersList = volunteersList.OrderBy(c => c.Id).ToList();
+    //    }
+    //    return volunteersList;
+    //}
 
     public BO.Position Login(string userName, int password)
     {
@@ -173,7 +174,7 @@ internal class VolunteerImplementation :BlApi.IVolunteer
             {
                 throw new ArgumentException($"No volunteer found with ID {volunteer.Id}.", ex);
             }
-            catch (Exception ex)
+            catch (BlProgramException ex)
             {
                 throw new Exception("Error updating the volunteer in the data layer.", ex);
             }

@@ -55,5 +55,14 @@ public enum TimeUnit
     Hour,
     Day,
     Month,
-    Year
+    Year, 
+    UNDEFINED
+}
+public enum VolunteerSortBy
+{
+    Id,
+    FullName,
+    TotalHandledCalls,
+    TotalCanceledCalls,
+    TotalCallsExpired
 }
