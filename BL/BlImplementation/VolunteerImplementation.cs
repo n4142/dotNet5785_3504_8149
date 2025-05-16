@@ -4,7 +4,7 @@ namespace BlImplementation;
 using BO;
 using Helpers;
 
-internal class VolunteerImplementation :BlApi.IVolunteer
+internal class VolunteerImplementation : BlApi.IVolunteer
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
     public void AddVolunteer(BO.Volunteer volunteer)
@@ -98,31 +98,32 @@ internal class VolunteerImplementation :BlApi.IVolunteer
         }
     }
 
-    //public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? filter = null, BO.VolunteerInList? sort = null)
-    //{
-    //    var volunteersList = _dal.Volunteer.ReadAll()
-    //                                        .Select(v => VolunteerManager.convertToVolunteerInList(v))
-    //                                        .ToList();
-    //    if (filter != null)
-    //    {
-    //        volunteersList = filter == true
-    //            ? volunteersList.Where(v => v.IsActive).ToList()
-    //            : volunteersList.Where(v => v.IsActive == false).ToList();
-    //    }
-    //    if (sort != null)
-    //    {
-    //        var property = typeof(BO.CallInList).GetProperty(sort.ToString());
-    //        if (property != null)
-    //            volunteersList = volunteersList.OrderBy(c => property.GetValue(c)).ToList();
-    //    }
-    //    else
-    //    {
-    //        volunteersList = volunteersList.OrderBy(c => c.Id).ToList();
-    //    }
-    //    return volunteersList;
-    //}
 
-    public BO.Position Login(string userName, int password)
+    public IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? filter = null, BO.VolunteerSortBy? sort = null)
+    {
+        var volunteersList = _dal.Volunteer.ReadAll()
+                                            .Select(v => VolunteerManager.convertToVolunteerInList(v))
+                                            .ToList();
+        if (filter != null)
+        {
+            volunteersList = filter == true
+                ? volunteersList.Where(v => v.IsActive).ToList()
+                : volunteersList.Where(v => v.IsActive == false).ToList();
+        }
+        if (sort != null)
+        {
+            var property = typeof(BO.CallInList).GetProperty(sort.ToString());
+            if (property != null)
+                volunteersList = volunteersList.OrderBy(c => property.GetValue(c)).ToList();
+        }
+        else
+        {
+            volunteersList = volunteersList.OrderBy(c => c.Id).ToList();
+        }
+        return volunteersList;
+    }
+
+    public BO.Position Login(string userName, string password)
     {
         var volunteer = _dal.Volunteer.ReadAll().Find(v => v.FullName == userName);
         if (volunteer != null)

@@ -34,9 +34,9 @@ class Program
                 Console.Write("Enter username: ");
                 string username = Console.ReadLine() ?? "";
                 Console.Write("Enter password: ");
-                string password = Console.ReadLine() ?? "";
+                string password =Console.ReadLine() ?? "";
 
-                string position = s_bl.Volunteer.Login(username, password);
+                string position = (s_bl.Volunteer.Login(username, password)).ToString();
 
                 switch (position.ToLower())
                 {
@@ -123,7 +123,7 @@ class Program
     /// </summary>
     private static void VolunteerMainMenu(string username)
     {
-        BO.Volunteer? volunteer = s_bl.Volunteer.GetVolunteer(id);
+        BO.Volunteer? volunteer = s_bl.Volunteer.GetVolunteer((s_bl.Volunteer.GetVolunteerList().First(v => v.FullName == username)).Id);
 
         while (true)
         {
@@ -274,7 +274,7 @@ class Program
 
             Console.WriteLine("New call added successfully!");
 
-            s_bl.Call.AssignCallToVolunteer(Volunteer.Id,newCall.Id);
+            //signCallToVolunteer(newCall.vol,newCall.Id);   למה צריך לעשות השמה לקריאה?
         }
         catch (BlProgramException ex)
         {
@@ -610,7 +610,7 @@ class Program
             Console.WriteLine("List of Volunteers:");
             foreach (var volunteer in volunteers)
             {
-                Console.WriteLine($"ID: {volunteer.Id}, Name: {volunteer.FullName}, Total Handled Calls: {volunteer.TotalHandledCalls}, Total Canceled Calls: {volunteer.TotalHandledCalls}, Total Expired Calls: {volunteer.TotalCallsExpired}");
+                Console.WriteLine($"ID: {volunteer.Id}, Name: {volunteer.FullName}, Total Handled Calls: {volunteer.TotalHandledCalls}, Total Canceled Calls: {volunteer.TotalHandledCalls}, Total Expired Calls: {volunteer.TotalExpiredCalls}");
             }
         }
         catch (BlFormatException ex)

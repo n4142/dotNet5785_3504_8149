@@ -64,5 +64,5 @@ public enum VolunteerSortBy
     FullName,
     TotalHandledCalls,
     TotalCanceledCalls,
-    TotalCallsExpired
+    TotalExpiredCalls
 }

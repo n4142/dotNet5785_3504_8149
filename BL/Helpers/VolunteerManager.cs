@@ -44,6 +44,9 @@ internal static class VolunteerManager
             TotalCanceledCalls = s_dal.Assignment.ReadAll()
                                    .Where(a => a.VolunteerId == v.Id && a.MyEndingTime == DO.EndingTimeType.CanceledByVolunteer)
                                     .Count(),
+            TotalExpiredCalls = s_dal.Assignment.ReadAll()
+                                   .Where(a => a.VolunteerId == v.Id && a.MyEndingTime == DO.EndingTimeType.Expired)
+                                    .Count(),
             CallInTreatmentId = getCallInProgress(v).Id,
             CallInTreatmenType = (BO.CallType)getCallInProgress(v).CallType
         };
