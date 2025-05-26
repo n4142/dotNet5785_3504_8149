@@ -27,7 +27,7 @@ internal class AdminImplementation : BlApi.IAdmin
                 ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
                 break;
             default:
-                throw new ArgumentException("Invalid time unit", nameof(unit));
+                throw new ArgumentOutOfRangeException(nameof(unit), "Invalid time unit");
         }
     }
 

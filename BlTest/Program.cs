@@ -51,9 +51,19 @@ class Program
                         break;
                 }
             }
-            catch (BlProgramException ex)
+            // תופסת חריגות לוגיות ספציפיות
+            catch (BO.BlDoesNotExistException ex)
             {
                 Console.WriteLine($"Login error: {ex.Message}");
+            }
+            catch (BO.BlNullPropertyException ex)
+            {
+                Console.WriteLine($"Login error: {ex.Message}");
+            }
+            // תופסת כל חריגה אחרת מה-BL
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Unexpected error: {ex.Message}");
             }
         }
     }
@@ -413,9 +423,9 @@ class Program
             int id = int.Parse(input);
             return id;
         }
-        catch (BlFormatException)
+        catch (BlFormatException ex)
         {
-            Console.WriteLine("Invalid input. Please enter a valid integer.");
+            Console.WriteLine($"Invalid input format: {ex.Message}");
             return -1;
         }
         catch (BlProgramException ex)

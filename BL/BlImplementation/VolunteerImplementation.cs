@@ -2,7 +2,9 @@
 namespace BlImplementation;
 
 using BO;
+using DO;
 using Helpers;
+using System.Linq.Expressions;
 
 internal class VolunteerImplementation : BlApi.IVolunteer
 {
@@ -13,10 +15,11 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         {
             VolunteerManager.ChecksLogicalValidation(volunteer);
             VolunteerManager.ValidateVolunteer(volunteer);
+           
         }
-        catch (Exception ex)
+        catch (DO.DalAlreadyExistException ex)
         {
-            throw new Exception("Error adding the volunteer in the data layer.", ex);
+            throw new BO.BlAlreadyExistsException("Error adding the volunteer in the data layer.", ex);
         }
 
         DO.Volunteer doVolunteer = new DO.Volunteer()
@@ -39,31 +42,31 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         {
             _dal.Volunteer.Create(doVolunteer);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"No volunteer found with ID {volunteer.Id}.", ex);
+            throw new BO.BlDoesNotExistException($"No volunteer found with ID {volunteer.Id}.", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("Error adding the volunteer in the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error adding the volunteer in the data layer.", ex);
         }
     }
 
     public void DeleteVolunteer(int id)
     {
         if (_dal.Assignment.ReadAll().Where(a => a.VolunteerId == id).Count() != 0)
-            throw new ArgumentException("This volunteer can not be delited");
+            throw new ArgumentException("This volunteer can not be deleted");
         try
         {
             _dal.Volunteer.Delete(id);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"Volunteer with ID {id} does not exist.", ex);
+            throw new BO.BlDoesNotExistException($"Volunteer with ID {id} does not exist.", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("Error deleting the volunteer from the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error deleting the volunteer from the data layer.", ex);
         }
     }
 
@@ -71,7 +74,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
     {
         try
         {
-            var volunteer = _dal.Volunteer.Read(id) ?? throw new KeyNotFoundException($"Call with ID {id} not found.");
+            var volunteer = _dal.Volunteer.Read(id) ?? throw new BO.BlDoesNotExistException($"Call with ID {id} not found.");
             return new BO.Volunteer
             {
                 Id = volunteer.Id,
@@ -94,7 +97,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         }
         catch (Exception ex)
         {
-            throw new Exception("Error getting volunteers details", ex);
+            throw new BO.BlGeneralDatabaseException("Error getting volunteers details", ex);
         }
     }
 
@@ -126,13 +129,16 @@ internal class VolunteerImplementation : BlApi.IVolunteer
     public BO.Position Login(string userName, string password)
     {
         var volunteer = _dal.Volunteer.ReadAll().Find(v => v.FullName == userName);
+
         if (volunteer != null)
             if (volunteer.Password.Equals(password) == true)
                 return (BO.Position)volunteer.MyPosition;
             else
-                throw new NotImplementedException("Wrong Password");
+                throw new BO.BlUnauthorizedAccessException("Wrong Password");
         else
-            throw new KeyNotFoundException($"User with name {userName} not found");
+            throw new BO.BlDoesNotExistException($"User with name {userName} not found");
+
+
     }
 
     public void UpdateVolunteerDetails(int id,BO.Volunteer volunteer)
@@ -145,11 +151,11 @@ internal class VolunteerImplementation : BlApi.IVolunteer
                 VolunteerManager.ChecksLogicalValidation(volunteer);
                 var oldVolunteer=_dal.Volunteer.Read(volunteer.Id);
                 if ((BO.Position)oldVolunteer.MyPosition != volunteer.MyPosition && volunteer.MyPosition != BO.Position.Manager)
-                    throw new ArgumentException("Only manager is allowed to change volunteers position");
+                    throw new BlUnauthorizedAccessException("Only manager is allowed to change volunteers position");
             }
             catch (Exception ex)
             {
-                throw new Exception("Error updating the volunteer in the data layer.", ex);
+                throw new BlGeneralDatabaseException("Error updating the volunteer in the data layer.", ex);
             }
 
             DO.Volunteer doVolunteer = new DO.Volunteer()
@@ -171,13 +177,13 @@ internal class VolunteerImplementation : BlApi.IVolunteer
             {
                 _dal.Volunteer.Update(doVolunteer);
             }
-            catch (KeyNotFoundException ex)
+            catch (DO.DalDoesNotExistException ex)
             {
-                throw new ArgumentException($"No volunteer found with ID {volunteer.Id}.", ex);
+                throw new BO.BlDoesNotExistException($"No volunteer found with ID {volunteer.Id}.", ex);
             }
-            catch (BlProgramException ex)
+            catch (Exception ex)
             {
-                throw new Exception("Error updating the volunteer in the data layer.", ex);
+                throw new BlGeneralDatabaseException("Error updating the volunteer in the data layer.", ex);
             }
         }
     }

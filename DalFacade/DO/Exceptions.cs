@@ -16,3 +16,8 @@ public class DalXMLFileLoadCreateException :Exception
 {
     public DalXMLFileLoadCreateException(string? message) : base(message) { }
 }
+[Serializable]
+public class DalUnauthorizedAccessException : Exception
+{
+    public DalUnauthorizedAccessException(string? message) : base(message) { }
+}

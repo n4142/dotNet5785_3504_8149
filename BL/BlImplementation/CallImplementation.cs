@@ -23,7 +23,7 @@ internal class CallImplementation : BlApi.ICall
         }
         catch (Exception ex)
         {
-            throw new Exception("Error adding the call in the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error adding the call in the data layer.", ex);
         }
         DO.Call doCall = new DO.Call
         {
@@ -41,13 +41,13 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Call.Create(doCall);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"No call found with ID {call.Id}.", ex);
+            throw new BO.BlDoesNotExistException($"No call found with ID {call.Id}.", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("Error adding the call in the data layer.", ex);
+            throw new BO.BlDoesNotExistException("Error adding the call in the data layer.", ex);
         }
     }
 
@@ -61,13 +61,13 @@ internal class CallImplementation : BlApi.ICall
 
         // Validate the request
         if (hasOpenAssignment)
-            throw new InvalidOperationException("The call is already being handled by another volunteer.");
+            throw new BlInvalidTimeUnitException("The call is already being handled by another volunteer.");
 
         if (callStatus == BO.CallStatus.Expired)
-            throw new InvalidOperationException("Cannot assign a call that has expired.");
+            throw new BlInvalidTimeUnitException("Cannot assign a call that has expired.");
 
         if (callStatus != BO.CallStatus.Open && callStatus != BO.CallStatus.OpenAtRisk)
-            throw new InvalidOperationException("Cannot assign a call that is not open.");
+            throw new BlInvalidTimeUnitException("Cannot assign a call that is not open.");
         DO.Assignment doAssign = new DO.Assignment
         {
             CallId = callId,
@@ -82,7 +82,7 @@ internal class CallImplementation : BlApi.ICall
         }
         catch (Exception ex)
         {
-            throw new Exception("Error adding the assignment in the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error adding the assignment in the data layer.", ex);
         }
     }
 
@@ -92,11 +92,11 @@ internal class CallImplementation : BlApi.ICall
         var assignment = _dal.Assignment.Read(assignmentId);
         //checks if the volunteer is allowed canceling the treatment
         if (assignment.VolunteerId != requesterId||volunteer.MyPosition!=DO.Position.Manager)
-            throw new ArgumentException("This volunteer is not allowed canceling treatment");
+            throw new BlUnauthorizedAccessException("This volunteer is not allowed canceling treatment");
 
         //checks if the assignment is open
         if (assignment.EndingTimeOfTreatment == null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
-            throw new ArgumentException("It is not possible to report the end of treatment because the offer is not open");
+            throw new BlInvalidTimeUnitException("It is not possible to report the end of treatment because the offer is not open");
 
         DO.Assignment updatedAssignment = new DO.Assignment
         {
@@ -113,13 +113,13 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Assignment.Update(updatedAssignment);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"Assignment with ID {assignmentId} does not exist.", ex);
+            throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("Error updating the assignment from the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error updating the assignment from the data layer.", ex);
         }
     }
 
@@ -128,11 +128,11 @@ internal class CallImplementation : BlApi.ICall
         var assignment=_dal.Assignment.Read(assignmentId);
         //checks if the volunteer is allowed reporting the end of treatment
         if (assignment.VolunteerId != volunteerId)
-            throw new ArgumentException("This volunteer is not allowed because the assignment is not in his name");
+            throw new BlUnauthorizedAccessException("This volunteer is not allowed because the assignment is not in his name");
        
         //checks if the assignment is open
         if (assignment.EndingTimeOfTreatment == null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
-            throw new ArgumentException("It is not possible to report the end of treatment because the offer is not open");
+            throw new BlInvalidTimeUnitException("It is not possible to report the end of treatment because the offer is not open");
         DO.Assignment updatedAssignment=new DO.Assignment {
             Id = assignment.Id,
             CallId = assignment.CallId,
@@ -145,41 +145,41 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Assignment.Update(updatedAssignment);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"Assignment with ID {assignmentId} does not exist.", ex); 
+            throw new BO.BlDoesNotExistException($"Assignment with ID {assignmentId} does not exist.", ex); 
         }
         catch (Exception ex)
         {
-            throw new Exception("Error updating the assignment from the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error updating the assignment from the data layer.", ex);
         }
     }
 
     public void DeleteCall(int callId)
     {
-        var call = _dal.Call.Read(callId) ?? throw new ArgumentException($"No call found with ID {callId}.");
-        //checks if call can be delited
+        var call = _dal.Call.Read(callId) ?? throw new BO.BlDoesNotExistException($"No call found with ID {callId}.");
+        //checks if call can be deleted
         if (CallManager.GetCallStatus(call.Id) != BO.CallStatus.Open || _dal.Assignment.ReadAll().Any(a => a.CallId == callId))
         {
-            throw new InvalidOperationException("Cannot delete call. It is either not open or has been assigned to a volunteer.");
+            throw new BlInvalidTimeUnitException("Cannot delete call. It is either not open or has been assigned to a volunteer.");
         }
         try
         {
             _dal.Call.Delete(callId);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"Call with ID {callId} does not exist.", ex); 
+            throw new BO.BlDoesNotExistException($"Call with ID {callId} does not exist.", ex); 
         }
         catch (Exception ex)
         {
-            throw new Exception("Error deleting the call from the data layer.", ex); 
+            throw new BlGeneralDatabaseException("Error deleting the call from the data layer.", ex); 
         }
     }
 
     public BO.Call GetCallDetails(int callId)
     {
-        var call=_dal.Call.Read(callId)?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
+        var call=_dal.Call.Read(callId)?? throw new BO.BlDoesNotExistException($"Call with ID {callId} not found.");
         List<BO.CallAssignInList> assignmentsList = _dal.Assignment.ReadAll()
             .Where(a => a.CallId == callId)
             .Select(a => new BO.CallAssignInList
@@ -328,7 +328,7 @@ internal class CallImplementation : BlApi.ICall
         }
         catch (Exception ex)
         {
-            throw new Exception("Error updating the call in the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error updating the call in the data layer.", ex);
         }
 
         DO.Call doCall = new DO.Call
@@ -347,13 +347,13 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Call.Update(doCall);
         }
-        catch (KeyNotFoundException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
-            throw new ArgumentException($"No call found with ID {call.Id}.", ex);
+            throw new BO.BlDoesNotExistException($"No call found with ID {call.Id}.", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("Error updating the call in the data layer.", ex);
+            throw new BlGeneralDatabaseException("Error updating the call in the data layer.", ex);
         }
     }
 
