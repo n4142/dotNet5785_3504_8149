@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
     namespace BlApi;
-    public interface IBl
+    public interface IBl 
     {
         ICall Call { get; }
         IVolunteer Volunteer { get; }

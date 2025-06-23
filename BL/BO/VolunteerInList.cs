@@ -16,5 +16,8 @@ namespace BO
         public int TotalExpiredCalls { get; set; } //סך הקריאות שפג תוקפן
         public int CallInTreatmentId {  get; set; } //מספר מזהה של קריאה שבטיפול המתנדב כרגע
         public CallType CallInTreatmenType { get; set; } //סוג קריאה שבטיפול המתנדב כרגע
+      
+
+
     }
 }

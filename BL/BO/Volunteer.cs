@@ -21,10 +21,10 @@ namespace BO
         public double? Longitude { get; set; }
         public double? MaxDistance { get; set; }
         public DistanceType MyDistance { get; set; } = DistanceType.Air;
-        public int handledCalls { get; set; }
-        public int canceledCalls { get; set; }
-        public int expiredCalls { get; set; }
-        public BO.CallInProgress? callInProgress { get; set; }
+        public int HandledCalls { get; set; }
+        public int CanceledCalls { get; set; }
+        public int ExpiredCalls { get; set; }
+        public BO.CallInProgress? CallInProgress { get; set; }
         public override string ToString() => ToStringProperty();
 
         public string ToStringProperty()

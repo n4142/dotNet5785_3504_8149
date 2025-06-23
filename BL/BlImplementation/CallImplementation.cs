@@ -16,6 +16,7 @@ internal class CallImplementation : BlApi.ICall
 
     public void AddCall(BO.Call call)
     {
+
         try
         {
             CallManager.ChecksLogicalValidation(call);
@@ -36,10 +37,10 @@ internal class CallImplementation : BlApi.ICall
             OpeningTime = call.OpenTime,
             MaxTimeFinishCalling = call.MaxCompletionTime,
         };
-
         try
         {
             _dal.Call.Create(doCall);
+            CallManager.Observers.NotifyListUpdated();//stage 5 
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -72,13 +73,14 @@ internal class CallImplementation : BlApi.ICall
         {
             CallId = callId,
             VolunteerId = volunteerId,
-            EntryTimeOfTreatment = ClockManager.Now,
+            EntryTimeOfTreatment = AdminManager.Now,
             EndingTimeOfTreatment = null,
             MyEndingTime = null
         };
         try
         {
             _dal.Assignment.Create(doAssign);
+
         }
         catch (Exception ex)
         {
@@ -104,11 +106,12 @@ internal class CallImplementation : BlApi.ICall
             CallId = assignment.CallId,
             VolunteerId = requesterId,
             EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
-            EndingTimeOfTreatment = ClockManager.Now,
-            MyEndingTime = volunteer.MyPosition==DO.Position.Manager
-                ?DO.EndingTimeType.CanceledByManager
-                :DO.EndingTimeType.CanceledByVolunteer
+            EndingTimeOfTreatment = DateTime.Now,
+            MyEndingTime = volunteer.MyPosition == DO.Position.Manager
+         ? DO.EndingTimeType.CanceledByManager
+         : DO.EndingTimeType.CanceledByVolunteer
         };
+
         try
         {
             _dal.Assignment.Update(updatedAssignment);
@@ -138,7 +141,7 @@ internal class CallImplementation : BlApi.ICall
             CallId = assignment.CallId,
             VolunteerId = volunteerId,
             EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
-            EndingTimeOfTreatment=ClockManager.Now,
+            EndingTimeOfTreatment= AdminManager.Now,
             MyEndingTime=DO.EndingTimeType.TakenCareOf
         };
         try
@@ -166,6 +169,7 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Call.Delete(callId);
+            CallManager.Observers.NotifyListUpdated(); //stage 5 
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -346,6 +350,8 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Call.Update(doCall);
+           CallManager.Observers.NotifyItemUpdated(call.Id);//stage 5 
+            CallManager.Observers.NotifyListUpdated();//stage 5 
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -356,6 +362,13 @@ internal class CallImplementation : BlApi.ICall
             throw new BlGeneralDatabaseException("Error updating the call in the data layer.", ex);
         }
     }
-
+    public void AddObserver(Action listObserver) =>
+CallManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+CallManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+CallManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+CallManager.Observers.RemoveObserver(id, observer); //stage 5
 };
 

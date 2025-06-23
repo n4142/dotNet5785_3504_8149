@@ -15,7 +15,6 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         {
             VolunteerManager.ChecksLogicalValidation(volunteer);
             VolunteerManager.ValidateVolunteer(volunteer);
-           
         }
         catch (DO.DalAlreadyExistException ex)
         {
@@ -41,6 +40,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         try
         {
             _dal.Volunteer.Create(doVolunteer);
+            VolunteerManager.Observers.NotifyListUpdated(); // הדיווח על שינוי ברשימה
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -52,6 +52,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         }
     }
 
+
     public void DeleteVolunteer(int id)
     {
         if (_dal.Assignment.ReadAll().Where(a => a.VolunteerId == id).Count() != 0)
@@ -59,6 +60,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         try
         {
             _dal.Volunteer.Delete(id);
+            VolunteerManager.Observers.NotifyListUpdated(); // ⬅️ הדיווח על שינוי ברשימה
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -89,10 +91,10 @@ internal class VolunteerImplementation : BlApi.IVolunteer
                 IsActive = volunteer.IsActive,
                 MaxDistance = volunteer.MaxDistance,
                 MyDistance = (BO.DistanceType)volunteer.MyDistance,
-                canceledCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.CanceledByVolunteer).Count(),
-                expiredCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.Expired).Count(),
-                handledCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.CanceledByVolunteer).ToList().Count(),
-                callInProgress = VolunteerManager.getCallInProgress(_dal.Volunteer.Read(id))
+                CanceledCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.CanceledByVolunteer).Count(),
+                ExpiredCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.Expired).Count(),
+                HandledCalls = _dal.Assignment.ReadAll().Where(a => a.VolunteerId == id && a.MyEndingTime == DO.EndingTimeType.CanceledByVolunteer).ToList().Count(),
+                CallInProgress = VolunteerManager.getCallInProgress(_dal.Volunteer.Read(id))
             };
         }
         catch (Exception ex)
@@ -141,15 +143,15 @@ internal class VolunteerImplementation : BlApi.IVolunteer
 
     }
 
-    public void UpdateVolunteerDetails(int id,BO.Volunteer volunteer)
+    public void UpdateVolunteerDetails(int id, BO.Volunteer volunteer)
     {
-        if(volunteer.MyPosition==BO.Position.Manager||volunteer.Id==id)
+        if (volunteer.MyPosition == BO.Position.Manager || volunteer.Id == id)
         {
             try
             {
                 VolunteerManager.ValidateVolunteer(volunteer);
                 VolunteerManager.ChecksLogicalValidation(volunteer);
-                var oldVolunteer=_dal.Volunteer.Read(volunteer.Id);
+                var oldVolunteer = _dal.Volunteer.Read(volunteer.Id);
                 if ((BO.Position)oldVolunteer.MyPosition != volunteer.MyPosition && volunteer.MyPosition != BO.Position.Manager)
                     throw new BlUnauthorizedAccessException("Only manager is allowed to change volunteers position");
             }
@@ -176,6 +178,8 @@ internal class VolunteerImplementation : BlApi.IVolunteer
             try
             {
                 _dal.Volunteer.Update(doVolunteer);
+                VolunteerManager.Observers.NotifyItemUpdated(volunteer.Id); // ⬅️ דיווח על פריט בודד
+                VolunteerManager.Observers.NotifyListUpdated(); // ⬅️ דיווח על הרשימה
             }
             catch (DO.DalDoesNotExistException ex)
             {
@@ -187,5 +191,14 @@ internal class VolunteerImplementation : BlApi.IVolunteer
             }
         }
     }
+
+    public void AddObserver(Action listObserver) =>
+VolunteerManager.Observers.AddListObserver(listObserver); //stage 5
+    public void AddObserver(int id, Action observer) =>
+VolunteerManager.Observers.AddObserver(id, observer); //stage 5
+    public void RemoveObserver(Action listObserver) =>
+VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
+    public void RemoveObserver(int id, Action observer) =>
+VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
 }
 

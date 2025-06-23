@@ -1,0 +1,52 @@
+﻿<Window
+    x:Class="PL.Volunteer.VolunteerListWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:BO="clr-namespace:BO;assembly=BL"
+    xmlns:local="clr-namespace:PL"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    mc:Ignorable="d"
+    Title="Volunteer List"
+    Height="500"
+    Width="850"
+    Background="#E6F0FA"
+    WindowStartupLocation="CenterScreen"
+    Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="CallTypeOptions"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="BO:CallType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
+    <DockPanel Margin="10">
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,10">
+            <TextBlock Text="Filter by Call Type:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox x:Name="CallTypeComboBox"
+                      ItemsSource="{Binding Source={StaticResource CallTypeOptions}}"
+                      SelectedItem="{Binding SelectedCallType}"
+                      SelectionChanged="CallTypeComboBox_SelectionChanged"
+                      Width="200"/>
+            <Button Content="Add Volunteer" Click="AddVolunteer_Click" Margin="10,0,0,0" Width="120"/>
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding VolunteerList}"
+                  SelectedItem="{Binding SelectedVolunteer}"
+                  AutoGenerateColumns="False"
+                  MouseDoubleClick="VolunteerList_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="Auto"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="*"/>
+                <DataGridTextColumn Header="Phone" Binding="{Binding Phone}" Width="Auto"/>
+                <DataGridTextColumn Header="Call Type" Binding="{Binding CallInTreatmenType}" Width="Auto"/>
+                <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsActive}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</Window>

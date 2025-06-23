@@ -9,7 +9,7 @@ namespace BlApi
     /// <summary>
     /// Interface for managing calls in the system.
     /// </summary>
-    public interface ICall
+    public interface ICall : IObservable
     {
         int[] GetCallQuantities();/// Retrieves an array of call quantities based on their status using GroupBy LINQ.
         IEnumerable<BO.CallInList> GetCallList(Enum? filterField=null, object? filterValue=null, Enum? sortField=null);/// Retrieves a sorted and filtered list of calls.

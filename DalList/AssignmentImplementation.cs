@@ -9,9 +9,14 @@ internal class AssignmentImplementation : IAssignment
     public void Create(Assignment enteredAssignment)
     {
         int newId = Config.NextAssignmentId;
+        if (DataSource.Assignments.Any(a => a.Id == newId))
+        {
+            throw new DalAlreadyExistException($"Assignment Object with Id {newId} already exists");
+        }
         Assignment newAssignment = enteredAssignment with { Id = newId };
         DataSource.Assignments.Add(newAssignment);
     }
+
 
     public void Delete(int id)
     {

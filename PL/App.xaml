@@ -1,0 +1,74 @@
+﻿<Application x:Class="PL.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PL"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+
+        <!-- מקור הנתונים -->
+        <local:CallTypeCollection x:Key="CallTypeCollectionKey"/>
+
+        <!-- גופן ברירת מחדל לכל האפליקציה -->
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Background" Value="#E6F0FA"/>
+        </Style>
+
+        <!-- כפתורים עגולים -->
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#6FA8DC"/>
+            <Setter Property="BorderBrush" Value="#6FA8DC"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- TextBox עיצוב -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BorderBrush" Value="#C25C9E"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+        </Style>
+
+        <!-- ComboBox עיצוב -->
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="BorderBrush" Value="#6FA8DC"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <!-- Label עיצוב -->
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#0F425F"/>
+        </Style>
+
+        <!-- DataGrid עיצוב בסיסי -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="RowBackground" Value="#F9F9F9"/>
+            <Setter Property="AlternatingRowBackground" Value="#EEF6FF"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="3"/>
+        </Style>
+
+    </Application.Resources>
+</Application>

@@ -12,13 +12,13 @@ internal class VolunteerImplementation : IVolunteer
         if (v is not null)
         {
             throw new DalAlreadyExistException($"Volunteer Object with {vol.Id} already exists");
-
         }
         else
         {
             DataSource.Volunteers.Add(vol);
         }
     }
+
 
     public void Delete(int id)
     {

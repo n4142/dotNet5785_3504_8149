@@ -1,0 +1,226 @@
+﻿<!--<Window x:Class="PL.Volunteer.VolunteerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:BO="clr-namespace:BO;assembly=BL"
+        xmlns:local="clr-namespace:PL.Volunteer"
+        
+        Title="Volunteer Editor" FontFamily="Segoe UI" FontSize="14"
+        Height="400" Width="400"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="CallTypeCollectionKey"
+                            MethodName="GetValues"
+                            ObjectType="{x:Type sys:Enum}"
+                            xmlns:sys="clr-namespace:System;assembly=mscorlib">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="BO:CallType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <local:UpdateModeToReadOnlyConverter x:Key="ConvertUpdateToTrueKey" />
+        <local:UpdateModeToVisibilityConverter x:Key="ConvertUpdateToVisibleKey" />
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Volunteer ID:" Margin="5"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="5"
+                     Text="{Binding CurrentVolunteer.Id, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                     IsReadOnly="{Binding ButtonText, Converter={StaticResource ConvertUpdateToTrueKey}}" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Full Name:" Margin="5"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5"
+                     Text="{Binding CurrentVolunteer.FullName, Mode=TwoWay}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Is Active:" Margin="5"/>
+            <CheckBox Grid.Row="2" Grid.Column="1" Margin="5"
+                      IsChecked="{Binding CurrentVolunteer.IsActive, Mode=TwoWay}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Current Call Type:" Margin="5"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" Margin="5"
+                      ItemsSource="{Binding Source={StaticResource CallTypeCollectionKey}}"
+                      SelectedValue="{Binding CurrentVolunteer.CallInTreatmenType, Mode=TwoWay}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Total Calls Handled:" Margin="5"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="5"
+                     Text="{Binding CurrentVolunteer.TotalHandledCalls, Mode=TwoWay}" />
+        </Grid>
+
+        <Button Grid.Row="1" Content="{Binding ButtonText}" Margin="10" Height="40" Click="btnAddUpdate_Click"/>
+    </Grid>
+</Window>-->
+<Window x:Class="PL.VolunteerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PL"
+        xmlns:helpers="clr-namespace:PL"
+        Title="Volunteer Details" Height="600" Width="500"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        Background="#E6F0FA"
+        WindowStartupLocation="CenterScreen"
+        
+        Closing="VolunteerPage_Closing">
+
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="10 5"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+
+        <Style x:Key="ColoredComboBox" TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#C25C9E"/>
+            <Setter Property="BorderBrush" Value="#C25C9E"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Resources>
+
+    <Viewbox Stretch="Uniform">
+        <Grid>
+            <Border Background="White" CornerRadius="12" Padding="20" BorderBrush="#0F425F" BorderThickness="2" Margin="20">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Volunteer Details" FontSize="22" FontWeight="Bold" Margin="0,0,0,10" Foreground="#0F425F" HorizontalAlignment="Center"/>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+
+                            <!-- Fields -->
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Id:" Width="120" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding CurrentVolunteer.Id}" Width="250"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Full Name:" Width="120" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding CurrentVolunteer.FullName}" Width="250"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Phone Number:" Width="120" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding CurrentVolunteer.Phone}" Width="250"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Email:" Width="120" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding CurrentVolunteer.Email}" Width="250"/>
+                            </StackPanel>
+
+                            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Password:" Width="120" VerticalAlignment="Center"/>
+                                <PasswordBox Width="250"
+                                --><!--helpers:PasswordBoxHelper.BindPassword="True"
+                                helpers:PasswordBoxHelper.BoundPassword="{Binding VolunteerPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>--><!--
+                            </StackPanel>-->
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Current Address:" Width="120" VerticalAlignment="Center"/>
+                                <TextBox Text="{Binding CurrentVolunteer.CurrentAddress}" Width="250"/>
+                            </StackPanel>
+
+                            <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Latitude:" Width="120"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.Latitude}" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Longitude:" Width="120"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.Longitude}" VerticalAlignment="Center"/>
+                            </StackPanel>-->
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Role:" Width="120"/>
+                                <ComboBox Width="250" ItemsSource="{Binding Roles}" SelectedValue="{Binding CurrentVolunteer.MyPosition}" Style="{StaticResource ColoredComboBox}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Is Active:" Width="120"/>
+                                <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive}" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Max Distance:" Width="120"/>
+                                <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" Width="250"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Distance Type:" Width="120"/>
+                                <ComboBox Width="250" ItemsSource="{Binding DistanceTypes}" SelectedValue="{Binding CurrentVolunteer.MyDistance}" Style="{StaticResource ColoredComboBox}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,20,0,5">
+                                <TextBlock Text="Total Handled:" Width="120"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.CanceledCalls}" />
+                               
+
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Total Canceled:" Width="120"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.ExpiredCalls}" />
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                <TextBlock Text="Total Expired:" Width="120"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.HandledCalls}" VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                        <Button Content="{Binding ButtonText}"  Click="ButtonAddUpdate_Click" Background="#6FA8DC" Width="80" Style="{StaticResource RoundedButtonStyle}"/>
+                        <Button Content="{Binding ButtonCallText}"  Click="ButtonSeeCallinProgress_Click" Background="#B9D15F" Width="140" Style="{StaticResource RoundedButtonStyle}"/>
+                        <Button Content="Close"  Click="ButtonClose_Click" Background="#F9B350" Width="80" Style="{StaticResource RoundedButtonStyle}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Viewbox>
+</Window>
+
+
+

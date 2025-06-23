@@ -10,13 +10,42 @@ namespace Helpers;
 internal static class VolunteerManager
 {
     private static IDal s_dal = Factory.Get; //stage 4
+    internal static ObserverManager Observers = new(); //stage 5 
 
+    //public static BO.CallInProgress getCallInProgress(DO.Volunteer volunteer)
+    //{
+    //    var assignment = s_dal.Assignment.ReadAll()
+    //       .Find(a => a.VolunteerId.Equals(volunteer.Id) == true
+    //       && CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgress || CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgressAtRisk);
+    //    var call = s_dal.Call.ReadAll().Find(c => c.Id == assignment.CallId);
+    //    return new BO.CallInProgress
+    //    {
+    //        Id = assignment.Id,
+    //        CallId = assignment.CallId,
+    //        CallType = (BO.CallType)call.MyCall,
+    //        Description = call.VerbalDescription,
+    //        Address = call.FullAddressCall,
+    //        OpenTime = call.OpeningTime,
+    //        MaxEndTime = call.MaxTimeFinishCalling,
+    //        StartTreatmentTime = (DateTime)assignment.EntryTimeOfTreatment,
+    //        DistanceFromVolunteer = Tools.CalculateDistance(call.Latitude, call.Longitude, (double)volunteer.Latitude, (double)volunteer.Longitude),
+    //        Status = CallManager.GetCallStatus(call.Id)
+    //    };
+    //}
     public static BO.CallInProgress getCallInProgress(DO.Volunteer volunteer)
     {
         var assignment = s_dal.Assignment.ReadAll()
-           .Find(a => a.VolunteerId.Equals(volunteer.Id) == true
-           && CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgress || CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgressAtRisk);
+           .Find(a => a.VolunteerId == volunteer.Id &&
+               (CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgress
+                || CallManager.GetCallStatus(a.CallId) == BO.CallStatus.InProgressAtRisk));
+
+        if (assignment == null)
+            return null;  // אין משימה בתהליך, נחזיר null
+
         var call = s_dal.Call.ReadAll().Find(c => c.Id == assignment.CallId);
+        if (call == null)
+            throw new BO.BlDoesNotExistException($"Call with ID {assignment.CallId} not found.");
+
         return new BO.CallInProgress
         {
             Id = assignment.Id,
@@ -31,8 +60,11 @@ internal static class VolunteerManager
             Status = CallManager.GetCallStatus(call.Id)
         };
     }
+
     public static BO.VolunteerInList convertToVolunteerInList(DO.Volunteer v)
     {
+        var callInProgress = getCallInProgress(v); // הקריאה שבטיפול או null
+
         return new BO.VolunteerInList
         {
             Id = v.Id,
@@ -47,10 +79,12 @@ internal static class VolunteerManager
             TotalExpiredCalls = s_dal.Assignment.ReadAll()
                                    .Where(a => a.VolunteerId == v.Id && a.MyEndingTime == DO.EndingTimeType.Expired)
                                     .Count(),
-            CallInTreatmentId = getCallInProgress(v).Id,
-            CallInTreatmenType = (BO.CallType)getCallInProgress(v).CallType
+            CallInTreatmentId = callInProgress?.Id ?? 0,
+            CallInTreatmenType = callInProgress != null ? (BO.CallType)callInProgress.CallType : default,
+          
         };
     }
+
 
     /// Validates the given volunteer object to ensure all fields have a correct format.
     public static void ValidateVolunteer(BO.Volunteer volunteer)

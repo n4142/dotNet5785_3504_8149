@@ -22,7 +22,8 @@ public enum CallType
     Depression,
     FamilyIssues,
     Soldiers,
-    PTSD
+    PTSD,
+    All
 }
 
 public enum EndingTimeType

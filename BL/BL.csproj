@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="BlImplementation\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

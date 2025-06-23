@@ -1,30 +1,31 @@
-﻿
-using BO;
+﻿using BO;
 using DalApi;
 using Helpers;
+using System;
 
 namespace BlImplementation;
 internal class AdminImplementation : BlApi.IAdmin
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
+
     public void ForwardClock(TimeUnit unit)
     {
         switch (unit)
         {
             case BO.TimeUnit.Minute:
-                ClockManager.UpdateClock(ClockManager.Now.AddMinutes(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMinutes(1));
                 break;
             case BO.TimeUnit.Hour:
-                ClockManager.UpdateClock(ClockManager.Now.AddHours(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddHours(1));
                 break;
             case BO.TimeUnit.Day:
-                ClockManager.UpdateClock(ClockManager.Now.AddDays(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddDays(1));
                 break;
             case BO.TimeUnit.Month:
-                ClockManager.UpdateClock(ClockManager.Now.AddMonths(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddMonths(1));
                 break;
             case BO.TimeUnit.Year:
-                ClockManager.UpdateClock(ClockManager.Now.AddYears(1));
+                AdminManager.UpdateClock(AdminManager.Now.AddYears(1));
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(unit), "Invalid time unit");
@@ -33,29 +34,42 @@ internal class AdminImplementation : BlApi.IAdmin
 
     public DateTime GetClock()
     {
-        return ClockManager.Now;
+        return AdminManager.Now;
     }
 
     public TimeSpan GetMaxRange()
     {
-        return _dal.Config.RiskRange;
+        return AdminManager.RiskRange;
     }
 
     public void InitializeDB()
     {
         DalTest.Initialization.Do();
-        ClockManager.UpdateClock(ClockManager.Now);
+        AdminManager.UpdateClock(AdminManager.Now);
     }
 
     public void ResetDB()
     {
         _dal.ResetDB();
-        ClockManager.UpdateClock(ClockManager.Now);
+        AdminManager.UpdateClock(AdminManager.Now);
     }
 
     public void SetMaxRange(TimeSpan maxRange)
     {
-        _dal.Config.RiskRange = maxRange;
+        AdminManager.RiskRange = maxRange;
     }
-}
 
+    #region Stage 5
+    public void AddClockObserver(Action clockObserver) =>
+        AdminManager.ClockUpdatedObservers += clockObserver;
+
+    public void RemoveClockObserver(Action clockObserver) =>
+        AdminManager.ClockUpdatedObservers -= clockObserver;
+
+    public void AddConfigObserver(Action configObserver) =>
+        AdminManager.ConfigUpdatedObservers += configObserver;
+
+    public void RemoveConfigObserver(Action configObserver) =>
+        AdminManager.ConfigUpdatedObservers -= configObserver;
+    #endregion Stage 5
+}

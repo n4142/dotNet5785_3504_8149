@@ -10,9 +10,14 @@ internal class CallImplementation : ICall
     public void Create(Call enteredCall)
     {
         int newId = Config.NextCallId;
+        if (DataSource.Calls.Any(c => c.Id == newId))
+        {
+            throw new DalAlreadyExistException($"Call Object with Id {newId} already exists");
+        }
         Call copyCall = enteredCall with { Id = newId };
         DataSource.Calls.Add(copyCall);
     }
+
 
 
     public void Delete(int id)
