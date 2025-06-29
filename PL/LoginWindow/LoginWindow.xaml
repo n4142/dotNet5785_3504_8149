@@ -1,0 +1,30 @@
+﻿<Window x:Class="PL.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Login" Height="300" Width="400"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0 0 0 10">
+            <TextBlock Text="ID:" FontWeight="Bold"/>
+            <TextBox x:Name="IdTextBox" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0 0 0 10">
+            <TextBlock Text="Password:" FontWeight="Bold"/>
+            <PasswordBox x:Name="PasswordBox" />
+        </StackPanel>
+
+        <Button Grid.Row="2" Content="Login" Width="100" HorizontalAlignment="Center"
+                Click="LoginButton_Click"/>
+
+        <TextBlock x:Name="ErrorTextBlock" Grid.Row="3" Foreground="Red" 
+                   Visibility="Collapsed" TextAlignment="Center"/>
+    </Grid>
+</Window>
