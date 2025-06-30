@@ -1,0 +1,32 @@
+﻿<Window x:Class="PL.Call.ChooseCallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Choose Call" Height="400" Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" Margin="0 0 0 10" 
+                  ItemsSource="{Binding CallTypeValues}"
+                  SelectedItem="{Binding SelectedCallType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Calls}" AutoGenerateColumns="False"
+                  SelectedItem="{Binding SelectedCall, Mode=TwoWay}" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Calls.Id}" />
+                <DataGridTextColumn Header="Type" Binding="{Binding CallType}" />
+                <DataGridTextColumn Header="Address" Binding="{Binding FullAddress}" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                <DataGridTextColumn Header="Max Time" Binding="{Binding MaxCompletionTime}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="2" Content="Take Call" Height="30" Width="120"
+                HorizontalAlignment="Right" Margin="0 10 0 0"
+                Click="TakeCall_Click"/>
+    </Grid>
+</Window>

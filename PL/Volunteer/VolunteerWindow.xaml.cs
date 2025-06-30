@@ -117,7 +117,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace PL
+namespace PL.Volunteer
 {
     public partial class VolunteerWindow : Window
     {
@@ -137,6 +137,17 @@ namespace PL
 
         public ObservableCollection<Position> Roles { get; } = new ObservableCollection<Position>((Position[])Enum.GetValues(typeof(Position)));
         public ObservableCollection<DistanceType> DistanceTypes { get; } = new ObservableCollection<DistanceType>((DistanceType[])Enum.GetValues(typeof(DistanceType)));
+
+        public BO.CallInProgress? CurrentCall
+        {
+            get => (BO.CallInProgress?)GetValue(CurrentCallProperty);
+            set => SetValue(CurrentCallProperty, value);
+        }
+
+        private bool isEditMode = false;
+
+        public static readonly DependencyProperty CurrentCallProperty =
+            DependencyProperty.Register(nameof(CurrentCall), typeof(BO.CallInProgress), typeof(VolunteerWindow));
 
         public string ButtonText
         {
@@ -182,6 +193,7 @@ namespace PL
         {
             InitializeComponent();
             CurrentVolunteer = new BO.Volunteer();
+            CurrentCall = CurrentVolunteer.CallInProgress;
             ButtonText = "Add";
             DataContext = this;
             ButtonCallText = "Assign A Call";
@@ -245,6 +257,19 @@ namespace PL
         }
 
         /// <summary>
+        /// Button click event handler for opening the ChooseCallWindow,
+        /// allowing the current volunteer to select an available call.
+        /// </summary>
+        /// <param name="sender">The source of the event (typically the button).</param>
+        /// <param name="e">Event data associated with the click.</param>
+        private void ChooseCall_Click(object sender, RoutedEventArgs e)
+        {
+            var chooseWindow = new Call.ChooseCallWindow(CurrentVolunteer.Id);
+            chooseWindow.ShowDialog();
+        }
+
+
+        /// <summary>
         /// Button click event handler for adding or updating a volunteer.
         /// </summary>
         /// <param name="sender"></param>
@@ -259,16 +284,9 @@ namespace PL
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(CurrentVolunteer.Id.ToString()) ||
-                    string.IsNullOrWhiteSpace(CurrentVolunteer.FullName))
-                {
-                    MessageBox.Show("Please make sure all required fields are filled correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
                 if (ButtonText == "Add")
                 {
-                    // For new volunteers, password is required
+                    // תנאים להוספת מתנדב חדש
                     if (string.IsNullOrWhiteSpace(VolunteerPassword))
                     {
                         MessageBox.Show("Password is required for new volunteers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -284,32 +302,49 @@ namespace PL
                     CurrentVolunteer.Password = VolunteerPassword;
                     s_bl.Volunteer.AddVolunteer(CurrentVolunteer);
                     MessageBox.Show("Volunteer added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
                 }
-                else
+                else if (ButtonText == "Update")
                 {
-                    // For updates, only update password if a new one was entered
-                    if (!string.IsNullOrWhiteSpace(VolunteerPassword))
+                    if (!isEditMode)
                     {
-                        if (VolunteerPassword.Length < 8)
-                        {
-                            MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            return;
-                        }
-                        CurrentVolunteer.Password = VolunteerPassword;
+                        // הפעלה של מצב עריכה
+                        isEditMode = true;
+                        SetEditMode(true);
+                        return;
                     }
-                    // If password field is empty, keep the existing password
+
+                    // שלב ביצוע העדכון בפועל
+                    if (!string.IsNullOrWhiteSpace(VolunteerPassword) && VolunteerPassword.Length < 8)
+                    {
+                        MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(VolunteerPassword))
+                        CurrentVolunteer.Password = VolunteerPassword;
 
                     s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
                     MessageBox.Show("Volunteer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
                 }
-
-                Close(); // The observer will automatically update the list
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        private void SetEditMode(bool enableEdit)
+        {
+            // כאן את צריכה לשים שמות של כל השדות הרלוונטיים כפי שמוגדרים ב־XAML
+            txtFullName.IsReadOnly = !enableEdit;
+            //txtPhoneNumber.IsReadOnly = !enableEdit;
+            //cmbDistanceType.IsEnabled = enableEdit;
+            //cmbRole.IsEnabled = enableEdit;
+            //txtPassword.IsEnabled = enableEdit;
+            // הוסיפי עוד שדות כאן לפי הצורך
+        }
+
 
         /// <summary>
         /// function that closes the window when the close button is clicked.
@@ -330,5 +365,40 @@ namespace PL
         {
             // Implementation for seeing calls in progress
         }
+
+        /// <summary>
+        /// Cancels the current call assigned to the volunteer.
+        /// </summary>
+        private void CancelCall_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (CurrentCall == null)
+                {
+                    MessageBox.Show("No current call to cancel.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                s_bl.Call.CancelCallTreatment(CurrentCall.CallId, CurrentVolunteer.Id);
+                MessageBox.Show("Call canceled.", "Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                CurrentCall = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to cancel call: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Report the end of reading treatment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EndOfTreatment_Click(object sender, RoutedEventArgs e)
+        { 
+            //todo
+        }
+
     }
 }

@@ -2,6 +2,7 @@
 using BO;
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PL
 {
@@ -20,10 +21,9 @@ namespace PL
             {
                 if (!int.TryParse(IdTextBox.Text, out int id))
                     throw new FormatException("ID must be a number");
-
                 string password = PasswordBox.Password;
 
-                Position position = bl.Volunteer.Login(IdTextBox.Text, password);
+                Position position = bl.Volunteer.Login(id, password);
 
                 if (position == Position.Manager)
                 {
@@ -36,16 +36,16 @@ namespace PL
 
                     if (result == MessageBoxResult.Yes)
                     {
-                        new MainWindow().Show(); // מסך ניהול ראשי
+                        new AdminWindow().Show(); // מסך ניהול ראשי
                     }
                     else
                     {
-                        new VolunteerWindow(id).Show(); // מסך מתנדב רגיל
+                        new Volunteer.VolunteerWindow(id).Show(); // מסך מתנדב רגיל
                     }
                 }
                 else
                 {
-                    new VolunteerWindow(id).Show(); // מסך מתנדב רגיל
+                    new Volunteer.VolunteerWindow(id).Show(); // מסך מתנדב רגיל
                 }
 
                 this.Close();

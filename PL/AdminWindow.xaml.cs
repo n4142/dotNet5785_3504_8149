@@ -5,15 +5,46 @@ using System.Windows.Input;
 using BlApi;
 using BO;
 using PL.Volunteer;
-/*using PL.Volunteer;*/
 
 namespace PL
 {
-    public partial class MainWindow : Window
+    public partial class AdminWindow : Window
     {
         // אובייקט גישה לשכבת BL
         static readonly IBl s_bl = Factory.Get();
 
+        //סכום הקריאות לפי סוג סטטוס
+        public int TotalExpiredCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.Expired)).Count(); }
+            set { }
+        }
+        public int TotalOpenCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.Open)).Count(); }
+            set { }
+        }
+        public int TotalOpenAtRiskCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.OpenAtRisk)).Count(); }
+            set { }
+        }
+
+        public int TotalInProgressCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.InProgress)).Count(); }
+            set { }
+        }
+        public int TotalClosedCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.Closed)).Count(); }
+            set { }
+        }
+        public int TotalInProgressAtRiskCalls
+        {
+            get { return (s_bl.Call.GetCallList(FilteredBy.Status, CallStatus.InProgressAtRisk)).Count(); }
+            set { }
+        }
         // תכונה המייצגת את זמן השעון המוצג
         public DateTime CurrentTime
         {
@@ -21,7 +52,7 @@ namespace PL
             set => SetValue(CurrentTimeProperty, value);
         }
         public static readonly DependencyProperty CurrentTimeProperty =
-            DependencyProperty.Register(nameof(CurrentTime), typeof(DateTime), typeof(MainWindow));
+            DependencyProperty.Register(nameof(CurrentTime), typeof(DateTime), typeof(AdminWindow));
 
         // תכונת תלות עבור משתנה תצורה MaxYearRange מסוג TimeSpan
         public TimeSpan MaxYearRange
@@ -30,15 +61,15 @@ namespace PL
             set => SetValue(MaxYearRangeProperty, value);
         }
         public static readonly DependencyProperty MaxYearRangeProperty =
-            DependencyProperty.Register(nameof(MaxYearRange), typeof(TimeSpan), typeof(MainWindow));
+            DependencyProperty.Register(nameof(MaxYearRange), typeof(TimeSpan), typeof(AdminWindow));
 
-        public MainWindow()
+        public AdminWindow()
         {
              InitializeComponent();
 
             // הגדרת אירועים
-            Loaded += MainWindow_Loaded;
-            Closed += MainWindow_Closed;
+            Loaded += AdminWindow_Loaded;
+            Closed += AdminWindow_Closed;
         }
 
         // משקיף לשעון
@@ -60,7 +91,7 @@ namespace PL
         }
 
         // טעינת המסך
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void AdminWindow_Loaded(object sender, RoutedEventArgs e)
         {
             CurrentTime = s_bl.Admin.GetClock();
             MaxYearRange = s_bl.Admin.GetMaxRange();
@@ -70,7 +101,7 @@ namespace PL
         }
 
         // סגירת המסך
-        private void MainWindow_Closed(object sender, EventArgs e)
+        private void AdminWindow_Closed(object sender, EventArgs e)
         {
             s_bl.Admin.RemoveClockObserver(ClockObserver);
             s_bl.Admin.RemoveConfigObserver(ConfigObserver);

@@ -128,9 +128,9 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         return volunteersList;
     }
 
-    public BO.Position Login(string userName, string password)
+    public BO.Position Login(int id, string password)
     {
-        var volunteer = _dal.Volunteer.ReadAll().Find(v => v.FullName == userName);
+        var volunteer = _dal.Volunteer.ReadAll().Find(v => v.Id == id);
 
         if (volunteer != null)
             if (volunteer.Password.Equals(password) == true)
@@ -138,7 +138,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
             else
                 throw new BO.BlUnauthorizedAccessException("Wrong Password");
         else
-            throw new BO.BlDoesNotExistException($"User with name {userName} not found");
+            throw new BO.BlDoesNotExistException($"User with id {id} not found");
 
 
     }

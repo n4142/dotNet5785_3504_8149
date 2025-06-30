@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfVolunteer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Volunteer>
-    <Id>239153608</Id>
+    <Id>638086172</Id>
     <FullName>Nechami</FullName>
     <Phone>0525381648</Phone>
     <Email>Nechami@gmail.com</Email>
@@ -15,21 +15,7 @@
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>419065876</Id>
-    <FullName>Danah Cohen</FullName>
-    <Phone>0504142102</Phone>
-    <Email>Danah Cohen@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>4210</Password>
-    <CurrentAddress>Herzl St 1, Tel Aviv</CurrentAddress>
-    <Latitude>32.0595</Latitude>
-    <Longitude>34.7705</Longitude>
-    <MaxDistance>19</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>650238021</Id>
+    <Id>216776055</Id>
     <FullName>Yossi Levi</FullName>
     <Phone>0533128532</Phone>
     <Email>Yossi Levi@gmail.com</Email>
@@ -39,11 +25,11 @@
     <CurrentAddress>Ben Yehuda St 10, Haifa</CurrentAddress>
     <Latitude>32.8195</Latitude>
     <Longitude>34.9983</Longitude>
-    <MaxDistance>13</MaxDistance>
+    <MaxDistance>6</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>490717778</Id>
+    <Id>802009691</Id>
     <FullName>Michal Rosenberg</FullName>
     <Phone>0527648207</Phone>
     <Email>Michal Rosenberg@gmail.com</Email>
@@ -53,25 +39,11 @@
     <CurrentAddress>Hanevi'im St 15, Jerusalem</CurrentAddress>
     <Latitude>31.7857</Latitude>
     <Longitude>35.2208</Longitude>
-    <MaxDistance>1</MaxDistance>
+    <MaxDistance>8</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>683192436</Id>
-    <FullName>Alon Goldstein</FullName>
-    <Phone>0556784521</Phone>
-    <Email>Alon Goldstein@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>8452</Password>
-    <CurrentAddress>Rothschild Blvd 50, Tel Aviv</CurrentAddress>
-    <Latitude>32.0633</Latitude>
-    <Longitude>34.7735</Longitude>
-    <MaxDistance>5</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>723078386</Id>
+    <Id>603358670</Id>
     <FullName>Shira Peled</FullName>
     <Phone>0546587412</Phone>
     <Email>Shira Peled@gmail.com</Email>
@@ -81,11 +53,11 @@
     <CurrentAddress>Jabotinsky St 125, Ramat Gan</CurrentAddress>
     <Latitude>32.0885</Latitude>
     <Longitude>34.8037</Longitude>
-    <MaxDistance>9</MaxDistance>
+    <MaxDistance>2</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>438437830</Id>
+    <Id>922362056</Id>
     <FullName>Roi Barak</FullName>
     <Phone>0527684698</Phone>
     <Email>Roi Barak@gmail.com</Email>
@@ -95,25 +67,11 @@
     <CurrentAddress>King George St 20, Jerusalem</CurrentAddress>
     <Latitude>31.7762</Latitude>
     <Longitude>35.2137</Longitude>
-    <MaxDistance>15</MaxDistance>
+    <MaxDistance>14</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>492788182</Id>
-    <FullName>Netta Shemesh</FullName>
-    <Phone>0527612233</Phone>
-    <Email>Netta Shemesh@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>1223</Password>
-    <CurrentAddress>Allenby St 45, Tel Aviv</CurrentAddress>
-    <Latitude>32.0641</Latitude>
-    <Longitude>34.7698</Longitude>
-    <MaxDistance>12</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>409786527</Id>
+    <Id>624876590</Id>
     <FullName>Tomer Saban</FullName>
     <Phone>0527695898</Phone>
     <Email>Tomer Saban@gmail.com</Email>
@@ -123,11 +81,11 @@
     <CurrentAddress>Bialik St 7, Ramat Gan</CurrentAddress>
     <Latitude>32.0827</Latitude>
     <Longitude>34.8235</Longitude>
-    <MaxDistance>6</MaxDistance>
+    <MaxDistance>10</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>361205483</Id>
+    <Id>634989035</Id>
     <FullName>Lian Bloch</FullName>
     <Phone>0546581256</Phone>
     <Email>Lian Bloch@gmail.com</Email>
@@ -137,11 +95,11 @@
     <CurrentAddress>Dizengoff St 100, Tel Aviv</CurrentAddress>
     <Latitude>32.0758</Latitude>
     <Longitude>34.7742</Longitude>
-    <MaxDistance>6</MaxDistance>
+    <MaxDistance>19</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>283964982</Id>
+    <Id>639502224</Id>
     <FullName>Ido Melamed</FullName>
     <Phone>0527612589</Phone>
     <Email>Ido Melamed@gmail.com</Email>
@@ -151,11 +109,11 @@
     <CurrentAddress>Weizmann St 5, Rehovot</CurrentAddress>
     <Latitude>31.8947</Latitude>
     <Longitude>34.8112</Longitude>
-    <MaxDistance>17</MaxDistance>
+    <MaxDistance>10</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>818792022</Id>
+    <Id>828145893</Id>
     <FullName>Yael Peretz</FullName>
     <Phone>0527648693</Phone>
     <Email>Yael Peretz@gmail.com</Email>
@@ -165,11 +123,11 @@
     <CurrentAddress>Yehuda Halevi St 30, Tel Aviv</CurrentAddress>
     <Latitude>32.0622</Latitude>
     <Longitude>34.7701</Longitude>
-    <MaxDistance>16</MaxDistance>
+    <MaxDistance>19</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>449448706</Id>
+    <Id>388453920</Id>
     <FullName>Eliyah Kahanov</FullName>
     <Phone>0527631459</Phone>
     <Email>Eliyah Kahanov@gmail.com</Email>
@@ -179,11 +137,11 @@
     <CurrentAddress>Hertzl St 10, Beer Sheva</CurrentAddress>
     <Latitude>31.2518</Latitude>
     <Longitude>34.7913</Longitude>
-    <MaxDistance>7</MaxDistance>
+    <MaxDistance>17</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>754339223</Id>
+    <Id>360242146</Id>
     <FullName>Maya Hershkowitz</FullName>
     <Phone>0527638520</Phone>
     <Email>Maya Hershkowitz@gmail.com</Email>
@@ -193,11 +151,11 @@
     <CurrentAddress>Sokolov St 15, Herzliya</CurrentAddress>
     <Latitude>32.1663</Latitude>
     <Longitude>34.8426</Longitude>
-    <MaxDistance>12</MaxDistance>
+    <MaxDistance>1</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>153067849</Id>
+    <Id>712073836</Id>
     <FullName>Gilad Oren</FullName>
     <Phone>0527641120</Phone>
     <Email>Gilad Oren@gmail.com</Email>
@@ -207,11 +165,11 @@
     <CurrentAddress>Begin Blvd 8, Ashdod</CurrentAddress>
     <Latitude>31.8025</Latitude>
     <Longitude>34.6457</Longitude>
-    <MaxDistance>10</MaxDistance>
+    <MaxDistance>3</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>664515585</Id>
+    <Id>979458275</Id>
     <FullName>Efrat Kaplan</FullName>
     <Phone>0527648965</Phone>
     <Email>Efrat Kaplan@gmail.com</Email>
@@ -221,7 +179,49 @@
     <CurrentAddress>Ben Gurion St 1, Bat Yam</CurrentAddress>
     <Latitude>32.0153</Latitude>
     <Longitude>34.7504</Longitude>
-    <MaxDistance>16</MaxDistance>
+    <MaxDistance>5</MaxDistance>
+    <MyDistance>Air</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>299566749</Id>
+    <FullName>Alon Goldstein</FullName>
+    <Phone>0556784521</Phone>
+    <Email>AlonGoldstein@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>8452</Password>
+    <CurrentAddress>Rothschild Blvd 50, Tel Aviv</CurrentAddress>
+    <Latitude>32.0633</Latitude>
+    <Longitude>34.7735</Longitude>
+    <MaxDistance>14</MaxDistance>
+    <MyDistance>Air</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>476168916</Id>
+    <FullName>Danah Cohen</FullName>
+    <Phone>0504142102</Phone>
+    <Email>DanahCohen@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>4210</Password>
+    <CurrentAddress>Herzl St 1, Tel Aviv</CurrentAddress>
+    <Latitude>32.0595</Latitude>
+    <Longitude>34.7705</Longitude>
+    <MaxDistance>14</MaxDistance>
+    <MyDistance>Air</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>112515724</Id>
+    <FullName>Netta Shemesh</FullName>
+    <Phone>0527612222</Phone>
+    <Email>NettaShemesh@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>1223</Password>
+    <CurrentAddress>Allenby St 45, Tel Aviv</CurrentAddress>
+    <Latitude>32.0641</Latitude>
+    <Longitude>34.7698</Longitude>
+    <MaxDistance>14</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
 </ArrayOfVolunteer>

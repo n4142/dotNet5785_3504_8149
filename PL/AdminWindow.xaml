@@ -51,24 +51,22 @@
 
     </Grid>
 </Window>-->
-<Window x:Class="PL.MainWindow"
+<Window x:Class="PL.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="מסך ניהול ראשי" Height="450" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        FlowDirection="RightToLeft">
+        FlowDirection="LeftToRight">
 
     <Grid Margin="20" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- אזור שעון -->
             <RowDefinition Height="Auto"/>
-            <!-- כפתורי קידום שעון -->
             <RowDefinition Height="Auto"/>
-            <!-- משתני תצורה -->
             <RowDefinition Height="*"/>
-            <!-- כפתורי פעולה -->
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
 
         <!-- אזור שעון המערכת עם גבול -->
         <Border Grid.Row="0" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5" Margin="0,0,0,10" Background="#FFF0F0F0">
@@ -96,8 +94,43 @@
             </StackPanel>
         </Border>
 
+        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5" Margin="0,0,0,10" Background="#FFF0F0F0">
+            <StackPanel HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,5">
+                    <TextBlock Text="Total Open Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalOpenCalls}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Total Closed Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalClosedCalls}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Total Expired Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalExpiredCalls}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Total Open At Risk Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalOpenAtRiskCalls}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Total In Progress Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalInProgressCalls}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Total In Progress At Risk Calls:" Width="120"/>
+                    <TextBlock Text="{Binding TotalInProgressAtRiskCalls}" VerticalAlignment="Center"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+        
         <!-- כפתורי פעולה במרכז, עם ריווח יפה -->
-        <Border Grid.Row="3" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5" Background="#FFF9F9F9">
+        <Border Grid.Row="4" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5" Background="#FFF9F9F9">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <Button Content="Manage Volunteers" Click="btnOpenListScreen_Click" Margin="10" MinWidth="140"/>
                 <Button Content="Manage Calls" Click="btnManageCalls_Click" Margin="10" MinWidth="140"/>

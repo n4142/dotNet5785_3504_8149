@@ -31,20 +31,25 @@ class Program
             try
             {
                 Console.WriteLine("\nLogin Menu:");
-                Console.Write("Enter username: ");
-                string username = Console.ReadLine() ?? "";
+                Console.Write("Enter id: ");
+                int id;
+                while (!int.TryParse(Console.ReadLine(), out id))
+                {
+                    Console.WriteLine("Invalid number. Please enter a valid integer:");
+                }
+
                 Console.Write("Enter password: ");
                 string password =Console.ReadLine() ?? "";
 
-                string position = (s_bl.Volunteer.Login(username, password)).ToString();
+                string position = (s_bl.Volunteer.Login(id, password)).ToString();
 
                 switch (position.ToLower())
                 {
                     case "manager":
-                        ManagerMainMenu(username);
+                        ManagerMainMenu(id);
                         break;
                     case "volunteer":
-                        VolunteerMainMenu(username);
+                        VolunteerMainMenu(id);
                         break;
                     default:
                         Console.WriteLine("Invalid login credentials. Please try again.");
@@ -71,8 +76,7 @@ class Program
     /// <summary>
     /// Manager disolay
     /// </summary>
-    /// <param name="Manager">a parameter that holds the Manager's details</param>
-    private static void ManagerMainMenu(string Manager)
+    private static void ManagerMainMenu(int id)
     {
         while (true)
         {
@@ -114,7 +118,7 @@ class Program
                     case 6:
                         return; // Return to login menu
                     case 7:
-                        VolunteerMainMenu(Manager);
+                        VolunteerMainMenu(id);
                         break;
                     default:
                         Console.WriteLine("Invalid choice. Please try again.");
@@ -131,9 +135,9 @@ class Program
     /// <summary>
     /// The regular volunteer's display
     /// </summary>
-    private static void VolunteerMainMenu(string username)
+    private static void VolunteerMainMenu(int id)
     {
-        BO.Volunteer? volunteer = s_bl.Volunteer.GetVolunteer((s_bl.Volunteer.GetVolunteerList().First(v => v.FullName == username)).Id);
+        BO.Volunteer? volunteer = s_bl.Volunteer.GetVolunteer((s_bl.Volunteer.GetVolunteerList().First(v => v.Id == id)).Id);
 
         while (true)
         {

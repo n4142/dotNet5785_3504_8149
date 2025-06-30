@@ -11,8 +11,10 @@ namespace PL.Volunteer
     public partial class VolunteerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public VolunteerSortBy SelectedSortBy { get; set; } = VolunteerSortBy.Id;
+        public bool? SelectedIsActive { get; set; } = null;
 
-        public CallType SelectedCallType { get; set; } = CallType.All;
+        //public CallType SelectedCallType { get; set; } = CallType.All;
 
         public IEnumerable<VolunteerInList> VolunteerList
         {
@@ -35,17 +37,45 @@ namespace PL.Volunteer
         {
             var allVolunteers = s_bl.Volunteer.GetVolunteerList();
 
-            if (SelectedCallType != CallType.All)
+            // סינון לפי פעיל/לא פעיל
+            if (SelectedIsActive.HasValue)
             {
                 allVolunteers = allVolunteers
-                    .Where(v => v.CallInTreatmenType == SelectedCallType);
+                    .Where(v => v.IsActive == SelectedIsActive.Value);
             }
+
+            // מיון לפי הקריטריון שנבחר
+            allVolunteers = SelectedSortBy switch
+            {
+                VolunteerSortBy.FullName => allVolunteers.OrderBy(v => v.FullName),
+                VolunteerSortBy.TotalHandledCalls => allVolunteers.OrderByDescending(v => v.TotalHandledCalls),
+                VolunteerSortBy.TotalCanceledCalls => allVolunteers.OrderByDescending(v => v.TotalCanceledCalls),
+                VolunteerSortBy.TotalExpiredCalls => allVolunteers.OrderByDescending(v => v.TotalExpiredCalls),
+                _ => allVolunteers.OrderBy(v => v.Id)
+            };
 
             VolunteerList = allVolunteers.ToList();
 
             if (!VolunteerList.Any())
                 MessageBox.Show("No volunteers found.");
         }
+
+
+        private void ActiveStatusComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            QueryVolunteerList();
+        }
+        private void SortByComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SortByComboBox.SelectedItem is ComboBoxItem selectedItem &&
+                Enum.TryParse(selectedItem.Tag.ToString(), out VolunteerSortBy sortBy))
+            {
+                SelectedSortBy = sortBy;
+                QueryVolunteerList();
+            }
+        }
+
+
 
         private void VolunteerListObserver() => QueryVolunteerList();
 
@@ -60,14 +90,14 @@ namespace PL.Volunteer
             s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
         }
 
-        private void CallTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (CallTypeComboBox.SelectedItem is CallType selected)
-            {
-                SelectedCallType = selected;
-                QueryVolunteerList();
-            }
-        }
+        //private void CallTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    if (CallTypeComboBox.SelectedItem is CallType selected)
+        //    {
+        //        SelectedCallType = selected;
+        //        QueryVolunteerList();
+        //    }
+        //}
 
         private void AddVolunteer_Click(object sender, RoutedEventArgs e)
         {

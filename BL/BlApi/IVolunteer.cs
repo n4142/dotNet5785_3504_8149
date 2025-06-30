@@ -11,7 +11,7 @@ namespace BlApi
     /// </summary>
     public interface IVolunteer :IObservable
     {
-        BO.Position Login(string username, string password);///Logs in a volunteer using a username and password.
+        BO.Position Login(int id, string password);///Logs in a volunteer using  id and password.
         IEnumerable<BO.VolunteerInList> GetVolunteerList(bool? filter=null,BO.VolunteerSortBy? sort=null);///Retrieves a list of volunteers with optional filtering and sorting.
         BO.Volunteer GetVolunteer(int id);///Retrieves a volunteer by their ID.
         void UpdateVolunteerDetails(int id,BO.Volunteer volunteer);///Updates the details of an existing volunteer.

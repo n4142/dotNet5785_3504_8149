@@ -67,3 +67,7 @@ public enum VolunteerSortBy
     TotalCanceledCalls,
     TotalExpiredCalls
 }
+public enum FilteredBy
+{
+    Status
+}
