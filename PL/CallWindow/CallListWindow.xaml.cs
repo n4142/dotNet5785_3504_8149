@@ -106,7 +106,7 @@ namespace PL.Call
         {
             if (CallDataGrid.SelectedItem is CallInList selected)
             {
-               // new SingleCallWindow(selected.CallId).ShowDialog();
+               new SingleCallWindow(selected.CallId).Show();
             }
         }
         private void DeleteCall_Click(object sender, RoutedEventArgs e)

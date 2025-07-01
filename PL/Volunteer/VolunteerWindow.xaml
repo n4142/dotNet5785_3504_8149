@@ -168,7 +168,8 @@
 
                     <!-- Buttons -->
                     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-                        <Button Content="{Binding ButtonCallText}" Click="ChooseCall_Click" HorizontalAlignment="Left" Width="120" Margin="5" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNull}}"/>
+                        <Button Content="Calls History" Click="ShowClosedCalls_Click" HorizontalAlignment="Left" Width="120" Margin="5"/>
+                        <Button Content="{Binding ButtonCallText}" Click="ChooseCall_Click" HorizontalAlignment="Left" Background="#B9D15F" Width="120" Margin="5" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNull}}"/>
                         <!--<Button Content="Choose Call" Click="ChooseCall_Click" HorizontalAlignment="Left" Width="120" Margin="5">
                             <Button.Visibility>
                                 <MultiBinding Converter="{StaticResource MultiConditionToVisibilityConverter}">

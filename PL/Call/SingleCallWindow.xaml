@@ -8,7 +8,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Window.Resources>
 
-    <Grid Margin="10" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -17,20 +17,19 @@
 
         <StackPanel Orientation="Vertical" Grid.Row="0" Margin="0,0,0,10">
             <TextBlock Text="Call ID:" FontWeight="Bold"/>
-            <TextBox Text="{Binding CurrentCall.CallId}" IsReadOnly="True" />
+            <TextBox x:Name="txtId" Text="{Binding CurrentCall.Id}" IsReadOnly="{Binding IsEditing}" />
 
             <TextBlock Text="Type:" FontWeight="Bold" Margin="0,10,0,0"/>
-            <TextBox Text="{Binding CurrentCall.CallType}" IsReadOnly="True"/>
+            <TextBox x:Name="txtType" Text="{Binding CurrentCall.CallType}" IsReadOnly="{Binding IsEditing}"/>
 
             <TextBlock Text="Status:" FontWeight="Bold" Margin="0,10,0,0"/>
-            <ComboBox ItemsSource="{Binding StatusOptions}" 
-                      SelectedItem="{Binding CurrentCall.Status}" />
+            <ComboBox ItemsSource="{Binding StatusOptions}" SelectedItem="{Binding CurrentCall.Status}" IsEnabled="{Binding IsEditing}" />
 
             <TextBlock Text="Open Time:" FontWeight="Bold" Margin="0,10,0,0"/>
-            <TextBox Text="{Binding CurrentCall.OpenTime}" IsReadOnly="True"/>
+            <TextBox  Text="{Binding CurrentCall.OpenTime}" IsReadOnly="{Binding IsEditing}"/>
         </StackPanel>
 
-        <GroupBox Header="Assignment History" Grid.Row="1" Margin="0,10,0,10">
+        <GroupBox Header="Assignment History" Grid.Row="1" Margin="0,10,0,10" Visibility="{Binding HasAssignments, Converter={StaticResource BoolToVisibilityConverter}}">
             <DataGrid ItemsSource="{Binding Assignments}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Volunteer" Binding="{Binding VolunteerName}" />
@@ -42,7 +41,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Update" Width="100" Margin="0,0,10,0" Click="Update_Click"/>
-            <Button Content="Cancel" Width="100" Click="Cancel_Click"/>
+            <Button Content="Close" Width="100" Margin="0,0,10,0" Click="Cancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

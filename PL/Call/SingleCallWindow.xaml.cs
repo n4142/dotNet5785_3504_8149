@@ -13,6 +13,8 @@ namespace PL.Call
         public BO.Call CurrentCall { get; set; }
         public ObservableCollection<CallAssignInList> Assignments { get; set; }
         public Array StatusOptions => Enum.GetValues(typeof(CallStatus));
+        public bool IsEditing { get; set; } = true;
+        public bool HasAssignments => Assignments != null && Assignments.Count > 0;
 
         public SingleCallWindow(int callId)
         {
@@ -34,8 +36,32 @@ namespace PL.Call
             }
         }
 
+        //private void Update_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        bl.Call.UpdateCallDetails(CurrentCall);
+        //        MessageBox.Show("Call updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        //        Close();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Update failed: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //    }
+        //}
         private void Update_Click(object sender, RoutedEventArgs e)
         {
+            if (IsEditing)
+            {
+                IsEditing = false;
+                DataContext = null;
+                DataContext = this;
+                //txtOpenTime.ReadOnly = IsEditing;
+                //txtType.ReadOnly = IsEditing;
+                //txtId.ReadOnly = IsEditing;
+                return; // מפעיל מצב עריכה בלבד
+            }
+
             try
             {
                 bl.Call.UpdateCallDetails(CurrentCall);
@@ -47,6 +73,7 @@ namespace PL.Call
                 MessageBox.Show("Update failed: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {

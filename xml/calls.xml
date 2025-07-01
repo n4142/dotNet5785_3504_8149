@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<ArrayOfCall>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Call>
     <MyCall>Depression</MyCall>
     <FullAddressCall>Herzl St 1, Tel Aviv</FullAddressCall>
@@ -9,16 +9,6 @@
     <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
     <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
     <Id>1</Id>
-  </Call>
-  <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
-    <FullAddressCall>Ben Yehuda St 10, Haifa</FullAddressCall>
-    <Latitude>32.8195</Latitude>
-    <Longitude>34.9983</Longitude>
-    <OpeningTime>2023-01-23T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
-    <Id>2</Id>
   </Call>
   <Call>
     <MyCall>Depression</MyCall>
@@ -31,16 +21,6 @@
     <Id>3</Id>
   </Call>
   <Call>
-    <MyCall>PanicAttacks</MyCall>
-    <FullAddressCall>Rothschild Blvd 50, Tel Aviv</FullAddressCall>
-    <Latitude>32.0633</Latitude>
-    <Longitude>34.7735</Longitude>
-    <OpeningTime>2025-01-29T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
-    <Id>4</Id>
-  </Call>
-  <Call>
     <MyCall>ViolenceOrDanger</MyCall>
     <FullAddressCall>Jabotinsky St 125, Ramat Gan</FullAddressCall>
     <Latitude>32.0885</Latitude>
@@ -51,36 +31,6 @@
     <Id>5</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
-    <FullAddressCall>King George St 20, Jerusalem</FullAddressCall>
-    <Latitude>31.7762</Latitude>
-    <Longitude>35.2137</Longitude>
-    <OpeningTime>2023-03-02T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>6</Id>
-  </Call>
-  <Call>
-    <MyCall>Loneliness</MyCall>
-    <FullAddressCall>Allenby St 45, Tel Aviv</FullAddressCall>
-    <Latitude>32.0641</Latitude>
-    <Longitude>34.7698</Longitude>
-    <OpeningTime>2023-08-18T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
-    <Id>7</Id>
-  </Call>
-  <Call>
-    <MyCall>Depression</MyCall>
-    <FullAddressCall>Bialik St 7, Ramat Gan</FullAddressCall>
-    <Latitude>32.0827</Latitude>
-    <Longitude>34.8235</Longitude>
-    <OpeningTime>2025-06-29T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>8</Id>
-  </Call>
-  <Call>
     <MyCall>Depression</MyCall>
     <FullAddressCall>Dizengoff St 100, Tel Aviv</FullAddressCall>
     <Latitude>32.0758</Latitude>
@@ -89,16 +39,6 @@
     <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
     <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>9</Id>
-  </Call>
-  <Call>
-    <MyCall>Loneliness</MyCall>
-    <FullAddressCall>Weizmann St 5, Rehovot</FullAddressCall>
-    <Latitude>31.8947</Latitude>
-    <Longitude>34.8112</Longitude>
-    <OpeningTime>2022-04-25T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
-    <Id>10</Id>
   </Call>
   <Call>
     <MyCall>SuddenCrises</MyCall>
@@ -509,5 +449,55 @@
     <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
     <VerbalDescription>123</VerbalDescription>
     <Id>51</Id>
+  </Call>
+  <Call>
+    <MyCall>ViolenceOrDanger</MyCall>
+    <FullAddressCall>Ben Yehuda St 10, Haifa</FullAddressCall>
+    <Latitude>32.8195</Latitude>
+    <Longitude>34.9983</Longitude>
+    <OpeningTime>2023-01-23T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
+    <Id>2</Id>
+  </Call>
+  <Call>
+    <MyCall>FamilyIssues</MyCall>
+    <FullAddressCall>King George St 20, Jerusalem</FullAddressCall>
+    <Latitude>31.7762</Latitude>
+    <Longitude>35.2137</Longitude>
+    <OpeningTime>2023-03-02T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
+    <Id>6</Id>
+  </Call>
+  <Call>
+    <MyCall>Depression</MyCall>
+    <FullAddressCall>Bialik St 7, Ramat Gan</FullAddressCall>
+    <Latitude>32.0827</Latitude>
+    <Longitude>34.8235</Longitude>
+    <OpeningTime>2025-06-29T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
+    <Id>8</Id>
+  </Call>
+  <Call>
+    <MyCall>Loneliness</MyCall>
+    <FullAddressCall>Weizmann St 5, Rehovot</FullAddressCall>
+    <Latitude>31.8947</Latitude>
+    <Longitude>34.8112</Longitude>
+    <OpeningTime>2022-04-25T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
+    <Id>10</Id>
+  </Call>
+  <Call>
+    <MyCall>Loneliness</MyCall>
+    <FullAddressCall>Allenby St 45, Tel Aviv</FullAddressCall>
+    <Latitude>32.0641</Latitude>
+    <Longitude>34.7698</Longitude>
+    <OpeningTime>2023-08-18T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <Id>7</Id>
   </Call>
 </ArrayOfCall>

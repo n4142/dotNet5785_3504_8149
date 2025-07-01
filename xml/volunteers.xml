@@ -15,20 +15,6 @@
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>251865178</Id>
-    <FullName>Yael Peretz</FullName>
-    <Phone>0527648693</Phone>
-    <Email>YaelPeretz@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>4869</Password>
-    <CurrentAddress>Yehuda Halevi St 30, Tel Aviv</CurrentAddress>
-    <Latitude>32.0622</Latitude>
-    <Longitude>34.7701</Longitude>
-    <MaxDistance>10</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>263210868</Id>
     <FullName>Lian Bloch</FullName>
     <Phone>0546581256</Phone>
@@ -222,6 +208,20 @@
     <Latitude>31.8025</Latitude>
     <Longitude>34.6457</Longitude>
     <MaxDistance>14</MaxDistance>
+    <MyDistance>Air</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>251865178</Id>
+    <FullName>Yael Peretz</FullName>
+    <Phone>0527648693</Phone>
+    <Email>YaelPeretz@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>4869</Password>
+    <CurrentAddress>Yehuda Halevi St 30, Tel Aviv</CurrentAddress>
+    <Latitude>32.0622</Latitude>
+    <Longitude>34.7701</Longitude>
+    <MaxDistance>10</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
 </ArrayOfVolunteer>
