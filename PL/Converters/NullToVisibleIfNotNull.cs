@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace PL
+namespace PL.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {
@@ -18,8 +18,9 @@ namespace PL
             return isNull ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) =>
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
             throw new NotImplementedException();
+        }
     }
 }
-

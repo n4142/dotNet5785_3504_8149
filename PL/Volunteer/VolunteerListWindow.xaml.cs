@@ -108,7 +108,7 @@ namespace PL.Volunteer
         {
             if (SelectedVolunteer != null)
             {
-                new VolunteerWindow(SelectedVolunteer.Id).Show();
+                new VolunteerWindow(SelectedVolunteer,Position.Manager).Show();
             }
         }
     }
