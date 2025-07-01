@@ -354,7 +354,7 @@ namespace PL.Volunteer
             if (CurrentVolunteer != null)
             {
                 var closedCallsWindow = new VolunteerClosedCallsWindow(CurrentVolunteer.Id); // Adjusted constructor usage
-                closedCallsWindow.DataContext = CurrentVolunteer.Id; // Pass the ID via DataContext or another property
+               // closedCallsWindow.DataContext = CurrentVolunteer.Id; // Pass the ID via DataContext or another property
                 closedCallsWindow.ShowDialog();
             }
             else

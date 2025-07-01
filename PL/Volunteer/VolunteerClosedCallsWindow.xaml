@@ -7,9 +7,9 @@
 
     <DockPanel Margin="10">
         <TextBlock Text="Closed Calls History" FontSize="22" FontWeight="Bold" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
-
         <DataGrid x:Name="ClosedCallsGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
-                  ItemsSource="{Binding ClosedCalls}" Margin="0,10,0,0">
+          ItemsSource="{Binding CallsView}" Margin="0,10,0,0">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Call ID" Binding="{Binding CallId}" Width="Auto"/>
                 <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="*"/>
