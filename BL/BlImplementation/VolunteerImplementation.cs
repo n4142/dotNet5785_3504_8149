@@ -4,6 +4,7 @@ namespace BlImplementation;
 using BO;
 using DO;
 using Helpers;
+using System.Linq;
 using System.Linq.Expressions;
 
 internal class VolunteerImplementation : BlApi.IVolunteer
@@ -127,6 +128,39 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         }
         return volunteersList;
     }
+    public IEnumerable<ClosedCallInList> GetClosedCallsByVolunteer(int volunteerId)
+    {
+        var closedStatuses = new DO.EndingTimeType?[]
+        {
+        DO.EndingTimeType.TakenCareOf,
+        DO.EndingTimeType.CanceledByManager,
+        DO.EndingTimeType.CanceledByVolunteer,
+        DO.EndingTimeType.Expired
+        };
+
+        var assignments = _dal.Assignment.ReadAll()
+            .Where(a => a.VolunteerId == volunteerId && closedStatuses.Contains(a.MyEndingTime))
+            .ToList();
+
+        var result = assignments.Select(a =>
+        {
+            var call = _dal.Call.Read(a.CallId);
+            if (call == null) return null;
+
+            return new ClosedCallInList
+            {
+                Id = a.Id,
+                CallType = (BO.CallType)call.MyCall,
+                Address = call.FullAddressCall,
+                OpenTime = call.OpeningTime,
+                StartTime = a.EntryTimeOfTreatment ?? throw new InvalidOperationException("EntryTimeOfTreatment cannot be null."),
+                EndTime = a.EndingTimeOfTreatment,
+                EndStatus = (BO.EndingTimeType)a.MyEndingTime
+            };
+        }).Where(c => c != null).ToList();
+
+        return result!;
+    }
 
     public BO.Position Login(int id, string password)
     {
@@ -142,6 +176,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
 
 
     }
+
 
     public void UpdateVolunteerDetails(int id, BO.Volunteer volunteer)
     {
@@ -200,5 +235,6 @@ VolunteerManager.Observers.AddObserver(id, observer); //stage 5
 VolunteerManager.Observers.RemoveListObserver(listObserver); //stage 5
     public void RemoveObserver(int id, Action observer) =>
 VolunteerManager.Observers.RemoveObserver(id, observer); //stage 5
+
 }
 
