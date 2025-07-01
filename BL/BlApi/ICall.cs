@@ -20,7 +20,7 @@ namespace BlApi
         IEnumerable<BO.ClosedCallInList> GetClosedCallsByVolunteer(int volunteerId, BO.CallType? callTypeFilter=null, BO.ClosedCallInList? sortField=null);/// Retrieves a sorted and filtered list of closed calls assigned to a volunteer.
         IEnumerable<BO.OpenCallInList> GetOpenCallsForVolunteerSelection(int volunteerId, BO.CallType? callTypeFilter=null, BO.OpenCallInList? sortField=null);/// Retrieves open calls available for a volunteer, sorted and filtered.
         void CompleteCallTreatment(int volunteerId, int assignmentId);/// Marks a call as completed by the volunteer.
-        void CancelCallTreatment(int requesterId, int assignmentId);/// Cancels a call assignment with validation of authorization.
+        void CancelCallTreatment(bool requester,int volunteerId, int assignmentId);/// Cancels a call assignment with validation of authorization.
         void AssignCallToVolunteer(int volunteerId, int callId);/// Assigns a call to a volunteer if it meets the necessary conditions.
     }
 }

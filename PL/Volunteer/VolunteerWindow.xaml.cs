@@ -1,116 +1,4 @@
-﻿//// VolunteerWindow.xaml.cs
-//using System;
-//using System.Globalization;
-//using System.Windows;
-//using System.Windows.Data;
-//using BO;
-
-//namespace PL.Volunteer
-//{
-//    public partial class VolunteerWindow : Window
-//    {
-//        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-//        public string ButtonText
-//        {
-//            get => (string)GetValue(ButtonTextProperty);
-//            set => SetValue(ButtonTextProperty, value);
-//        }
-//        public static readonly DependencyProperty ButtonTextProperty =
-//            DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow));
-
-//        public BO.Volunteer CurrentVolunteer
-//        {
-//            get => (BO.Volunteer)GetValue(CurrentVolunteerProperty);
-//            set => SetValue(CurrentVolunteerProperty, value);
-//        }
-//        public static readonly DependencyProperty CurrentVolunteerProperty =
-//            DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow));
-
-//        private readonly Action _observer;
-
-//        public VolunteerWindow(int id = 0)
-//        {
-//            ButtonText = id == 0 ? "Add" : "Update";
-//            InitializeComponent();
-
-//            if (id == 0)
-//                CurrentVolunteer = new BO.Volunteer();
-//            else
-//                try { CurrentVolunteer = s_bl.Volunteer.GetVolunteer(id); }
-//                catch (Exception ex)
-//                {
-//                    MessageBox.Show($"Error loading volunteer: {ex.Message}");
-//                    Close();
-//                }
-
-//            _observer = () =>
-//            {
-//                int vid = CurrentVolunteer.Id;
-//                CurrentVolunteer = null;
-//                CurrentVolunteer = s_bl.Volunteer.GetVolunteer(vid);
-//            };
-//        }
-
-//        private void Window_Loaded(object sender, RoutedEventArgs e)
-//        {
-//            if (CurrentVolunteer.Id != 0)
-//                s_bl.Volunteer.AddObserver(CurrentVolunteer.Id, _observer);
-//        }
-
-//        private void Window_Closed(object sender, EventArgs e)
-//        {
-//            if (CurrentVolunteer.Id != 0)
-//                s_bl.Volunteer.RemoveObserver(CurrentVolunteer.Id, _observer);
-//        }
-
-//        private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
-//        {
-//            try
-//            {
-//                if (ButtonText == "Add")
-//                    s_bl.Volunteer.AddVolunteer(CurrentVolunteer);
-//                else
-//                    s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
-
-//                MessageBox.Show($"{ButtonText} successful.");
-//                Close();
-//            }
-//            catch (Exception ex)
-//            {
-//                MessageBox.Show($"{ButtonText} failed: {ex.Message}");
-//            }
-//        }
-//    }
-
-//    public class UpdateModeToReadOnlyConverter : IValueConverter
-//    {
-//        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//        {
-//            return value?.ToString() == "Update";
-//        }
-
-//        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//        {
-//            throw new NotImplementedException();
-//        }
-//    }
-
-//    public class UpdateModeToVisibilityConverter : IValueConverter
-//    {
-//        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//        {
-//            return value?.ToString() == "Update" ? Visibility.Visible : Visibility.Collapsed;
-//        }
-
-//        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//        {
-//            throw new NotImplementedException();
-//        }
-//    }
-//}
-// VolunteerWindow.xaml.cs
-using BO;
+﻿using BO;
 using BlApi;
 using System;
 using System.Collections.ObjectModel;
@@ -120,12 +8,9 @@ using System.ComponentModel;
 
 namespace PL.Volunteer
 {
-    //public partial class VolunteerWindow : Window
-    //{
     public partial class VolunteerWindow : Window, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected void OnPropertyChanged(string propertyName) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
@@ -208,25 +93,6 @@ namespace PL.Volunteer
         public static readonly DependencyProperty ButtonCallTextProperty =
             DependencyProperty.Register(nameof(ButtonCallText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Choose Call"));
 
-        // Add password property for simple binding
-        //public string VolunteerPassword
-        //{
-        //    get { return (string)GetValue(VolunteerPasswordProperty); }
-        //    set { SetValue(VolunteerPasswordProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty VolunteerPasswordProperty =
-        //    DependencyProperty.Register(nameof(VolunteerPassword), typeof(string), typeof(VolunteerWindow),
-        //        new PropertyMetadata(string.Empty, OnPasswordChanged));
-
-        //private static void OnPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        //{
-        //    if (d is VolunteerWindow window && window.CurrentVolunteer != null)
-        //    {
-        //        window.CurrentVolunteer.Password = e.NewValue?.ToString() ?? string.Empty;
-        //    }
-        //}
-
         /// <summary>
         /// constructor for adding a new volunteer
         /// </summary>
@@ -253,13 +119,12 @@ namespace PL.Volunteer
             try
             {
                 CurrentVolunteer = s_bl.Volunteer.GetVolunteer(selectedVolunteer.Id);
+                CurrentCall = CurrentVolunteer.CallInProgress;
                 if (CurrentVolunteer == null)
                     throw new Exception("Volunteer not found");
                 if (CurrentVolunteer == null)
                     throw new Exception("Volunteer not found");
                 ManagerMode = role == Position.Manager;
-                // Don't show the actual password for security - leave it empty
-                //VolunteerPassword = string.Empty;
                 ButtonText = "Update";
                 ButtonCallText = "Assign A Call";
             }
@@ -330,49 +195,6 @@ namespace PL.Volunteer
                     return;
                 }
 
-                //if (ButtonText == "Add")
-                //{
-                //    // תנאים להוספת מתנדב חדש
-                //    if (string.IsNullOrWhiteSpace(VolunteerPassword))
-                //    {
-                //        MessageBox.Show("Password is required for new volunteers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //        return;
-                //    }
-
-                //    if (VolunteerPassword.Length < 8)
-                //    {
-                //        MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //        return;
-                //    }
-
-                //    CurrentVolunteer.Password = VolunteerPassword;
-                //    s_bl.Volunteer.AddVolunteer(CurrentVolunteer);
-                //    MessageBox.Show("Volunteer added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                //    Close();
-                //}
-                //else if (ButtonText == "Update")
-                //{
-                //    if (!isEditMode)
-                //    {
-                //        // הפעלה של מצב עריכה
-                //        isEditMode = true;
-                //        SetEditMode(true);
-                //        return;
-                //    }
-
-                //// שלב ביצוע העדכון בפועל
-                //if (!string.IsNullOrWhiteSpace(VolunteerPassword) && VolunteerPassword.Length < 8)
-                //{
-                //    MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                //    return;
-                //}
-
-                //if (!string.IsNullOrWhiteSpace(VolunteerPassword))
-                //    CurrentVolunteer.Password = VolunteerPassword;
-
-                //s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
-                //MessageBox.Show("Volunteer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                //Close();
                 string password = PasswordBox.Password;
 
                 if (ButtonText == "Add")
@@ -414,14 +236,12 @@ namespace PL.Volunteer
 
                     s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
                     MessageBox.Show("Volunteer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    //Close();
                 }
 
             
             }
             catch (Exception ex)
             {
-                //MessageBox.Show($"Operation failed: {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Exception inner = ex;
                 while (inner.InnerException != null)
                     inner = inner.InnerException;
@@ -450,7 +270,7 @@ namespace PL.Volunteer
                 {
                     s_bl.Volunteer.DeleteVolunteer(CurrentVolunteer.Id);
                     MessageBox.Show("Volunteer deleted successfully.");
-                    Close(); // סגירת החלון
+                    Close();
                 }
                 catch (Exception ex)
                 {
@@ -475,10 +295,10 @@ namespace PL.Volunteer
             // Optional: Add logic if needed before window closes
         }
 
-        private void ButtonSeeCallinProgress_Click(object sender, RoutedEventArgs e)
-        {
-            // Implementation for seeing calls in progress
-        }
+        //private void ButtonSeeCallinProgress_Click(object sender, RoutedEventArgs e)
+        //{
+            
+        //}
 
         /// <summary>
         /// Cancels the current call assigned to the volunteer.
@@ -493,7 +313,7 @@ namespace PL.Volunteer
                     return;
                 }
 
-                s_bl.Call.CancelCallTreatment(CurrentCall.CallId, CurrentVolunteer.Id);
+                s_bl.Call.CancelCallTreatment(ManagerMode ,CurrentVolunteer.Id,CurrentCall.Id);
                 MessageBox.Show("Call canceled.", "Canceled", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 CurrentCall = null;
@@ -510,8 +330,18 @@ namespace PL.Volunteer
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void EndOfTreatment_Click(object sender, RoutedEventArgs e)
-        { 
-            //todo
+        {
+            try
+            {
+                s_bl.Call.CompleteCallTreatment( CurrentVolunteer.Id, CurrentCall.Id);
+                MessageBox.Show("Call Completed.", "Completed", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                CurrentCall = null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error reporting completion of call processing: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void txtMaxDistance_TextChanged(object sender, TextChangedEventArgs e)

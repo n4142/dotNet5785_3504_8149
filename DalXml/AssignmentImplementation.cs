@@ -11,6 +11,7 @@ internal class AssignmentImplementation : IAssignment
         Assignment newAssignment = enteredAssignment with { Id = newId };
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
         Assignments.Add(newAssignment);
+        XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignments_xml);
     }
 
     public void Delete(int id)

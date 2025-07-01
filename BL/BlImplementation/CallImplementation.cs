@@ -80,7 +80,7 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Assignment.Create(doAssign);
-
+            CallManager.Observers.NotifyListUpdated(); // Stage 5
         }
         catch (Exception ex)
         {
@@ -88,23 +88,23 @@ internal class CallImplementation : BlApi.ICall
         }
     }
 
-    public void CancelCallTreatment(int requesterId, int assignmentId)
+    public void CancelCallTreatment(bool isManager,int volunteerId, int assignmentId)
     {
-        var volunteer=_dal.Volunteer.Read(requesterId);
+        var volunteer =_dal.Volunteer.Read(volunteerId);
         var assignment = _dal.Assignment.Read(assignmentId);
         //checks if the volunteer is allowed canceling the treatment
-        if (assignment.VolunteerId != requesterId||volunteer.MyPosition!=DO.Position.Manager)
+        if (assignment.VolunteerId != volunteerId||!isManager)
             throw new BlUnauthorizedAccessException("This volunteer is not allowed canceling treatment");
 
         //checks if the assignment is open
-        if (assignment.EndingTimeOfTreatment == null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
+        if (assignment.EndingTimeOfTreatment != null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
             throw new BlInvalidTimeUnitException("It is not possible to report the end of treatment because the offer is not open");
 
         DO.Assignment updatedAssignment = new DO.Assignment
         {
             Id = assignment.Id,
             CallId = assignment.CallId,
-            VolunteerId = requesterId,
+            VolunteerId = volunteerId,
             EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
             EndingTimeOfTreatment = DateTime.Now,
             MyEndingTime = volunteer.MyPosition == DO.Position.Manager
@@ -132,9 +132,9 @@ internal class CallImplementation : BlApi.ICall
         //checks if the volunteer is allowed reporting the end of treatment
         if (assignment.VolunteerId != volunteerId)
             throw new BlUnauthorizedAccessException("This volunteer is not allowed because the assignment is not in his name");
-       
+
         //checks if the assignment is open
-        if (assignment.EndingTimeOfTreatment == null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
+        if ( assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
             throw new BlInvalidTimeUnitException("It is not possible to report the end of treatment because the offer is not open");
         DO.Assignment updatedAssignment=new DO.Assignment {
             Id = assignment.Id,
@@ -147,6 +147,8 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Assignment.Update(updatedAssignment);
+            CallManager.Observers.NotifyListUpdated(); // Stage 5
+
         }
         catch (DO.DalDoesNotExistException ex)
         {
