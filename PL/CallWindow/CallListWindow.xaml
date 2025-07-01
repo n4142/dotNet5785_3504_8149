@@ -2,24 +2,99 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:bo="clr-namespace:BO;assembly=BL"
-        Title="Call List" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        Title="Call List" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        xmlns:conv="clr-namespace:PL.Converters"
+        Background="#F0F6FF">
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+    </Window.Resources>
+
     <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Panel -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" VerticalAlignment="Top" Margin="0,0,0,10" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Filter by:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="StatusFilterComboBox"
+                          Width="120"
+                          SelectionChanged="StatusFilterComboBox_SelectionChanged">
+                    <ComboBox.ItemsSource>
+                        <x:Array Type="{x:Type bo:CallStatus}">
+                            <bo:CallStatus>All</bo:CallStatus>
+                            <bo:CallStatus>Open</bo:CallStatus>
+                            <bo:CallStatus>InProgress</bo:CallStatus>
+                            <bo:CallStatus>Closed</bo:CallStatus>
+                            <bo:CallStatus>Expired</bo:CallStatus>
+                            <bo:CallStatus>OpenAtRisk</bo:CallStatus>
+                            <bo:CallStatus>InProgressAtRisk</bo:CallStatus>
+                        </x:Array>
+                    </ComboBox.ItemsSource>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Sort by:" VerticalAlignment="Center" Margin="20,0,5,0"/>
+                <ComboBox Width="160" SelectionChanged="SortComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Open Time"/>
+                    <ComboBoxItem Content="Time Remaining"/>
+                    <ComboBoxItem Content="Completion Time"/>
+                </ComboBox>
+            </StackPanel>
+
+            <Button Content="Add Call"
+                    Width="110"
+                    Height="30"
+                    Background="#6BAAF7"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Margin="30,0,0,0"
+                    Click="AddCall_Click"/>
+        </StackPanel>
+
+        <!-- Data Grid -->
         <DataGrid x:Name="CallDataGrid"
+                  Grid.Row="1"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
                   CanUserAddRows="False"
-                  MouseDoubleClick="CallDataGrid_MouseDoubleClick">
+                  MouseDoubleClick="CallDataGrid_MouseDoubleClick"
+                  AlternatingRowBackground="#F4F9FF"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="Horizontal"
+                  BorderBrush="Gray"
+                  BorderThickness="1"
+                  Margin="0,10,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding CallId}" />
-                <DataGridTextColumn Header="Type" Binding="{Binding CallType}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
-                <DataGridTextColumn Header="Open Time" Binding="{Binding OpenTime}" />
-                <DataGridTextColumn Header="Time Remaining" Binding="{Binding TimeRemaining}" />
-                <DataGridTextColumn Header="Volunteer" Binding="{Binding LastVolunteerName}" />
-                <DataGridTextColumn Header="Completion Time" Binding="{Binding TotalCompletionTime}" />
-                <DataGridTextColumn Header="Assignments" Binding="{Binding TotalAssignments}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding CallId}" Width="*" />
+                <DataGridTextColumn Header="Type" Binding="{Binding CallType}" Width="*" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                <DataGridTextColumn Header="Open Time" Binding="{Binding OpenTime}" Width="*" />
+                <DataGridTextColumn Header="Time Remaining" Binding="{Binding TimeRemaining}" Width="*" />
+                <DataGridTextColumn Header="Volunteer" Binding="{Binding LastVolunteerName}" Width="*" />
+                <DataGridTextColumn Header="Completion Time" Binding="{Binding TotalCompletionTime}" Width="*" />
+                <DataGridTextColumn Header="Assignments" Binding="{Binding TotalAssignments}" Width="*" />
+
+                <DataGridTemplateColumn Header="Delete" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Delete"
+                                    Click="DeleteCall_Click"
+                                    Background="#F36C6C"
+                                    Foreground="White"
+                                    FontWeight="Bold"
+                                    Padding="2"
+                                    Visibility="{Binding CanBeDeleted, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
 </Window>
+

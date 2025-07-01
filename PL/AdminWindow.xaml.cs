@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using BlApi;
 using BO;
+using PL.Call;
 using PL.Volunteer;
 
 namespace PL
@@ -212,12 +213,7 @@ namespace PL
         }
         private void btnManageCalls_Click(object sender, RoutedEventArgs e)
         {
-            //var volunteerWindow = new PL.Volunteer.VolunteerListWindow();
-            //volunteerWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            //volunteerWindow.Show();
+            new CallListWindow().Show();
         }
-
-
-
     }
 }

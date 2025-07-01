@@ -54,7 +54,7 @@
 <Window x:Class="PL.AdminWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="מסך ניהול ראשי" Height="450" Width="800"
+        Title="מסך ניהול ראשי" Height="550" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         FlowDirection="LeftToRight">
 
@@ -63,7 +63,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -86,7 +86,7 @@
         </Border>
 
         <!-- אזור משתני תצורה בתוך StackPanel עם סידור יפה -->
-        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Padding="10" CornerRadius="5" Margin="0,0,0,10" Background="#FFF0F0F0">
+        <Border Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Padding="10"  CornerRadius="5" Margin="0,0,0,10" Background="#FFF0F0F0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <Label Content="Max Year Range:" VerticalAlignment="Center" Margin="0,0,5,0"/>
                 <TextBox Width="100" Text="{Binding MaxYearRange, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0"/>

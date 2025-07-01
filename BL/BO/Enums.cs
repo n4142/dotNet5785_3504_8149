@@ -36,6 +36,7 @@ public enum EndingTimeType
 
 public enum CallStatus
 {
+    All,
     Open,
     Closed,
     InProgress,

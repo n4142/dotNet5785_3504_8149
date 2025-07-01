@@ -67,7 +67,7 @@ namespace PL.Call
 
             try
             {
-                bl.Call.AssignCallToVolunteer(SelectedCall.Id, volunteerId);
+                bl.Call.AssignCallToVolunteer(volunteerId,SelectedCall.Id);
                 MessageBox.Show("Call assigned successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
             }
