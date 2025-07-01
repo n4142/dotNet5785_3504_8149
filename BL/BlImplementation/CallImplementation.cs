@@ -81,6 +81,9 @@ internal class CallImplementation : BlApi.ICall
         {
             _dal.Assignment.Create(doAssign);
             CallManager.Observers.NotifyListUpdated(); // Stage 5
+            CallManager.Observers.NotifyItemUpdated(callId); // Stage 5
+            VolunteerManager.Observers.NotifyItemUpdated(volunteerId);// Stage 5
+
         }
         catch (Exception ex)
         {
@@ -92,6 +95,7 @@ internal class CallImplementation : BlApi.ICall
     {
         var volunteer =_dal.Volunteer.Read(volunteerId);
         var assignment = _dal.Assignment.Read(assignmentId);
+
         //checks if the volunteer is allowed canceling the treatment
         if (assignment.VolunteerId != volunteerId||!isManager)
             throw new BlUnauthorizedAccessException("This volunteer is not allowed canceling treatment");
@@ -115,6 +119,8 @@ internal class CallImplementation : BlApi.ICall
         try
         {
             _dal.Assignment.Update(updatedAssignment);
+            CallManager.Observers.NotifyItemUpdated(assignment.CallId); // Stage 5
+            CallManager.Observers.NotifyListUpdated(); // Stage 5
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -144,11 +150,12 @@ internal class CallImplementation : BlApi.ICall
             EndingTimeOfTreatment= AdminManager.Now,
             MyEndingTime=DO.EndingTimeType.TakenCareOf
         };
+
         try
         {
             _dal.Assignment.Update(updatedAssignment);
             CallManager.Observers.NotifyListUpdated(); // Stage 5
-
+            CallManager.Observers.NotifyItemUpdated(updatedAssignment.CallId); // Stage 5
         }
         catch (DO.DalDoesNotExistException ex)
         {
