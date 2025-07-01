@@ -1,0 +1,27 @@
+﻿<Window x:Class="PL.Volunteer.VolunteerClosedCallsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Closed Calls History" Height="500" Width="800"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
+    <DockPanel Margin="10">
+        <TextBlock Text="Closed Calls History" FontSize="22" FontWeight="Bold" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Center"/>
+
+        <DataGrid x:Name="ClosedCallsGrid" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True"
+                  ItemsSource="{Binding ClosedCalls}" Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Call ID" Binding="{Binding CallId}" Width="Auto"/>
+                <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="*"/>
+                <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                <DataGridTextColumn Header="Call Type" Binding="{Binding CallType}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0" DockPanel.Dock="Bottom">
+            <Button Content="Close" Width="100" Click="Close_Click" Margin="5"/>
+        </StackPanel>
+    </DockPanel>
+</Window>

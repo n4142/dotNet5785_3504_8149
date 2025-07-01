@@ -412,5 +412,25 @@ namespace PL.Volunteer
             //todo
         }
 
+        private void txtMaxDistance_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+        private void ShowClosedCalls_Click(object sender, RoutedEventArgs e)
+        {
+            // Use CurrentVolunteer.Id to pass the volunteer ID to the VolunteerClosedCallsWindow
+            if (CurrentVolunteer != null)
+            {
+                var closedCallsWindow = new VolunteerClosedCallsWindow(CurrentVolunteer.Id); // Adjusted constructor usage
+                closedCallsWindow.DataContext = CurrentVolunteer.Id; // Pass the ID via DataContext or another property
+                closedCallsWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No volunteer selected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
     }
 }
