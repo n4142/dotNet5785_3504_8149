@@ -15,20 +15,6 @@
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
-    <Id>234342652</Id>
-    <FullName>Gilad Oren</FullName>
-    <Phone>0527641120</Phone>
-    <Email>GiladOren@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>4112</Password>
-    <CurrentAddress>Begin Blvd 8, Ashdod</CurrentAddress>
-    <Latitude>31.8025</Latitude>
-    <Longitude>34.6457</Longitude>
-    <MaxDistance>14</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
     <Id>251865178</Id>
     <FullName>Yael Peretz</FullName>
     <Phone>0527648693</Phone>
@@ -223,5 +209,19 @@
     <Longitude>34.7705</Longitude>
     <MaxDistance>11</MaxDistance>
     <MyDistance>Walk</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>234342652</Id>
+    <FullName>Gilad Oren</FullName>
+    <Phone>0527641120</Phone>
+    <Email>GiladOren@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>4112</Password>
+    <CurrentAddress>Begin Blvd 8, Ashdod</CurrentAddress>
+    <Latitude>31.8025</Latitude>
+    <Longitude>34.6457</Longitude>
+    <MaxDistance>14</MaxDistance>
+    <MyDistance>Air</MyDistance>
   </Volunteer>
 </ArrayOfVolunteer>

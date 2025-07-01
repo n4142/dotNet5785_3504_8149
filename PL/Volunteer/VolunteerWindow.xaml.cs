@@ -184,8 +184,21 @@ namespace PL.Volunteer
             set { SetValue(ButtonTextProperty, value); }
         }
 
+        //public static readonly DependencyProperty ButtonTextProperty =
+        //    DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Add"));
         public static readonly DependencyProperty ButtonTextProperty =
-            DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Add"));
+    DependencyProperty.Register(
+        nameof(ButtonText),
+        typeof(string),
+        typeof(VolunteerWindow),
+        new PropertyMetadata("Add", OnButtonTextChanged));
+
+        private static void OnButtonTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is VolunteerWindow window)
+                window.OnPropertyChanged(nameof(IsAddMode)); // טריגר עדכון לבינדינג
+        }
+
         public string ButtonCallText
         {
             get { return (string)GetValue(ButtonCallTextProperty); }
@@ -193,26 +206,26 @@ namespace PL.Volunteer
         }
 
         public static readonly DependencyProperty ButtonCallTextProperty =
-            DependencyProperty.Register(nameof(ButtonCallText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("See Calls In Progress"));
+            DependencyProperty.Register(nameof(ButtonCallText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Choose Call"));
 
         // Add password property for simple binding
-        public string VolunteerPassword
-        {
-            get { return (string)GetValue(VolunteerPasswordProperty); }
-            set { SetValue(VolunteerPasswordProperty, value); }
-        }
+        //public string VolunteerPassword
+        //{
+        //    get { return (string)GetValue(VolunteerPasswordProperty); }
+        //    set { SetValue(VolunteerPasswordProperty, value); }
+        //}
 
-        public static readonly DependencyProperty VolunteerPasswordProperty =
-            DependencyProperty.Register(nameof(VolunteerPassword), typeof(string), typeof(VolunteerWindow),
-                new PropertyMetadata(string.Empty, OnPasswordChanged));
+        //public static readonly DependencyProperty VolunteerPasswordProperty =
+        //    DependencyProperty.Register(nameof(VolunteerPassword), typeof(string), typeof(VolunteerWindow),
+        //        new PropertyMetadata(string.Empty, OnPasswordChanged));
 
-        private static void OnPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (d is VolunteerWindow window && window.CurrentVolunteer != null)
-            {
-                window.CurrentVolunteer.Password = e.NewValue?.ToString() ?? string.Empty;
-            }
-        }
+        //private static void OnPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    if (d is VolunteerWindow window && window.CurrentVolunteer != null)
+        //    {
+        //        window.CurrentVolunteer.Password = e.NewValue?.ToString() ?? string.Empty;
+        //    }
+        //}
 
         /// <summary>
         /// constructor for adding a new volunteer
@@ -246,9 +259,9 @@ namespace PL.Volunteer
                     throw new Exception("Volunteer not found");
                 ManagerMode = role == Position.Manager;
                 // Don't show the actual password for security - leave it empty
-                VolunteerPassword = string.Empty;
+                //VolunteerPassword = string.Empty;
                 ButtonText = "Update";
-                ButtonCallText = "See Calls In Progress";
+                ButtonCallText = "Assign A Call";
             }
             catch (Exception ex)
             {
@@ -274,7 +287,7 @@ namespace PL.Volunteer
                 if (CurrentVolunteer != null)
                 {
                     // Don't show the actual password for security - leave it empty
-                    VolunteerPassword = string.Empty;
+                    //VolunteerPassword = string.Empty;
                 }
                 ButtonText = "Update";
             }
@@ -317,22 +330,66 @@ namespace PL.Volunteer
                     return;
                 }
 
+                //if (ButtonText == "Add")
+                //{
+                //    // תנאים להוספת מתנדב חדש
+                //    if (string.IsNullOrWhiteSpace(VolunteerPassword))
+                //    {
+                //        MessageBox.Show("Password is required for new volunteers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //        return;
+                //    }
+
+                //    if (VolunteerPassword.Length < 8)
+                //    {
+                //        MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //        return;
+                //    }
+
+                //    CurrentVolunteer.Password = VolunteerPassword;
+                //    s_bl.Volunteer.AddVolunteer(CurrentVolunteer);
+                //    MessageBox.Show("Volunteer added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                //    Close();
+                //}
+                //else if (ButtonText == "Update")
+                //{
+                //    if (!isEditMode)
+                //    {
+                //        // הפעלה של מצב עריכה
+                //        isEditMode = true;
+                //        SetEditMode(true);
+                //        return;
+                //    }
+
+                //// שלב ביצוע העדכון בפועל
+                //if (!string.IsNullOrWhiteSpace(VolunteerPassword) && VolunteerPassword.Length < 8)
+                //{
+                //    MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                //    return;
+                //}
+
+                //if (!string.IsNullOrWhiteSpace(VolunteerPassword))
+                //    CurrentVolunteer.Password = VolunteerPassword;
+
+                //s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
+                //MessageBox.Show("Volunteer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                //Close();
+                string password = PasswordBox.Password;
+
                 if (ButtonText == "Add")
                 {
-                    // תנאים להוספת מתנדב חדש
-                    if (string.IsNullOrWhiteSpace(VolunteerPassword))
+                    if (string.IsNullOrWhiteSpace(password))
                     {
                         MessageBox.Show("Password is required for new volunteers.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    if (VolunteerPassword.Length < 8)
+                    if (password.Length < 8)
                     {
                         MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    CurrentVolunteer.Password = VolunteerPassword;
+                    CurrentVolunteer.Password = password;
                     s_bl.Volunteer.AddVolunteer(CurrentVolunteer);
                     MessageBox.Show("Volunteer added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
@@ -341,26 +398,26 @@ namespace PL.Volunteer
                 {
                     if (!isEditMode)
                     {
-                        // הפעלה של מצב עריכה
                         isEditMode = true;
                         SetEditMode(true);
                         return;
                     }
 
-                    // שלב ביצוע העדכון בפועל
-                    if (!string.IsNullOrWhiteSpace(VolunteerPassword) && VolunteerPassword.Length < 8)
+                    if (!string.IsNullOrWhiteSpace(password) && password.Length < 8)
                     {
                         MessageBox.Show("Password must be at least 8 characters long.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(VolunteerPassword))
-                        CurrentVolunteer.Password = VolunteerPassword;
+                    if (!string.IsNullOrWhiteSpace(password))
+                        CurrentVolunteer.Password = password;
 
                     s_bl.Volunteer.UpdateVolunteerDetails(CurrentVolunteer.Id, CurrentVolunteer);
                     MessageBox.Show("Volunteer updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Close();
+                    //Close();
                 }
+
+            
             }
             catch (Exception ex)
             {
