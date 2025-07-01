@@ -116,11 +116,19 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.ComponentModel;
 
 namespace PL.Volunteer
 {
-    public partial class VolunteerWindow : Window
+    //public partial class VolunteerWindow : Window
+    //{
+    public partial class VolunteerWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         static readonly IBl s_bl = Factory.Get();
 
         /// <summary>
@@ -132,8 +140,20 @@ namespace PL.Volunteer
             set { SetValue(CurrentVolunteerProperty, value); }
         }
 
+        //public static readonly DependencyProperty CurrentVolunteerProperty =
+        //    DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
         public static readonly DependencyProperty CurrentVolunteerProperty =
-            DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
+    DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow),
+        new PropertyMetadata(null, OnCurrentVolunteerChanged));
+
+        private static void OnCurrentVolunteerChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (d is VolunteerWindow window && window.CurrentVolunteer != null)
+            {
+                window.ManagerMode = window.CurrentVolunteer.MyPosition == Position.Manager;
+            }
+        }
+
 
         public ObservableCollection<Position> Roles { get; } = new ObservableCollection<Position>((Position[])Enum.GetValues(typeof(Position)));
         public ObservableCollection<DistanceType> DistanceTypes { get; } = new ObservableCollection<DistanceType>((DistanceType[])Enum.GetValues(typeof(DistanceType)));
@@ -143,10 +163,32 @@ namespace PL.Volunteer
             get => (BO.CallInProgress?)GetValue(CurrentCallProperty);
             set => SetValue(CurrentCallProperty, value);
         }
+        public VolunteerInList LoggedInVolunteer { get; set; }
 
         private bool isEditMode = false;
 
-        private bool managerMode => CurrentVolunteer.MyPosition == Position.Manager;
+        //private bool _managerMode;
+        //public bool ManagerMode
+        //{
+        //    get => _managerMode;
+        //    set
+        //    {
+        //        if (_managerMode != value)
+        //        {
+        //            _managerMode = value;
+        //            OnPropertyChanged(nameof(ManagerMode));
+        //        }
+        //    }
+        //}
+        public bool ManagerMode
+        {
+            get { return (bool)GetValue(ManagerModeProperty); }
+            set { SetValue(ManagerModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ManagerModeProperty =
+            DependencyProperty.Register(nameof(ManagerMode), typeof(bool), typeof(VolunteerWindow));
+
 
 
 
@@ -207,7 +249,7 @@ namespace PL.Volunteer
         /// function that receives a selected volunteer from the list for editing
         /// </summary>
         /// <param name="selectedVolunteer"></param>
-        public VolunteerWindow(VolunteerInList selectedVolunteer)
+        public VolunteerWindow(VolunteerInList selectedVolunteer , Position role)
         {
             InitializeComponent();
             DataContext = this;
@@ -217,7 +259,9 @@ namespace PL.Volunteer
                 CurrentVolunteer = s_bl.Volunteer.GetVolunteer(selectedVolunteer.Id);
                 if (CurrentVolunteer == null)
                     throw new Exception("Volunteer not found");
-
+                if (CurrentVolunteer == null)
+                    throw new Exception("Volunteer not found");
+                ManagerMode = role == Position.Manager;
                 // Don't show the actual password for security - leave it empty
                 VolunteerPassword = string.Empty;
                 ButtonText = "Update";
@@ -260,13 +304,15 @@ namespace PL.Volunteer
             }
         }
 
-        /// <summary>
-        /// Button click event handler for opening the ChooseCallWindow,
-        /// allowing the current volunteer to select an available call.
-        /// </summary>
-        /// <param name="sender">The source of the event (typically the button).</param>
-        /// <param name="e">Event data associated with the click.</param>
-        private void ChooseCall_Click(object sender, RoutedEventArgs e)
+
+
+            /// <summary>
+            /// Button click event handler for opening the ChooseCallWindow,
+            /// allowing the current volunteer to select an available call.
+            /// </summary>
+            /// <param name="sender">The source of the event (typically the button).</param>
+            /// <param name="e">Event data associated with the click.</param>
+            private void ChooseCall_Click(object sender, RoutedEventArgs e)
         {
             var chooseWindow = new Call.ChooseCallWindow(CurrentVolunteer.Id);
             chooseWindow.ShowDialog();
