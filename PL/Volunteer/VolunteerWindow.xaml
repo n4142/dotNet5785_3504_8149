@@ -132,7 +132,7 @@
                             <!-- Fields -->
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Id:" Width="120" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding CurrentVolunteer.Id}" Width="250"/>
+                                <TextBox x:Name="txtId" Text="{Binding CurrentVolunteer.Id}" Width="250" IsReadOnly="True"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
@@ -142,12 +142,12 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Phone Number:" Width="120" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding CurrentVolunteer.Phone}" Width="250"/>
+                                <TextBox x:Name="txtPhoneNumber" Text="{Binding CurrentVolunteer.Phone}" Width="250" IsReadOnly="True"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Email:" Width="120" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding CurrentVolunteer.Email}" Width="250"/>
+                                <TextBox x:Name="txtEmail" Text="{Binding CurrentVolunteer.Email}" Width="250" IsReadOnly="True"/>
                             </StackPanel>
 
                             <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
@@ -161,7 +161,7 @@
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Current Address:" Width="120" VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding CurrentVolunteer.CurrentAddress}" Width="250"/>
+                                <TextBox x:Name="txtAddress" Text="{Binding CurrentVolunteer.CurrentAddress}" Width="250" IsReadOnly="True"/>
                             </StackPanel>
 
                             <!--<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
@@ -174,39 +174,39 @@
                                 <TextBlock Text="{Binding CurrentVolunteer.Longitude}" VerticalAlignment="Center"/>
                             </StackPanel>-->
 
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" Visibility="{Binding managerMode}">
                                 <TextBlock Text="Role:" Width="120"/>
-                                <ComboBox Width="250" ItemsSource="{Binding Roles}" SelectedValue="{Binding CurrentVolunteer.MyPosition}" Style="{StaticResource ColoredComboBox}"/>
+                                <ComboBox x:Name="cmbRole" Width="250" ItemsSource="{Binding Roles}" SelectedValue="{Binding CurrentVolunteer.MyPosition}" Style="{StaticResource ColoredComboBox}" IsEnabled="false"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Is Active:" Width="120"/>
-                                <CheckBox IsChecked="{Binding CurrentVolunteer.IsActive}" VerticalAlignment="Center"/>
+                                <CheckBox x:Name="ckbxActive" IsChecked="{Binding CurrentVolunteer.IsActive}" VerticalAlignment="Center" IsEnabled="false" />
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Max Distance:" Width="120"/>
-                                <TextBox Text="{Binding CurrentVolunteer.MaxDistance}" Width="250"/>
+                                <TextBox x:Name="txtMaxDistance" Text="{Binding CurrentVolunteer.MaxDistance}" Width="250" IsReadOnly="True"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Distance Type:" Width="120"/>
-                                <ComboBox Width="250" ItemsSource="{Binding DistanceTypes}" SelectedValue="{Binding CurrentVolunteer.MyDistance}" Style="{StaticResource ColoredComboBox}"/>
+                                <ComboBox x:Name="cmbDistanceType" Width="250" ItemsSource="{Binding DistanceTypes}" SelectedValue="{Binding CurrentVolunteer.MyDistance}" Style="{StaticResource ColoredComboBox}" IsEnabled="false"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,20,0,5">
                                 <TextBlock Text="Total Handled:" Width="120"/>
-                                <TextBlock Text="{Binding CurrentVolunteer.HandledCalls}" />
+                                <TextBlock Text="{Binding CurrentVolunteer.HandledCalls}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Total Canceled:" Width="120"/>
-                                <TextBlock Text="{Binding CurrentVolunteer.CanceledCalls}" />
+                                <TextBlock Text="{Binding CurrentVolunteer.CanceledCalls}"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                                 <TextBlock Text="Total Expired:" Width="120"/>
-                                <TextBlock Text="{Binding CurrentVolunteer.ExpiredCalls}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding CurrentVolunteer.ExpiredCalls}" VerticalAlignment="Center" />
                             </StackPanel>
 
                             <Button Content="{Binding ButtonText}"  Click="ButtonAddUpdate_Click" Background="#6FA8DC" Width="80" Style="{StaticResource RoundedButtonStyle}"/>

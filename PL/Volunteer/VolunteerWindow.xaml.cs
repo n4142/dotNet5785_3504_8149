@@ -146,6 +146,10 @@ namespace PL.Volunteer
 
         private bool isEditMode = false;
 
+        private bool managerMode => CurrentVolunteer.MyPosition == Position.Manager;
+
+
+
         public static readonly DependencyProperty CurrentCallProperty =
             DependencyProperty.Register(nameof(CurrentCall), typeof(BO.CallInProgress), typeof(VolunteerWindow));
 
@@ -331,18 +335,26 @@ namespace PL.Volunteer
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show($"Operation failed: {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Exception inner = ex;
+                while (inner.InnerException != null)
+                    inner = inner.InnerException;
+
+                MessageBox.Show(inner.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
             }
         }
         private void SetEditMode(bool enableEdit)
         {
-            // כאן את צריכה לשים שמות של כל השדות הרלוונטיים כפי שמוגדרים ב־XAML
+            txtId.IsReadOnly = !enableEdit;
             txtFullName.IsReadOnly = !enableEdit;
-            //txtPhoneNumber.IsReadOnly = !enableEdit;
-            //cmbDistanceType.IsEnabled = enableEdit;
-            //cmbRole.IsEnabled = enableEdit;
-            //txtPassword.IsEnabled = enableEdit;
-            // הוסיפי עוד שדות כאן לפי הצורך
+            txtPhoneNumber.IsReadOnly = !enableEdit;
+            txtEmail.IsReadOnly = !enableEdit;
+            txtAddress.IsReadOnly = !enableEdit;
+            cmbRole.IsEnabled = enableEdit;
+            ckbxActive.IsEnabled = enableEdit;
+            txtMaxDistance.IsReadOnly = !enableEdit;
+            cmbDistanceType.IsEnabled = enableEdit;
         }
 
 
