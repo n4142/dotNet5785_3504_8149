@@ -98,7 +98,7 @@ namespace PL.Volunteer
         //        QueryVolunteerList();
         //    }
         //}
-
+        
         private void AddVolunteer_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerWindow().Show();

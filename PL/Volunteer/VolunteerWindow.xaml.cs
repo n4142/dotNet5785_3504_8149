@@ -166,20 +166,7 @@ namespace PL.Volunteer
         public VolunteerInList LoggedInVolunteer { get; set; }
 
         private bool isEditMode = false;
-
-        //private bool _managerMode;
-        //public bool ManagerMode
-        //{
-        //    get => _managerMode;
-        //    set
-        //    {
-        //        if (_managerMode != value)
-        //        {
-        //            _managerMode = value;
-        //            OnPropertyChanged(nameof(ManagerMode));
-        //        }
-        //    }
-        //}
+        public bool IsAddMode => ButtonText == "Add";
         public bool ManagerMode
         {
             get { return (bool)GetValue(ManagerModeProperty); }
@@ -189,12 +176,8 @@ namespace PL.Volunteer
         public static readonly DependencyProperty ManagerModeProperty =
             DependencyProperty.Register(nameof(ManagerMode), typeof(bool), typeof(VolunteerWindow));
 
-
-
-
         public static readonly DependencyProperty CurrentCallProperty =
             DependencyProperty.Register(nameof(CurrentCall), typeof(BO.CallInProgress), typeof(VolunteerWindow));
-
         public string ButtonText
         {
             get { return (string)GetValue(ButtonTextProperty); }
@@ -203,7 +186,6 @@ namespace PL.Volunteer
 
         public static readonly DependencyProperty ButtonTextProperty =
             DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Add"));
-
         public string ButtonCallText
         {
             get { return (string)GetValue(ButtonCallTextProperty); }
@@ -243,6 +225,7 @@ namespace PL.Volunteer
             ButtonText = "Add";
             DataContext = this;
             ButtonCallText = "Assign A Call";
+            SetEditMode(true);
         }
 
         /// <summary>
@@ -401,6 +384,22 @@ namespace PL.Volunteer
             ckbxActive.IsEnabled = enableEdit;
             txtMaxDistance.IsReadOnly = !enableEdit;
             cmbDistanceType.IsEnabled = enableEdit;
+        }
+        private void DeleteVolunteer_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to delete this volunteer?", "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    s_bl.Volunteer.DeleteVolunteer(CurrentVolunteer.Id);
+                    MessageBox.Show("Volunteer deleted successfully.");
+                    Close(); // סגירת החלון
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting volunteer: {ex.Message}");
+                }
+            }
         }
 
 
