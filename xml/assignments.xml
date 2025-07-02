@@ -1,1 +1,11 @@
-<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assignment>
+    <CallId>7</CallId>
+    <VolunteerId>210278233</VolunteerId>
+    <EntryTimeOfTreatment>2025-07-02T12:52:40</EntryTimeOfTreatment>
+    <EndingTimeOfTreatment>2025-07-02T13:30:47.0365519+03:00</EndingTimeOfTreatment>
+    <MyEndingTime>CanceledByVolunteer</MyEndingTime>
+    <Id>51</Id>
+  </Assignment>
+</ArrayOfAssignment>

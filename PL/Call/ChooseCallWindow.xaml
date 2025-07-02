@@ -1,7 +1,7 @@
 ﻿<Window x:Class="PL.Call.ChooseCallWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Choose Call" Height="400" Width="600"
+        Title="Choose Call" Height="600" Width="1200"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -17,11 +17,12 @@
         <DataGrid Grid.Row="1" ItemsSource="{Binding Calls}" AutoGenerateColumns="False"
                   SelectedItem="{Binding SelectedCall, Mode=TwoWay}" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Calls.Id}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
                 <DataGridTextColumn Header="Type" Binding="{Binding CallType}" />
-                <DataGridTextColumn Header="Address" Binding="{Binding FullAddress}" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                <DataGridTextColumn Header="Max Time" Binding="{Binding MaxCompletionTime}" />
+                <DataGridTextColumn Header="Address" Binding="{Binding Address}" />
+                <DataGridTextColumn Header="Distance From Volunteer" Binding="{Binding DistanceFromVolunteer}" />
+                <DataGridTextColumn Header="Max Time" Binding="{Binding MaxEndTime}" />
             </DataGrid.Columns>
         </DataGrid>
 

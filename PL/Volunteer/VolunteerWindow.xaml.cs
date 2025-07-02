@@ -25,8 +25,6 @@ namespace PL.Volunteer
             set { SetValue(CurrentVolunteerProperty, value); }
         }
 
-        //public static readonly DependencyProperty CurrentVolunteerProperty =
-        //    DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow), new PropertyMetadata(null));
         public static readonly DependencyProperty CurrentVolunteerProperty =
     DependencyProperty.Register(nameof(CurrentVolunteer), typeof(BO.Volunteer), typeof(VolunteerWindow),
         new PropertyMetadata(null, OnCurrentVolunteerChanged));
@@ -69,8 +67,6 @@ namespace PL.Volunteer
             set { SetValue(ButtonTextProperty, value); }
         }
 
-        //public static readonly DependencyProperty ButtonTextProperty =
-        //    DependencyProperty.Register(nameof(ButtonText), typeof(string), typeof(VolunteerWindow), new PropertyMetadata("Add"));
         public static readonly DependencyProperty ButtonTextProperty =
     DependencyProperty.Register(
         nameof(ButtonText),
@@ -149,11 +145,6 @@ namespace PL.Volunteer
             try
             {
                 CurrentVolunteer = s_bl.Volunteer.GetVolunteer(idNumber);
-                if (CurrentVolunteer != null)
-                {
-                    // Don't show the actual password for security - leave it empty
-                    //VolunteerPassword = string.Empty;
-                }
                 ButtonText = "Update";
             }
             catch (Exception ex)
@@ -290,16 +281,6 @@ namespace PL.Volunteer
             Close();
         }
 
-        private void VolunteerPage_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            // Optional: Add logic if needed before window closes
-        }
-
-        //private void ButtonSeeCallinProgress_Click(object sender, RoutedEventArgs e)
-        //{
-            
-        //}
-
         /// <summary>
         /// Cancels the current call assigned to the volunteer.
         /// </summary>
@@ -354,7 +335,6 @@ namespace PL.Volunteer
             if (CurrentVolunteer != null)
             {
                 var closedCallsWindow = new VolunteerClosedCallsWindow(CurrentVolunteer.Id); // Adjusted constructor usage
-               // closedCallsWindow.DataContext = CurrentVolunteer.Id; // Pass the ID via DataContext or another property
                 closedCallsWindow.ShowDialog();
             }
             else

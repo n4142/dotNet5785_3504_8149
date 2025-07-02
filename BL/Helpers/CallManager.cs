@@ -13,26 +13,62 @@ namespace Helpers
         private static IDal s_dal = Factory.Get; //stage 4
         internal static ObserverManager Observers = new(); //stage 5
 
+        //public static BO.CallStatus GetCallStatus(int callId)
+        //{
+        //    lock (AdminManager.BlMutex)
+        //    {
+        //        var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
+        //        var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
+        //        TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
+
+        //        if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
+        //            return BO.CallStatus.Expired;
+        //        if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
+        //            return BO.CallStatus.InProgressAtRisk;
+        //        if (assignment != null)
+        //            return BO.CallStatus.InProgress;
+        //        if (timeLeft <= s_dal.Config.RiskRange)
+        //            return BO.CallStatus.OpenAtRisk;
+
+        //        return BO.CallStatus.Open;
+        //    }
+        //}
         public static BO.CallStatus GetCallStatus(int callId)
         {
             lock (AdminManager.BlMutex)
             {
                 var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
-                var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
+                var assignments = s_dal.Assignment.ReadAll().Where(a => a.CallId == callId).ToList();
+
                 TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
 
+                // 1. אם כל ההקצאות הסתיימו (כלומר יש להן MyEndingTime מוגדר) → הקריאה סגורה
+                if (assignments.Any() && assignments.All(a => a.MyEndingTime != null))
+                    return BO.CallStatus.Closed;
+
+                // 2. אם הזמן עבר ואין הקצאות פעילות → Expired
                 if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
                     return BO.CallStatus.Expired;
-                if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
+
+                // 3. יש הקצאה פתוחה והזמן קרוב לסיום → InProgressAtRisk
+                if (assignments.Any(a => a.MyEndingTime == null) &&
+                    timeLeft <= s_dal.Config.RiskRange)
                     return BO.CallStatus.InProgressAtRisk;
-                if (assignment != null)
+
+                // 4. יש הקצאה פתוחה → InProgress
+                if (assignments.Any(a => a.MyEndingTime == null))
                     return BO.CallStatus.InProgress;
-                if (timeLeft <= s_dal.Config.RiskRange)
+
+                // 5. אין הקצאות והזמן קרוב לסיום → OpenAtRisk
+                if (!assignments.Any() && timeLeft <= s_dal.Config.RiskRange)
                     return BO.CallStatus.OpenAtRisk;
 
+                // 6. אין הקצאות בכלל → Open
                 return BO.CallStatus.Open;
             }
         }
+
+
 
         internal static BO.CallInList ConvertToBOCallInList(DO.Call call)
         {

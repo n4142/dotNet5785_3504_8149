@@ -1,113 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfCall xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<?xml version='1.0' encoding='utf-8'?>
+<ArrayOfCall>
   <Call>
-    <MyCall>Depression</MyCall>
+    <MyCall>Soldiers</MyCall>
     <FullAddressCall>Herzl St 1, Tel Aviv</FullAddressCall>
     <Latitude>32.0595</Latitude>
     <Longitude>34.7705</Longitude>
-    <OpeningTime>2022-10-13T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
+    <OpeningTime>2022-01-23T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-04T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
     <Id>1</Id>
   </Call>
   <Call>
-    <MyCall>Depression</MyCall>
-    <FullAddressCall>Hanevi'im St 15, Jerusalem</FullAddressCall>
-    <Latitude>31.7857</Latitude>
-    <Longitude>35.2208</Longitude>
-    <OpeningTime>2024-11-16T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
-    <Id>3</Id>
-  </Call>
-  <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
-    <FullAddressCall>Jabotinsky St 125, Ramat Gan</FullAddressCall>
-    <Latitude>32.0885</Latitude>
-    <Longitude>34.8037</Longitude>
-    <OpeningTime>2022-04-02T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
-    <Id>5</Id>
-  </Call>
-  <Call>
-    <MyCall>Depression</MyCall>
-    <FullAddressCall>Dizengoff St 100, Tel Aviv</FullAddressCall>
-    <Latitude>32.0758</Latitude>
-    <Longitude>34.7742</Longitude>
-    <OpeningTime>2025-04-27T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
-    <Id>9</Id>
+    <MyCall>Loneliness</MyCall>
+    <FullAddressCall>Ben Yehuda St 10, Haifa</FullAddressCall>
+    <Latitude>32.8195</Latitude>
+    <Longitude>34.9983</Longitude>
+    <OpeningTime>2025-03-31T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-03-31T00:36:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <Id>2</Id>
   </Call>
   <Call>
     <MyCall>SuddenCrises</MyCall>
-    <FullAddressCall>Yehuda Halevi St 30, Tel Aviv</FullAddressCall>
-    <Latitude>32.0622</Latitude>
-    <Longitude>34.7701</Longitude>
-    <OpeningTime>2024-07-10T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
-    <Id>11</Id>
-  </Call>
-  <Call>
-    <MyCall>Depression</MyCall>
-    <FullAddressCall>Hertzl St 10, Beer Sheva</FullAddressCall>
-    <Latitude>31.2518</Latitude>
-    <Longitude>34.7913</Longitude>
-    <OpeningTime>2024-03-15T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>12</Id>
-  </Call>
-  <Call>
-    <MyCall>SuicidalSituations</MyCall>
-    <FullAddressCall>Sokolov St 15, Herzliya</FullAddressCall>
-    <Latitude>32.1663</Latitude>
-    <Longitude>34.8426</Longitude>
-    <OpeningTime>2024-12-25T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
-    <Id>13</Id>
-  </Call>
-  <Call>
-    <MyCall>Soldiers</MyCall>
-    <FullAddressCall>Begin Blvd 8, Ashdod</FullAddressCall>
-    <Latitude>31.8025</Latitude>
-    <Longitude>34.6457</Longitude>
-    <OpeningTime>2024-05-15T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
-    <Id>14</Id>
+    <FullAddressCall>Hanevi'im St 15, Jerusalem</FullAddressCall>
+    <Latitude>31.7857</Latitude>
+    <Longitude>35.2208</Longitude>
+    <OpeningTime>2024-02-07T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-02-07T00:52:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <Id>3</Id>
   </Call>
   <Call>
     <MyCall>Loneliness</MyCall>
-    <FullAddressCall>Ben Gurion St 1, Bat Yam</FullAddressCall>
-    <Latitude>32.0153</Latitude>
-    <Longitude>34.7504</Longitude>
-    <OpeningTime>2024-01-24T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>15</Id>
+    <FullAddressCall>Rothschild Blvd 50, Tel Aviv</FullAddressCall>
+    <Latitude>32.0633</Latitude>
+    <Longitude>34.7735</Longitude>
+    <OpeningTime>2022-05-10T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-07T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <Id>4</Id>
+  </Call>
+  <Call>
+    <MyCall>Loneliness</MyCall>
+    <FullAddressCall>Jabotinsky St 125, Ramat Gan</FullAddressCall>
+    <Latitude>32.0885</Latitude>
+    <Longitude>34.8037</Longitude>
+    <OpeningTime>2024-01-20T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-01-20T00:33:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
+    <Id>5</Id>
+  </Call>
+  <Call>
+    <MyCall>PanicAttacks</MyCall>
+    <FullAddressCall>King George St 20, Jerusalem</FullAddressCall>
+    <Latitude>31.7762</Latitude>
+    <Longitude>35.2137</Longitude>
+    <OpeningTime>2024-09-25T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-09-25T00:52:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
+    <Id>6</Id>
+  </Call>
+  <Call>
+    <MyCall>Loneliness</MyCall>
+    <FullAddressCall>Allenby St 45, Tel Aviv</FullAddressCall>
+    <Latitude>32.0641</Latitude>
+    <Longitude>34.7698</Longitude>
+    <OpeningTime>2022-03-06T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-10T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
+    <Id>7</Id>
+  </Call>
+  <Call>
+    <MyCall>SuddenCrises</MyCall>
+    <FullAddressCall>Bialik St 7, Ramat Gan</FullAddressCall>
+    <Latitude>32.0827</Latitude>
+    <Longitude>34.8235</Longitude>
+    <OpeningTime>2025-02-05T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-02-05T00:58:00</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <Id>8</Id>
+  </Call>
+  <Call>
+    <MyCall>Soldiers</MyCall>
+    <FullAddressCall>Dizengoff St 100, Tel Aviv</FullAddressCall>
+    <Latitude>32.0758</Latitude>
+    <Longitude>34.7742</Longitude>
+    <OpeningTime>2024-02-20T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-02-20T00:51:00</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <Id>9</Id>
+  </Call>
+  <Call>
+    <MyCall>FamilyIssues</MyCall>
+    <FullAddressCall>Weizmann St 5, Rehovot</FullAddressCall>
+    <Latitude>31.8947</Latitude>
+    <Longitude>34.8112</Longitude>
+    <OpeningTime>2022-07-06T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-13T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <Id>10</Id>
+  </Call>
+  <Call>
+    <MyCall>Depression</MyCall>
+    <FullAddressCall>Yehuda Halevi St 30, Tel Aviv</FullAddressCall>
+    <Latitude>32.0622</Latitude>
+    <Longitude>34.7701</Longitude>
+    <OpeningTime>2024-06-17T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-06-17T00:49:00</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <Id>11</Id>
+  </Call>
+  <Call>
+    <MyCall>FamilyIssues</MyCall>
+    <FullAddressCall>Hertzl St 10, Beer Sheva</FullAddressCall>
+    <Latitude>31.2518</Latitude>
+    <Longitude>34.7913</Longitude>
+    <OpeningTime>2022-08-11T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-08-11T00:53:00</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
+    <Id>12</Id>
+  </Call>
+  <Call>
+    <MyCall>ViolenceOrDanger</MyCall>
+    <FullAddressCall>Sokolov St 15, Herzliya</FullAddressCall>
+    <Latitude>32.1663</Latitude>
+    <Longitude>34.8426</Longitude>
+    <OpeningTime>2022-12-02T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-16T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
+    <Id>13</Id>
+  </Call>
+  <Call>
+    <MyCall>FamilyIssues</MyCall>
+    <FullAddressCall>Begin Blvd 8, Ashdod</FullAddressCall>
+    <Latitude>31.8025</Latitude>
+    <Longitude>34.6457</Longitude>
+    <OpeningTime>2022-12-13T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-12-13T00:55:00</MaxTimeFinishCalling>
+    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
+    <Id>14</Id>
   </Call>
   <Call>
     <MyCall>SuicidalSituations</MyCall>
+    <FullAddressCall>Ben Gurion St 1, Bat Yam</FullAddressCall>
+    <Latitude>32.0153</Latitude>
+    <Longitude>34.7504</Longitude>
+    <OpeningTime>2023-10-26T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-10-26T00:38:00</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <Id>15</Id>
+  </Call>
+  <Call>
+    <MyCall>FamilyIssues</MyCall>
     <FullAddressCall>HaMasger St 22, Tel Aviv</FullAddressCall>
     <Latitude>32.0619</Latitude>
     <Longitude>34.7813</Longitude>
-    <OpeningTime>2024-10-28T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <OpeningTime>2024-12-27T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-19T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>16</Id>
   </Call>
   <Call>
-    <MyCall>PTSD</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Pinsker St 12, Haifa</FullAddressCall>
     <Latitude>32.8215</Latitude>
     <Longitude>34.9956</Longitude>
-    <OpeningTime>2022-01-14T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <OpeningTime>2024-06-09T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-06-09T00:48:00</MaxTimeFinishCalling>
+    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
     <Id>17</Id>
   </Call>
   <Call>
@@ -115,28 +175,28 @@
     <FullAddressCall>Shderot HaNasi 45, Haifa</FullAddressCall>
     <Latitude>32.8077</Latitude>
     <Longitude>35.0004</Longitude>
-    <OpeningTime>2024-06-09T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
+    <OpeningTime>2024-08-25T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-08-25T00:38:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
     <Id>18</Id>
   </Call>
   <Call>
-    <MyCall>PanicAttacks</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Emek Refaim St 20, Jerusalem</FullAddressCall>
     <Latitude>31.7656</Latitude>
     <Longitude>35.2108</Longitude>
-    <OpeningTime>2024-01-22T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
+    <OpeningTime>2024-08-29T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-22T10:26:40</MaxTimeFinishCalling>
     <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>19</Id>
   </Call>
   <Call>
-    <MyCall>Loneliness</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Arlozorov St 5, Rishon LeZion</FullAddressCall>
     <Latitude>31.9734</Latitude>
     <Longitude>34.7927</Longitude>
-    <OpeningTime>2024-01-24T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <OpeningTime>2025-07-01T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-01T00:47:00</MaxTimeFinishCalling>
     <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>20</Id>
   </Call>
@@ -145,89 +205,89 @@
     <FullAddressCall>Hahagana St 15, Petah Tikva</FullAddressCall>
     <Latitude>32.0873</Latitude>
     <Longitude>34.8695</Longitude>
-    <OpeningTime>2025-02-27T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
+    <OpeningTime>2023-07-20T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-07-20T00:52:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
     <Id>21</Id>
   </Call>
   <Call>
-    <MyCall>SuicidalSituations</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Bar Ilan St 9, Ashkelon</FullAddressCall>
     <Latitude>31.6781</Latitude>
     <Longitude>34.5748</Longitude>
-    <OpeningTime>2025-03-13T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
+    <OpeningTime>2024-08-12T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-25T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>22</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Lev HaIr St 3, Eilat</FullAddressCall>
     <Latitude>29.5533</Latitude>
     <Longitude>34.9501</Longitude>
-    <OpeningTime>2022-05-24T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
+    <OpeningTime>2022-07-24T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-07-24T00:48:00</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>23</Id>
   </Call>
   <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
+    <MyCall>PanicAttacks</MyCall>
     <FullAddressCall>Shalom Aleichem St 8, Tel Aviv</FullAddressCall>
     <Latitude>32.0715</Latitude>
     <Longitude>34.7687</Longitude>
-    <OpeningTime>2022-05-28T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <OpeningTime>2024-03-29T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-03-29T00:32:00</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>24</Id>
   </Call>
   <Call>
-    <MyCall>PanicAttacks</MyCall>
+    <MyCall>Soldiers</MyCall>
     <FullAddressCall>Sheinkin St 15, Tel Aviv</FullAddressCall>
     <Latitude>32.0667</Latitude>
     <Longitude>34.7739</Longitude>
-    <OpeningTime>2023-10-28T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
+    <OpeningTime>2025-06-17T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-28T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
     <Id>25</Id>
   </Call>
   <Call>
-    <MyCall>SuicidalSituations</MyCall>
+    <MyCall>ViolenceOrDanger</MyCall>
     <FullAddressCall>Trumpeldor St 10, Tel Aviv</FullAddressCall>
     <Latitude>32.0731</Latitude>
     <Longitude>34.7714</Longitude>
-    <OpeningTime>2024-11-16T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
+    <OpeningTime>2023-07-28T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-07-28T00:53:00</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>26</Id>
   </Call>
   <Call>
-    <MyCall>Depression</MyCall>
+    <MyCall>SuddenCrises</MyCall>
     <FullAddressCall>Yigal Alon St 55, Tel Aviv</FullAddressCall>
     <Latitude>32.0713</Latitude>
     <Longitude>34.7932</Longitude>
-    <OpeningTime>2024-01-09T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
+    <OpeningTime>2024-05-28T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-05-28T00:45:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
     <Id>27</Id>
   </Call>
   <Call>
-    <MyCall>PTSD</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Tchernichovsky St 25, Haifa</FullAddressCall>
     <Latitude>32.7944</Latitude>
     <Longitude>35.0012</Longitude>
-    <OpeningTime>2023-04-23T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
+    <OpeningTime>2023-01-05T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-07-31T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
     <Id>28</Id>
   </Call>
   <Call>
-    <MyCall>SuicidalSituations</MyCall>
+    <MyCall>Loneliness</MyCall>
     <FullAddressCall>David HaMelech St 10, Netanya</FullAddressCall>
     <Latitude>32.3329</Latitude>
     <Longitude>34.8576</Longitude>
-    <OpeningTime>2024-07-04T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
+    <OpeningTime>2022-12-23T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-12-23T00:44:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
     <Id>29</Id>
   </Call>
   <Call>
@@ -235,119 +295,119 @@
     <FullAddressCall>Kaplan St 4, Jerusalem</FullAddressCall>
     <Latitude>31.7765</Latitude>
     <Longitude>35.2224</Longitude>
-    <OpeningTime>2022-04-24T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
+    <OpeningTime>2022-03-24T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-03-24T00:34:00</MaxTimeFinishCalling>
     <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>30</Id>
   </Call>
   <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
+    <MyCall>Loneliness</MyCall>
     <FullAddressCall>Shderot Yerushalayim 35, Jaffa</FullAddressCall>
     <Latitude>32.0497</Latitude>
     <Longitude>34.7592</Longitude>
-    <OpeningTime>2022-04-11T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <OpeningTime>2025-06-13T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-03T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
     <Id>31</Id>
   </Call>
   <Call>
-    <MyCall>SuddenCrises</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Frishman St 24, Tel Aviv</FullAddressCall>
     <Latitude>32.0812</Latitude>
     <Longitude>34.7731</Longitude>
-    <OpeningTime>2024-12-25T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
+    <OpeningTime>2023-12-17T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-12-17T00:43:00</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
     <Id>32</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
+    <MyCall>ViolenceOrDanger</MyCall>
     <FullAddressCall>Nahalat Binyamin St 60, Tel Aviv</FullAddressCall>
     <Latitude>32.0603</Latitude>
     <Longitude>34.7748</Longitude>
-    <OpeningTime>2023-06-08T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <OpeningTime>2022-08-15T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-08-15T00:52:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
     <Id>33</Id>
   </Call>
   <Call>
-    <MyCall>Soldiers</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Hahistadrut St 50, Haifa</FullAddressCall>
     <Latitude>32.8072</Latitude>
     <Longitude>35.0033</Longitude>
-    <OpeningTime>2023-06-03T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
+    <OpeningTime>2022-03-29T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-06T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>34</Id>
   </Call>
   <Call>
-    <MyCall>Depression</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Rabin Blvd 12, Beersheba</FullAddressCall>
     <Latitude>31.2554</Latitude>
     <Longitude>34.789</Longitude>
-    <OpeningTime>2024-02-29T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <OpeningTime>2025-06-14T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-06-14T00:46:00</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
     <Id>35</Id>
   </Call>
   <Call>
-    <MyCall>Depression</MyCall>
+    <MyCall>PTSD</MyCall>
     <FullAddressCall>Moshe Dayan Blvd 18, Holon</FullAddressCall>
     <Latitude>32.0167</Latitude>
     <Longitude>34.7683</Longitude>
-    <OpeningTime>2024-12-20T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
+    <OpeningTime>2022-09-28T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-09-28T00:32:00</MaxTimeFinishCalling>
+    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
     <Id>36</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
+    <MyCall>PTSD</MyCall>
     <FullAddressCall>Ehad HaAm St 2, Tel Aviv</FullAddressCall>
     <Latitude>32.0702</Latitude>
     <Longitude>34.7695</Longitude>
-    <OpeningTime>2023-02-07T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection</VerbalDescription>
+    <OpeningTime>2022-08-15T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-09T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
     <Id>37</Id>
   </Call>
   <Call>
-    <MyCall>PanicAttacks</MyCall>
+    <MyCall>ViolenceOrDanger</MyCall>
     <FullAddressCall>Habonim St 6, Kfar Saba</FullAddressCall>
     <Latitude>32.1713</Latitude>
     <Longitude>34.9062</Longitude>
-    <OpeningTime>2024-12-14T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <OpeningTime>2022-06-25T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2022-06-25T00:48:00</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>38</Id>
   </Call>
   <Call>
-    <MyCall>Loneliness</MyCall>
+    <MyCall>PTSD</MyCall>
     <FullAddressCall>Nordau Blvd 22, Tel Aviv</FullAddressCall>
     <Latitude>32.0899</Latitude>
     <Longitude>34.7816</Longitude>
-    <OpeningTime>2022-11-26T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <OpeningTime>2025-05-10T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-05-10T00:37:00</MaxTimeFinishCalling>
+    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
     <Id>39</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Zabotinsky St 50, Ramat Gan</FullAddressCall>
     <Latitude>32.0815</Latitude>
     <Longitude>34.8196</Longitude>
-    <OpeningTime>2025-02-04T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
+    <OpeningTime>2025-05-23T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-12T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
     <Id>40</Id>
   </Call>
   <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
+    <MyCall>Loneliness</MyCall>
     <FullAddressCall>Shmuel Hanatziv St 7, Jerusalem</FullAddressCall>
     <Latitude>31.7814</Latitude>
     <Longitude>35.219</Longitude>
-    <OpeningTime>2023-01-18T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <OpeningTime>2024-07-08T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-07-08T00:41:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
     <Id>41</Id>
   </Call>
   <Call>
@@ -355,159 +415,89 @@
     <FullAddressCall>Einstein Blvd 32, Haifa</FullAddressCall>
     <Latitude>32.7974</Latitude>
     <Longitude>34.9898</Longitude>
-    <OpeningTime>2022-05-22T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
+    <OpeningTime>2024-11-16T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-11-16T00:49:00</MaxTimeFinishCalling>
+    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
     <Id>42</Id>
   </Call>
   <Call>
-    <MyCall>Soldiers</MyCall>
+    <MyCall>SuddenCrises</MyCall>
     <FullAddressCall>Balfour St 40, Bat Yam</FullAddressCall>
     <Latitude>32.0227</Latitude>
     <Longitude>34.7521</Longitude>
-    <OpeningTime>2024-12-02T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
+    <OpeningTime>2024-06-16T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-15T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
     <Id>43</Id>
   </Call>
   <Call>
-    <MyCall>SuddenCrises</MyCall>
+    <MyCall>SuicidalSituations</MyCall>
     <FullAddressCall>Hertzl St 120, Hadera</FullAddressCall>
     <Latitude>32.4398</Latitude>
     <Longitude>34.9197</Longitude>
-    <OpeningTime>2024-02-02T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
+    <OpeningTime>2023-11-18T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-11-18T00:38:00</MaxTimeFinishCalling>
+    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
     <Id>44</Id>
   </Call>
   <Call>
-    <MyCall>Loneliness</MyCall>
+    <MyCall>PTSD</MyCall>
     <FullAddressCall>Shaar HaGai St 4, Modi'in</FullAddressCall>
     <Latitude>31.9092</Latitude>
     <Longitude>35.0075</Longitude>
-    <OpeningTime>2022-02-09T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
+    <OpeningTime>2024-04-02T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-04-02T00:31:00</MaxTimeFinishCalling>
     <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
     <Id>45</Id>
   </Call>
   <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
+    <MyCall>PTSD</MyCall>
     <FullAddressCall>Hayarkon St 200, Tel Aviv</FullAddressCall>
     <Latitude>32.1928</Latitude>
     <Longitude>34.7672</Longitude>
-    <OpeningTime>2022-11-23T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
+    <OpeningTime>2023-09-06T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-18T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>46</Id>
   </Call>
   <Call>
-    <MyCall>FamilyIssues</MyCall>
+    <MyCall>Depression</MyCall>
     <FullAddressCall>Sheshet Hayamim St 8, Ashdod</FullAddressCall>
     <Latitude>31.8046</Latitude>
     <Longitude>34.6627</Longitude>
-    <OpeningTime>2022-10-15T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
+    <OpeningTime>2024-05-10T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2024-05-10T00:52:00</MaxTimeFinishCalling>
+    <VerbalDescription>A single mother experiencing heavy emotional and financial pressure with little support from her surroundings</VerbalDescription>
     <Id>47</Id>
   </Call>
   <Call>
-    <MyCall>Depression</MyCall>
+    <MyCall>PanicAttacks</MyCall>
     <FullAddressCall>King David St 11, Jerusalem</FullAddressCall>
     <Latitude>31.7743</Latitude>
     <Longitude>35.2245</Longitude>
-    <OpeningTime>2024-06-07T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An elderly woman who wants to end her life due to loneliness and lack of meaning</VerbalDescription>
+    <OpeningTime>2023-09-28T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-09-28T00:41:00</MaxTimeFinishCalling>
+    <VerbalDescription>A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home</VerbalDescription>
     <Id>48</Id>
   </Call>
   <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
+    <MyCall>PanicAttacks</MyCall>
     <FullAddressCall>HaAliyah St 22, Acre</FullAddressCall>
     <Latitude>32.9274</Latitude>
     <Longitude>35.0871</Longitude>
-    <OpeningTime>2023-05-14T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A student overwhelmed by academic stress and exams, considering dropping out of university</VerbalDescription>
+    <OpeningTime>2024-03-16T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2025-08-21T10:26:40</MaxTimeFinishCalling>
+    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
     <Id>49</Id>
   </Call>
   <Call>
-    <MyCall>Loneliness</MyCall>
+    <MyCall>PanicAttacks</MyCall>
     <FullAddressCall>Neve Shaanan St 30, Haifa</FullAddressCall>
     <Latitude>32.7922</Latitude>
     <Longitude>35.0342</Longitude>
-    <OpeningTime>2022-06-01T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
+    <OpeningTime>2023-11-16T00:00:00</OpeningTime>
+    <MaxTimeFinishCalling>2023-11-16T00:39:00</MaxTimeFinishCalling>
+    <VerbalDescription>A high school teacher feeling burned out and unable to balance work with personal life</VerbalDescription>
     <Id>50</Id>
-  </Call>
-  <Call>
-    <MyCall>PanicAttacks</MyCall>
-    <FullAddressCall>Htikva 6</FullAddressCall>
-    <Latitude>0</Latitude>
-    <Longitude>0</Longitude>
-    <OpeningTime>0001-01-01T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>123</VerbalDescription>
-    <Id>51</Id>
-  </Call>
-  <Call>
-    <MyCall>ViolenceOrDanger</MyCall>
-    <FullAddressCall>Ben Yehuda St 10, Haifa</FullAddressCall>
-    <Latitude>32.8195</Latitude>
-    <Longitude>34.9983</Longitude>
-    <OpeningTime>2023-01-23T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A man in his 40s struggling to cope with job loss and expressing hopelessness about the future</VerbalDescription>
-    <Id>2</Id>
-  </Call>
-  <Call>
-    <MyCall>FamilyIssues</MyCall>
-    <FullAddressCall>King George St 20, Jerusalem</FullAddressCall>
-    <Latitude>31.7762</Latitude>
-    <Longitude>35.2137</Longitude>
-    <OpeningTime>2023-03-02T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>6</Id>
-  </Call>
-  <Call>
-    <MyCall>Depression</MyCall>
-    <FullAddressCall>Bialik St 7, Ramat Gan</FullAddressCall>
-    <Latitude>32.0827</Latitude>
-    <Longitude>34.8235</Longitude>
-    <OpeningTime>2025-06-29T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A young woman with postpartum depression feeling unable to function as a mother</VerbalDescription>
-    <Id>8</Id>
-  </Call>
-  <Call>
-    <MyCall>Loneliness</MyCall>
-    <FullAddressCall>Weizmann St 5, Rehovot</FullAddressCall>
-    <Latitude>31.8947</Latitude>
-    <Longitude>34.8112</Longitude>
-    <OpeningTime>2022-04-25T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-06T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>A teenage girl with self-esteem issues, believing she is not as worthy as her peers</VerbalDescription>
-    <Id>10</Id>
-  </Call>
-  <Call>
-    <MyCall>Loneliness</MyCall>
-    <FullAddressCall>Allenby St 45, Tel Aviv</FullAddressCall>
-    <Latitude>32.0641</Latitude>
-    <Longitude>34.7698</Longitude>
-    <OpeningTime>2023-08-18T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-06-26T00:00:00</MaxTimeFinishCalling>
-    <VerbalDescription>An older adult recently widowed, feeling lost and unable to move forward</VerbalDescription>
-    <Id>7</Id>
-  </Call>
-  <Call>
-    <MyCall>Loneliness</MyCall>
-    <FullAddressCall>sdf df</FullAddressCall>
-    <Latitude>0</Latitude>
-    <Longitude>0</Longitude>
-    <OpeningTime>0001-01-01T00:00:00</OpeningTime>
-    <MaxTimeFinishCalling>2025-07-02T12:00:00+03:00</MaxTimeFinishCalling>
-    <VerbalDescription>Im alone</VerbalDescription>
-    <Id>52</Id>
   </Call>
 </ArrayOfCall>

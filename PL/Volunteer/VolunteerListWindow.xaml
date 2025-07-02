@@ -14,25 +14,10 @@
     WindowStartupLocation="CenterScreen"
     Loaded="Window_Loaded">
 
-    <Window.Resources>
-        <!--<ObjectDataProvider x:Key="CallTypeOptions"
-                            MethodName="GetValues"
-                            ObjectType="{x:Type sys:Enum}"
-                            xmlns:sys="clr-namespace:System;assembly=mscorlib">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="BO:CallType"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
-    </Window.Resources>
 
     <DockPanel Margin="10">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,0,0,10">
             <TextBlock Text="Filter by:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <!--<ComboBox x:Name="CallTypeComboBox"
-                      ItemsSource="{Binding Source={StaticResource CallTypeOptions}}"
-                      SelectedItem="{Binding SelectedCallType}"
-                      SelectionChanged="CallTypeComboBox_SelectionChanged"
-                      Width="200"/>-->
             <ComboBox Width="150"
           SelectedValuePath="Tag"
           SelectedValue="{Binding SelectedIsActive, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

@@ -41,8 +41,7 @@ namespace PL.Call
             DataContext = this;
             LoadCalls();
         }
-
-        private void LoadCalls()
+                private void LoadCalls()
         {
             try
             {

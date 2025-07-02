@@ -35,20 +35,6 @@ namespace PL.Call
                 Close();
             }
         }
-
-        //private void Update_Click(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        bl.Call.UpdateCallDetails(CurrentCall);
-        //        MessageBox.Show("Call updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-        //        Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Update failed: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //}
         private void Update_Click(object sender, RoutedEventArgs e)
         {
             if (IsEditing)
@@ -56,9 +42,6 @@ namespace PL.Call
                 IsEditing = false;
                 DataContext = null;
                 DataContext = this;
-                //txtOpenTime.ReadOnly = IsEditing;
-                //txtType.ReadOnly = IsEditing;
-                //txtId.ReadOnly = IsEditing;
                 return; // מפעיל מצב עריכה בלבד
             }
 
