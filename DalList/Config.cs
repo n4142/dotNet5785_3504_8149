@@ -1,4 +1,6 @@
-﻿namespace Dal;
+﻿using System.Runtime.CompilerServices;
+
+namespace Dal;
 /// <summary>
 /// Configuration Entity
 /// </summary>
@@ -18,6 +20,7 @@ internal static class Config
     internal static DateTime Clock { get; set; } =  DateTime.Now;
 
     internal static TimeSpan RiskRange { get; set; } = TimeSpan.FromHours(1);
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     internal static void Reset()
     {
         nextCallId = StartCallId;

@@ -2,9 +2,11 @@
 using DalApi;
 using DO;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 internal class AssignmentImplementation : IAssignment
 {
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Assignment enteredAssignment)
     {
         int newId = Config.NextAssignmentId;
@@ -13,7 +15,7 @@ internal class AssignmentImplementation : IAssignment
         Assignments.Add(newAssignment);
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignments_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
@@ -21,24 +23,24 @@ internal class AssignmentImplementation : IAssignment
             throw new DalDoesNotExistException($"Assignment with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer(Assignments, Config.s_assignments_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Assignment>(), Config.s_assignments_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Assignment? Read(int id)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
         Assignment? a = Assignments.FirstOrDefault(a => a.Id == id);
         return a;
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public List<Assignment> ReadAll()
     {
         return XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Assignment item)
     {
         List<Assignment> Assignments = XMLTools.LoadListFromXMLSerializer<Assignment>(Config.s_assignments_xml);

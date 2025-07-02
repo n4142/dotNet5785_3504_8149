@@ -1,9 +1,11 @@
 ﻿namespace Dal;
 using DO;
 using DalApi;
+using System.Runtime.CompilerServices;
 
 internal class CallImplementation : ICall
 {
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Call enteredCall)
     {
         int newId = Config.NextCallId;
@@ -13,7 +15,7 @@ internal class CallImplementation : ICall
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
 
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
@@ -21,24 +23,24 @@ internal class CallImplementation : ICall
             throw new DalDoesNotExistException($"Call with ID={id} does Not exist");
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
         XMLTools.SaveListToXMLSerializer(new List<Call>(), Config.s_calls_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Call? Read(int id)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
         Call? c = Calls.FirstOrDefault(c => c.Id == id);
         return c;
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public List<Call> ReadAll()
     {
         return XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Call item)
     {
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);

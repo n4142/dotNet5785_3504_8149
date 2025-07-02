@@ -1,12 +1,15 @@
 ﻿
 
 namespace Dal;
+
+using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 
 
 internal class CallImplementation : ICall
 {
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Call enteredCall)
     {
         int newId = Config.NextCallId;
@@ -19,7 +22,7 @@ internal class CallImplementation : ICall
     }
 
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
         Call? c = Read(id);
@@ -32,24 +35,27 @@ internal class CallImplementation : ICall
             DataSource.Calls.Remove(c);
         }
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
 
         DataSource.Calls.Clear();
     }
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Call? Read(int Id)
     {
         Call? c = DataSource.Calls.FirstOrDefault(c => c.Id == Id);
         return c;
     }
+
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public List<Call> ReadAll()
     {
         return new List<Call>(DataSource.Calls);
     }
 
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Call updatedCall)
     {
         Call? c = Read(updatedCall.Id);

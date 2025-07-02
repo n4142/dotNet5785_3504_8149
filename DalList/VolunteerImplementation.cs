@@ -1,11 +1,14 @@
 ﻿
 namespace Dal;
+
+using System.Runtime.CompilerServices;
 using DalApi;
 using DO;
 
 
 internal class VolunteerImplementation : IVolunteer
 {
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Create(Volunteer vol)
     {
         Volunteer? v = Read(vol.Id);
@@ -19,7 +22,7 @@ internal class VolunteerImplementation : IVolunteer
         }
     }
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Delete(int id)
     {
 
@@ -33,24 +36,24 @@ internal class VolunteerImplementation : IVolunteer
             DataSource.Volunteers.Remove(v);
         }
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void DeleteAll()
     {
         DataSource.Volunteers.Clear();
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public Volunteer? Read(int Id)
     {
         Volunteer? v = DataSource.Volunteers.FirstOrDefault(v => v.Id == Id);
         return v;
     }
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public List<Volunteer> ReadAll()
     {
         return new List<Volunteer>(DataSource.Volunteers);
     }
 
-
+    [MethodImpl(MethodImplOptions.Synchronized)] //stage 7
     public void Update(Volunteer vol)
     {
         Volunteer? v = Read(vol.Id);

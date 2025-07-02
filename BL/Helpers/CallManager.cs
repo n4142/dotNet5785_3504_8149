@@ -1,156 +1,8 @@
-﻿//using DalApi;
-//using DO;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using static Helpers.Tools;
-
-//namespace Helpers
-//{
-//    internal static class CallManager
-//    {
-//        private static IDal s_dal = Factory.Get; //stage 4
-//        internal static ObserverManager Observers = new(); //stage 5 
-//        public static BO.CallStatus GetCallStatus(int callId)
-//        {
-//            var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
-//            var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
-//            TimeSpan? timeLeft = call.MaxTimeFinishCalling - ClockManager.Now;
-
-//            if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
-//                return BO.CallStatus.Expired;
-//            if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
-//                return BO.CallStatus.InProgressAtRisk;
-//            if (assignment != null)
-//                return BO.CallStatus.InProgress;
-//            if (timeLeft <= s_dal.Config.RiskRange)
-//                return BO.CallStatus.OpenAtRisk;
-
-//            return BO.CallStatus.Open;
-//        }
-//        internal static BO.CallInList ConvertToBOCallInList(DO.Call call)
-//        {
-//            var assignments = s_dal.Assignment.ReadAll().Where(a => a.CallId == call.Id).ToList();
-//            var lastAssignment = assignments
-//                .OrderByDescending(a => a.EntryTimeOfTreatment)
-//                .FirstOrDefault();
-//            var volunteer = s_dal.Volunteer.ReadAll().Find(v => v.Id == lastAssignment.VolunteerId);
-
-//            return new BO.CallInList
-//            {
-//                Id = lastAssignment == null ? null : lastAssignment.Id,
-//                CallId = call.Id,
-//                CallType = (BO.CallType)call.MyCall,
-//                OpenTime = call.OpeningTime,
-//                TimeRemaining = call.MaxTimeFinishCalling - ClockManager.Now,
-//                LastVolunteerName = volunteer.FullName,
-//                Status = GetCallStatus(call.Id),
-//                TotalAssignments = assignments.Count,
-//                TotalCompletionTime = lastAssignment.MyEndingTime == EndingTimeType.TakenCareOf ? lastAssignment.EndingTimeOfTreatment - lastAssignment.EntryTimeOfTreatment : null
-//            };
-//        }
-//        internal static async Task ChecksLogicalValidation(BO.Call call)
-//        {
-//            //Checks if the maximum end time is greater than the start time
-//            if (call.MaxCompletionTime.HasValue && call.MaxCompletionTime < call.OpenTime)
-//            {
-//                throw new ArgumentException("Max completion time must be after the open time.");
-//            }
-//            //Check that the address is written correctly
-//            if (string.IsNullOrWhiteSpace(call.FullAddress))
-//            {
-//                throw new ArgumentException("Address cannot be empty or whitespace.");
-//            }
-
-//            double latitude, longitude;
-//            try
-//            {
-//                (latitude, longitude) = await GetCoordinatesFromAddress(call.FullAddress);
-//            }
-//            catch (Exception ex)
-//            {
-//                throw new ArgumentException("Invalid address or not found.", ex);
-//            }
-
-//            call.Latitude = latitude;
-//            call.Longitude = longitude;
-//        }
-
-//        internal static void ValidateCallDetails(BO.Call call)
-//        {
-//            // Validate that the address is a valid address with latitude and longitude
-//            if (string.IsNullOrWhiteSpace(call.FullAddress) ||
-//                !(call.Latitude >= -90 && call.Latitude <= 90 &&
-//                  call.Longitude >= -180 && call.Longitude <= 180))
-//            {
-//                throw new ArgumentException("The address must be valid with latitude and longitude.");
-//            }
-//            // Validate the call type is valid
-//            if (!Enum.IsDefined(typeof(BO.CallType), call.CallType))
-//            {
-//                throw new ArgumentException("Invalid call type.");
-//            }
-//            // Validate the description length
-//            if (!string.IsNullOrEmpty(call.Description) && call.Description.Length > 500)
-//            {
-//                throw new ArgumentException("Description is too long (maximum 500 characters).");
-//            }
-//            // Validate that there are no assignments in the past
-//            if (call.CallAssignments != null && call.CallAssignments.Any(a => a.EntryTime < call.OpenTime))
-//            {
-//                throw new ArgumentException("Assignments cannot start before the call's open time.");
-//            }
-//        }
-//        internal static void updateExpiredCalls()
-//        {
-//            // Retrieve all expired calls
-//            var expiredCalls = s_dal.Call.ReadAll()
-//                .Where(c => CallManager.GetCallStatus(c.Id) == BO.CallStatus.Expired)
-//                .ToList(); // Avoid multiple enumerations
-
-//            // Get all existing assignments once to avoid redundant queries
-//            var assignments = s_dal.Assignment.ReadAll();
-
-//            foreach (var call in expiredCalls)
-//            {
-//                var assignment = assignments.Find(a => a.CallId == call.Id);
-
-//                if (assignment != null) // If an assignment exists, update it
-//                {
-//                    s_dal.Assignment.Update(new DO.Assignment
-//                    {
-//                        Id = assignment.Id,
-//                        CallId = assignment.CallId,
-//                        VolunteerId = assignment.VolunteerId,
-//                        EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
-//                        EndingTimeOfTreatment = ClockManager.Now,
-//                        MyEndingTime = DO.EndingTimeType.Expired
-//                    });
-//                }
-//                else // If no assignment exists, create a new one
-//                {
-//                    s_dal.Assignment.Create(new DO.Assignment
-//                    {
-//                        CallId = call.Id,
-//                        VolunteerId = 0, // Default volunteer ID for expired unassigned calls
-//                        EntryTimeOfTreatment = null, // No actual treatment started
-//                        EndingTimeOfTreatment = ClockManager.Now,
-//                        MyEndingTime = DO.EndingTimeType.Expired
-//                    });
-//                }
-//            }
-//        }
-
-//    }
-//}
-using DalApi;
+﻿using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using static Helpers.Tools;
 
@@ -159,33 +11,42 @@ namespace Helpers
     internal static class CallManager
     {
         private static IDal s_dal = Factory.Get; //stage 4
-        internal static ObserverManager Observers = new(); //stage 5 
+        internal static ObserverManager Observers = new(); //stage 5
 
         public static BO.CallStatus GetCallStatus(int callId)
         {
-            var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
-            var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
-            TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
+            lock (AdminManager.BlMutex)
+            {
+                var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
+                var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
+                TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
 
-            if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
-                return BO.CallStatus.Expired;
-            if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
-                return BO.CallStatus.InProgressAtRisk;
-            if (assignment != null)
-                return BO.CallStatus.InProgress;
-            if (timeLeft <= s_dal.Config.RiskRange)
-                return BO.CallStatus.OpenAtRisk;
+                if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
+                    return BO.CallStatus.Expired;
+                if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
+                    return BO.CallStatus.InProgressAtRisk;
+                if (assignment != null)
+                    return BO.CallStatus.InProgress;
+                if (timeLeft <= s_dal.Config.RiskRange)
+                    return BO.CallStatus.OpenAtRisk;
 
-            return BO.CallStatus.Open;
+                return BO.CallStatus.Open;
+            }
         }
 
         internal static BO.CallInList ConvertToBOCallInList(DO.Call call)
         {
-            var assignments = s_dal.Assignment.ReadAll().Where(a => a.CallId == call.Id).ToList();
-            var lastAssignment = assignments
-                .OrderByDescending(a => a.EntryTimeOfTreatment)
-                .FirstOrDefault();
-            var volunteer = s_dal.Volunteer.ReadAll().Find(v => v.Id == lastAssignment?.VolunteerId);
+            List<DO.Assignment> assignments;
+            DO.Assignment? lastAssignment;
+            DO.Volunteer? volunteer;
+            lock (AdminManager.BlMutex)
+            {
+                assignments = s_dal.Assignment.ReadAll().Where(a => a.CallId == call.Id).ToList();
+                lastAssignment = assignments
+                    .OrderByDescending(a => a.EntryTimeOfTreatment)
+                    .FirstOrDefault();
+                volunteer = s_dal.Volunteer.ReadAll().Find(v => v.Id == lastAssignment?.VolunteerId);
+            }
 
             return new BO.CallInList
             {
@@ -194,7 +55,7 @@ namespace Helpers
                 CallType = (BO.CallType)call.MyCall,
                 OpenTime = call.OpeningTime,
                 TimeRemaining = call.MaxTimeFinishCalling - AdminManager.Now,
-                LastVolunteerName = volunteer?.FullName,
+                LastVolunteerName = volunteer?.FullName ?? string.Empty,
                 Status = GetCallStatus(call.Id),
                 TotalAssignments = assignments.Count,
                 TotalCompletionTime = lastAssignment?.MyEndingTime == EndingTimeType.TakenCareOf
@@ -205,16 +66,11 @@ namespace Helpers
 
         internal static async Task ChecksLogicalValidation(BO.Call call)
         {
-            //Checks if the maximum end time is greater than the start time
             if (call.MaxCompletionTime.HasValue && call.MaxCompletionTime < call.OpenTime)
-            {
                 throw new ArgumentException("Max completion time must be after the open time.");
-            }
-            //Check that the address is written correctly
+
             if (string.IsNullOrWhiteSpace(call.FullAddress))
-            {
                 throw new ArgumentException("Address cannot be empty or whitespace.");
-            }
 
             double latitude, longitude;
             try
@@ -232,72 +88,130 @@ namespace Helpers
 
         internal static void ValidateCallDetails(BO.Call call)
         {
-            // Validate that the address is a valid address with latitude and longitude
             if (string.IsNullOrWhiteSpace(call.FullAddress) ||
                 !(call.Latitude >= -90 && call.Latitude <= 90 &&
                   call.Longitude >= -180 && call.Longitude <= 180))
-            {
                 throw new ArgumentException("The address must be valid with latitude and longitude.");
-            }
-            // Validate the call type is valid
+
             if (!Enum.IsDefined(typeof(BO.CallType), call.CallType))
-            {
                 throw new ArgumentException("Invalid call type.");
-            }
-            // Validate the description length
+
             if (!string.IsNullOrEmpty(call.Description) && call.Description.Length > 500)
-            {
                 throw new ArgumentException("Description is too long (maximum 500 characters).");
-            }
-            // Validate that there are no assignments in the past
+
             if (call.CallAssignments != null && call.CallAssignments.Any(a => a.EntryTime < call.OpenTime))
-            {
                 throw new ArgumentException("Assignments cannot start before the call's open time.");
-            }
         }
 
         internal static void updateExpiredCalls()
         {
-            // Retrieve all expired calls
-            var expiredCalls = s_dal.Call.ReadAll()
-                .Where(c => CallManager.GetCallStatus(c.Id) == BO.CallStatus.Expired)
-                .ToList(); // Avoid multiple enumerations
+            List<DO.Call> expiredCalls;
+            List<DO.Assignment> assignments;
+            List<int> updatedAssignmentIds = new();
+            bool newAssignmentsCreated = false;
 
-            // Get all existing assignments once to avoid redundant queries
-            var assignments = s_dal.Assignment.ReadAll();
-
-            foreach (var call in expiredCalls)
+            lock (AdminManager.BlMutex)
             {
-                var assignment = assignments.Find(a => a.CallId == call.Id);    
+                expiredCalls = s_dal.Call.ReadAll()
+                    .Where(c => GetCallStatus(c.Id) == BO.CallStatus.Expired)
+                    .ToList();
 
-                if (assignment != null) // If an assignment exists, update it
+                assignments = s_dal.Assignment.ReadAll();
+
+                foreach (var call in expiredCalls)
                 {
-                    s_dal.Assignment.Update(new DO.Assignment
-                    {   
-                        Id = assignment.Id,
-                        CallId = assignment.CallId,
-                        VolunteerId = assignment.VolunteerId,
-                        EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
-                        EndingTimeOfTreatment = AdminManager.Now,
-                        MyEndingTime = DO.EndingTimeType.Expired
-                    });
+                    var assignment = assignments.Find(a => a.CallId == call.Id);
 
-                    AssignmentManager.Observers.NotifyItemUpdated(assignment.Id); // שלב 5
-                }
-                else // If no assignment exists, create a new one
-                                    {
-                                        s_dal.Assignment.Create(new DO.Assignment
-                                       {
-                                            CallId = call.Id,
-                                            VolunteerId = 0, // Default volunteer ID for expired unassigned calls
-                                            EntryTimeOfTreatment = null, // No actual treatment started
-                                             EndingTimeOfTreatment = AdminManager.Now,
-                                         MyEndingTime = DO.EndingTimeType.Expired
-                                        });
+                    if (assignment != null)
+                    {
+                        s_dal.Assignment.Update(new DO.Assignment
+                        {
+                            Id = assignment.Id,
+                            CallId = assignment.CallId,
+                            VolunteerId = assignment.VolunteerId,
+                            EntryTimeOfTreatment = assignment.EntryTimeOfTreatment,
+                            EndingTimeOfTreatment = AdminManager.Now,
+                            MyEndingTime = DO.EndingTimeType.Expired
+                        });
 
-                    AssignmentManager.Observers.NotifyListUpdated(); // שלב 5
+                        updatedAssignmentIds.Add(assignment.Id);
+                    }
+                    else
+                    {
+                        s_dal.Assignment.Create(new DO.Assignment
+                        {
+                            CallId = call.Id,
+                            VolunteerId = 0,
+                            EntryTimeOfTreatment = null,
+                            EndingTimeOfTreatment = AdminManager.Now,
+                            MyEndingTime = DO.EndingTimeType.Expired
+                        });
+
+                        newAssignmentsCreated = true;
+                    }
                 }
             }
+
+            foreach (var id in updatedAssignmentIds)
+                AssignmentManager.Observers.NotifyItemUpdated(id);
+
+            if (newAssignmentsCreated)
+                AssignmentManager.Observers.NotifyListUpdated();
+        }
+
+        internal static void SimulateCallActivity()
+        {
+            Thread.CurrentThread.Name = $"CallSimulator_{Thread.CurrentThread.ManagedThreadId}";
+
+            List<DO.Call> callsToCheck;
+            lock (AdminManager.BlMutex)
+            {
+                callsToCheck = s_dal.Call.ReadAll().ToList();
+            }
+
+            foreach (var call in callsToCheck)
+            {
+                var status = GetCallStatus(call.Id);
+
+                if (status == BO.CallStatus.Expired)
+                    continue;
+
+                if (call.MaxTimeFinishCalling.HasValue && AdminManager.Now > call.MaxTimeFinishCalling)
+                {
+                    lock (AdminManager.BlMutex)
+                    {
+                        var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == call.Id);
+                        if (assignment != null)
+                        {
+                            s_dal.Assignment.Update(assignment with
+                            {
+                                EndingTimeOfTreatment = AdminManager.Now,
+                                MyEndingTime = DO.EndingTimeType.Expired
+                            });
+                            AssignmentManager.Observers.NotifyItemUpdated(assignment.Id);
+                        }
+                        else
+                        {
+                            s_dal.Assignment.Create(new DO.Assignment
+                            {
+                                CallId = call.Id,
+                                VolunteerId = 0,
+                                EntryTimeOfTreatment = null,
+                                EndingTimeOfTreatment = AdminManager.Now,
+                                MyEndingTime = DO.EndingTimeType.Expired
+                            });
+                            AssignmentManager.Observers.NotifyListUpdated();
+                        }
+                    }
+                }
+            }
+        }
+        private static async Task CompleteCallWithCoordinatesAsync(BO.Call call)
+        {
+            // Implementation goes here
+            // Example:
+            await ChecksLogicalValidation(call);
+            // Additional logic for completing the call with coordinates
         }
     }
 }

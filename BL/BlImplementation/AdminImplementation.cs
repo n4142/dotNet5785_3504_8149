@@ -10,6 +10,7 @@ internal class AdminImplementation : BlApi.IAdmin
 
     public void ForwardClock(TimeUnit unit)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         switch (unit)
         {
             case BO.TimeUnit.Minute:
@@ -50,12 +51,14 @@ internal class AdminImplementation : BlApi.IAdmin
 
     public void ResetDB()
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         _dal.ResetDB();
         AdminManager.UpdateClock(AdminManager.Now);
     }
 
     public void SetMaxRange(TimeSpan maxRange)
     {
+        AdminManager.ThrowOnSimulatorIsRunning();
         AdminManager.RiskRange = maxRange;
     }
 
@@ -72,4 +75,14 @@ internal class AdminImplementation : BlApi.IAdmin
     public void RemoveConfigObserver(Action configObserver) =>
         AdminManager.ConfigUpdatedObservers -= configObserver;
     #endregion Stage 5
+
+    public void StopSimulator()
+    => AdminManager.Stop(); //stage 7
+
+    public void StartSimulator(int interval)  //stage 7
+    {
+        AdminManager.ThrowOnSimulatorIsRunning();  //stage 7
+        AdminManager.Start(interval); //stage 7
+    }
+
 }
