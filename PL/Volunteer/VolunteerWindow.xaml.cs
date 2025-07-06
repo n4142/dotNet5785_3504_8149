@@ -145,6 +145,7 @@ namespace PL.Volunteer
             try
             {
                 CurrentVolunteer = s_bl.Volunteer.GetVolunteer(idNumber);
+                CurrentCall = CurrentVolunteer.CallInProgress;
                 ButtonText = "Update";
             }
             catch (Exception ex)
@@ -158,17 +159,29 @@ namespace PL.Volunteer
 
 
 
-            /// <summary>
-            /// Button click event handler for opening the ChooseCallWindow,
-            /// allowing the current volunteer to select an available call.
-            /// </summary>
-            /// <param name="sender">The source of the event (typically the button).</param>
-            /// <param name="e">Event data associated with the click.</param>
-            private void ChooseCall_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Button click event handler for opening the ChooseCallWindow,
+        /// allowing the current volunteer to select an available call.
+        /// </summary>
+        /// <param name="sender">The source of the event (typically the button).</param>
+        /// <param name="e">Event data associated with the click.</param>
+        private void ChooseCall_Click(object sender, RoutedEventArgs e)
         {
             var chooseWindow = new Call.ChooseCallWindow(CurrentVolunteer.Id);
             chooseWindow.ShowDialog();
+
+            // לאחר הסגירה - לרענן את הנתונים מה-BL
+            try
+            {
+                CurrentVolunteer = s_bl.Volunteer.GetVolunteer(CurrentVolunteer.Id);
+                CurrentCall = CurrentVolunteer.CallInProgress;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error refreshing volunteer data: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
 
 
         /// <summary>

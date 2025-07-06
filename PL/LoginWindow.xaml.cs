@@ -47,8 +47,10 @@ namespace PL
                 {
                     new Volunteer.VolunteerWindow(id).Show(); // מסך מתנדב רגיל
                 }
+                IdTextBox.Text = string.Empty;
+                PasswordBox.Password = string.Empty;
 
-                this.Close();
+                //this.Close();
             }
             catch (BO.BlDoesNotExistException)
             {

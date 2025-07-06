@@ -273,7 +273,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
-            VolunteerManager.ChecksLogicalValidation(volunteer).Wait();
+            VolunteerManager.ChecksLogicalValidation(volunteer);
             VolunteerManager.ValidateVolunteer(volunteer);
         }
         catch (DO.DalAlreadyExistException ex)
@@ -318,7 +318,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         AdminManager.ThrowOnSimulatorIsRunning();
         lock (AdminManager.BlMutex)
         {
-            if (_dal.Assignment.ReadAll().Any(a => a.VolunteerId == id))
+            if (_dal.Assignment.ReadAll().Any(a => a.VolunteerId == id&& a.EndingTimeOfTreatment==null))
                 throw new ArgumentException("This volunteer can not be deleted");
 
             try
@@ -472,7 +472,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
         }
     }
 
-    public void UpdateVolunteerDetails(int id, BO.Volunteer volunteer)
+    public async void UpdateVolunteerDetails(int id, BO.Volunteer volunteer)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
 
@@ -481,7 +481,7 @@ internal class VolunteerImplementation : BlApi.IVolunteer
             try
             {
                 VolunteerManager.ValidateVolunteer(volunteer);
-                VolunteerManager.ChecksLogicalValidation(volunteer).Wait();
+                VolunteerManager.ChecksLogicalValidation(volunteer);
 
                 DO.Volunteer oldVolunteer;
                 lock (AdminManager.BlMutex)

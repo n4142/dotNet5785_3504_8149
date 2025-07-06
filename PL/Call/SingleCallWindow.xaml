@@ -27,14 +27,17 @@
 
             <TextBlock Text="Open Time:" FontWeight="Bold" Margin="0,10,0,0"/>
             <TextBox  Text="{Binding CurrentCall.OpenTime}" IsReadOnly="{Binding IsEditing}"/>
+
+            <TextBlock Text="Max Completion Time:" FontWeight="Bold" Margin="0,10,0,0"/>
+            <TextBox  Text="{Binding CurrentCall.MaxCompletionTime}" IsReadOnly="{Binding IsEditing}"/>
         </StackPanel>
 
         <GroupBox Header="Assignment History" Grid.Row="1" Margin="0,10,0,10" Visibility="{Binding HasAssignments, Converter={StaticResource BoolToVisibilityConverter}}">
             <DataGrid ItemsSource="{Binding Assignments}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Volunteer" Binding="{Binding VolunteerName}" />
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
-                    <DataGridTextColumn Header="Time" Binding="{Binding Time}" />
+                    <DataGridTextColumn Header="Status" Binding="{Binding CompletionType}" />
+                    <DataGridTextColumn Header="Time" Binding="{Binding ActualCompletionTime}" />
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>

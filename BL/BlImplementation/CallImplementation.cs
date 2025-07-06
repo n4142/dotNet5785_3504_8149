@@ -13,12 +13,12 @@ internal class CallImplementation : BlApi.ICall
 {
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
-    public void AddCall(BO.Call call)
+    public async void AddCall(BO.Call call)
     {
         AdminManager.ThrowOnSimulatorIsRunning();
         try
         {
-            CallManager.ChecksLogicalValidation(call);
+           await CallManager.ChecksLogicalValidation(call);
             CallManager.ValidateCallDetails(call);
         }
         catch (Exception ex)
@@ -155,7 +155,7 @@ internal class CallImplementation : BlApi.ICall
             assignment = _dal.Assignment.Read(assignmentId);
         }
 
-        if (assignment.VolunteerId != volunteerId || !isManager)
+        if (assignment.VolunteerId != volunteerId && !isManager)
             throw new BlUnauthorizedAccessException("This volunteer is not allowed canceling treatment");
 
         if (assignment.EndingTimeOfTreatment != null || assignment.MyEndingTime == DO.EndingTimeType.Expired || assignment.MyEndingTime == DO.EndingTimeType.CanceledByManager)
@@ -238,8 +238,8 @@ internal class CallImplementation : BlApi.ICall
         bool hasAssignments;
         lock (AdminManager.BlMutex)
             hasAssignments = _dal.Assignment.ReadAll().Any(a => a.CallId == callId);
-
-        if (CallManager.GetCallStatus(call.Id) != BO.CallStatus.Open || hasAssignments)
+        BO.CallStatus type = CallManager.GetCallStatus(call.Id);
+        if (CallManager.GetCallStatus(call.Id) == BO.CallStatus.Closed || CallManager.GetCallStatus(call.Id) == BO.CallStatus.Expired || hasAssignments)
             throw new BlInvalidTimeUnitException("Cannot delete call. It is either not open or has been assigned to a volunteer.");
 
         try
@@ -346,7 +346,10 @@ internal class CallImplementation : BlApi.ICall
         IEnumerable<CallInList> callList = allCalls
             .Select(c => CallManager.ConvertToBOCallInList(c))
             .ToList();
-
+        foreach (var call in callList)
+        {
+            call.Status = CallManager.GetCallStatus(call.CallId);
+        }
         if (filterField != null && filterValue != null)
         {
             var property = typeof(BO.CallInList).GetProperty(filterField.ToString());
@@ -433,34 +436,79 @@ internal class CallImplementation : BlApi.ICall
         return calls;
     }
 
-    public IEnumerable<OpenCallInList> GetOpenCallsForVolunteerSelection(int volunteerId, BO.CallType? callTypeFilter = null, OpenCallInList? sortField = null)
+    //public IEnumerable<OpenCallInList> GetOpenCallsForVolunteerSelection(int volunteerId, BO.CallType? callTypeFilter = null, OpenCallInList? sortField = null)
+    //{
+    //    DO.Volunteer volunteer;
+    //    List<DO.Call> calls;
+    //    lock (AdminManager.BlMutex)
+    //    {
+    //        volunteer = _dal.Volunteer.Read(volunteerId);
+    //        calls = _dal.Call.ReadAll()
+    //            .Where(c => CallManager.GetCallStatus(c.Id).ToString() == "Open" || CallManager.GetCallStatus(c.Id).ToString() == "OpenAtRisk")
+    //            .ToList();
+    //    }
+
+    //    if (callTypeFilter != null)
+    //        calls = calls.Where(c => (BO.CallType)c.MyCall == callTypeFilter).ToList();
+
+    //    if (sortField != null)
+    //    {
+    //        var property = typeof(BO.CallInList).GetProperty(sortField.ToString());
+    //        if (property != null)
+    //        {
+    //            calls = calls.OrderBy(c => property.GetValue(c)).ToList();
+    //        }
+    //    }
+    //    else
+    //    {
+    //        calls = calls.OrderBy(c => c.Id).ToList();
+    //    }
+
+    //    IEnumerable<OpenCallInList> openCallsList = calls.Select(c => new OpenCallInList
+    //    {
+    //        Id = c.Id,
+    //        CallType = (BO.CallType)c.MyCall,
+    //        Description = c.VerbalDescription,
+    //        Address = c.FullAddressCall,
+    //        OpenTime = c.OpeningTime,
+    //        MaxEndTime = c.MaxTimeFinishCalling,
+    //        DistanceFromVolunteer = CalculateDistance(volunteer.Latitude.Value, volunteer.Longitude.Value, c.Latitude, c.Longitude)
+    //    });
+    //    return openCallsList;
+    //}
+
+    public IEnumerable<OpenCallInList> GetOpenCallsForVolunteerSelection( int volunteerId,BO.CallType? callTypeFilter = null, OpenCallInList? sortField = null)
     {
         DO.Volunteer volunteer;
         List<DO.Call> calls;
+
+        // שליפה תחת נעילה
         lock (AdminManager.BlMutex)
         {
             volunteer = _dal.Volunteer.Read(volunteerId);
             calls = _dal.Call.ReadAll()
-                .Where(c => CallManager.GetCallStatus(c.Id).ToString() == "Open" || CallManager.GetCallStatus(c.Id).ToString() == "OpenAtRisk")
+                .Where(c =>
+                {
+                    var status = CallManager.GetCallStatus(c.Id);
+                    return status == BO.CallStatus.Open || status == BO.CallStatus.OpenAtRisk;
+                })
                 .ToList();
         }
 
+        // סינון לפי סוג קריאה
         if (callTypeFilter != null)
             calls = calls.Where(c => (BO.CallType)c.MyCall == callTypeFilter).ToList();
 
-        if (sortField != null)
+        // סינון לפי מרחק
+        if (volunteer.Latitude != null && volunteer.Longitude != null && volunteer.MaxDistance != null)
         {
-            var property = typeof(BO.CallInList).GetProperty(sortField.ToString());
-            if (property != null)
-            {
-                calls = calls.OrderBy(c => property.GetValue(c)).ToList();
-            }
+            calls = calls.Where(c =>
+                Tools.CalculateDistance(
+                    c.Latitude, c.Longitude,
+                    volunteer.Latitude.Value, volunteer.Longitude.Value)
+                <= volunteer.MaxDistance.Value
+            ).ToList();
         }
-        else
-        {
-            calls = calls.OrderBy(c => c.Id).ToList();
-        }
-
         IEnumerable<OpenCallInList> openCallsList = calls.Select(c => new OpenCallInList
         {
             Id = c.Id,
@@ -473,6 +521,8 @@ internal class CallImplementation : BlApi.ICall
         });
         return openCallsList;
     }
+
+
     private async Task CompleteCallWithCoordinatesAsync(BO.Call call)
     {
         try

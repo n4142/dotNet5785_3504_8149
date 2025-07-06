@@ -14,7 +14,6 @@ namespace BO
         public string FullAddress { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-
         public DateTime OpenTime { get; set; }
         public DateTime? MaxCompletionTime { get; set; }
         public CallStatus Status { get; set; } // ENUM

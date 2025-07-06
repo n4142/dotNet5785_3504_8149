@@ -9,7 +9,15 @@ internal class CallImplementation : ICall
     public void Create(Call enteredCall)
     {
         int newId = Config.NextCallId;
-        Call copyCall = enteredCall with { Id = newId };
+        //Call copyCall = enteredCall with { Id = newId,OpeningTime= Config.Clock };
+        Call copyCall = enteredCall with
+        {
+            Id = newId,
+            OpeningTime = enteredCall.OpeningTime == default
+        ? Config.Clock
+        : enteredCall.OpeningTime
+        };
+
         List<Call> Calls = XMLTools.LoadListFromXMLSerializer<Call>(Config.s_calls_xml);
         Calls.Add(copyCall);
         XMLTools.SaveListToXMLSerializer(Calls, Config.s_calls_xml);

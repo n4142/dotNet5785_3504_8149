@@ -24,7 +24,7 @@ namespace PL.Call
             DataContext = this;
         }
 
-        private void AddButton_Click(object sender, RoutedEventArgs e)
+        private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

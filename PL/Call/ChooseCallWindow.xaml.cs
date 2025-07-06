@@ -15,6 +15,7 @@ namespace PL.Call
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public ObservableCollection<OpenCallInList> Calls { get; set; } = new();
+
         public Array CallTypeValues => Enum.GetValues(typeof(CallType));
 
         private CallType? selectedCallType;

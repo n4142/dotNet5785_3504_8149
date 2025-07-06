@@ -42,17 +42,21 @@ namespace Helpers
 
                 TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
 
-                // 1. אם כל ההקצאות הסתיימו (כלומר יש להן MyEndingTime מוגדר) → הקריאה סגורה
-                if (assignments.Any() && assignments.All(a => a.MyEndingTime != null))
+                // 1. אם יש הקצאה שהסתיימה בטיפול מוצלח → Closed
+                if (assignments.Any(a => a.MyEndingTime == EndingTimeType.TakenCareOf))
                     return BO.CallStatus.Closed;
 
                 // 2. אם הזמן עבר ואין הקצאות פעילות → Expired
-                if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
+                if (call.MaxTimeFinishCalling.HasValue &&
+                    timeLeft.HasValue && timeLeft.Value < TimeSpan.Zero &&
+                    !assignments.Any(a => a.MyEndingTime == null))
                     return BO.CallStatus.Expired;
 
                 // 3. יש הקצאה פתוחה והזמן קרוב לסיום → InProgressAtRisk
                 if (assignments.Any(a => a.MyEndingTime == null) &&
-                    timeLeft <= s_dal.Config.RiskRange)
+                    timeLeft.HasValue &&
+                    timeLeft.Value > TimeSpan.Zero &&
+                    timeLeft.Value <= s_dal.Config.RiskRange)
                     return BO.CallStatus.InProgressAtRisk;
 
                 // 4. יש הקצאה פתוחה → InProgress
@@ -60,13 +64,19 @@ namespace Helpers
                     return BO.CallStatus.InProgress;
 
                 // 5. אין הקצאות והזמן קרוב לסיום → OpenAtRisk
-                if (!assignments.Any() && timeLeft <= s_dal.Config.RiskRange)
+                if (!assignments.Any() &&
+                    timeLeft.HasValue &&
+                    timeLeft.Value > TimeSpan.Zero &&
+                    timeLeft.Value <= s_dal.Config.RiskRange)
                     return BO.CallStatus.OpenAtRisk;
 
                 // 6. אין הקצאות בכלל → Open
                 return BO.CallStatus.Open;
             }
         }
+
+
+
 
 
 
@@ -90,7 +100,7 @@ namespace Helpers
                 CallId = call.Id,
                 CallType = (BO.CallType)call.MyCall,
                 OpenTime = call.OpeningTime,
-                TimeRemaining = call.MaxTimeFinishCalling - AdminManager.Now,
+                TimeRemaining = call.MaxTimeFinishCalling- s_dal.Config.Clock,
                 LastVolunteerName = volunteer?.FullName ?? string.Empty,
                 Status = GetCallStatus(call.Id),
                 TotalAssignments = assignments.Count,

@@ -14,9 +14,11 @@ public class Initialization
     private static readonly Random s_rand = new();
         private static void CreateVolunteer()
         {
-            const int MIN_ID = 100000000;
-            const int MAX_ID = 999999999;
-            string[] names =
+        //const int MIN_ID = 100000000;
+        //const int MAX_ID = 999999999;
+            int[] israeliIds =
+                { 605656537, 852170240, 639825686, 590901518, 963951819, 255336760, 612332221, 407664853, 890530835, 578539355, 680082534, 201438678, 678719766, 421671066, 245068002, 417482171 };
+        string[] names =
                 {"Danah Cohen", "Yossi Levi", "Michal Rosenberg", "Alon Goldstein", "Shira Peled", "Roi Barak", "Netta Shemesh", "Tomer Saban", "Lian Bloch", "Ido Melamed", "Yael Peretz", "Eliyah Kahanov", "Maya Hershkowitz", "Gilad Oren", "Efrat Kaplan"};
             string[] phons =
                 {"0504142102", "0533128532", "0527648207", "0556784521", "0546587412", "0527684698", "0527612233", "0527695898", "0546581256","0527612589","0527648693","0527631459","0527638520","0527641120","0527648965"};
@@ -24,14 +26,15 @@ public class Initialization
                 {"Herzl St 1, Tel Aviv", "Ben Yehuda St 10, Haifa",  "Hanevi'im St 15, Jerusalem",  "Rothschild Blvd 50, Tel Aviv",  "Jabotinsky St 125, Ramat Gan",  "King George St 20, Jerusalem",  "Allenby St 45, Tel Aviv",  "Bialik St 7, Ramat Gan",  "Dizengoff St 100, Tel Aviv",  "Weizmann St 5, Rehovot",  "Yehuda Halevi St 30, Tel Aviv",  "Hertzl St 10, Beer Sheva",  "Sokolov St 15, Herzliya",  "Begin Blvd 8, Ashdod",  "Ben Gurion St 1, Bat Yam"    };
             (double latitude, double longitude)[] coordinates =
                 {  (32.0595, 34.7705),  (32.8195, 34.9983),  (31.7857, 35.2208),  (32.0633, 34.7735),  (32.0885, 34.8037),  (31.7762, 35.2137),  (32.0641, 34.7698),  (32.0827, 34.8235),  (32.0758, 34.7742),  (31.8947, 34.8112),  (32.0622, 34.7701),  (31.2518, 34.7913),  (32.1663, 34.8426),  (31.8025, 34.6457),  (32.0153, 34.7504) };
-            s_dal!.Volunteer.Create(new(s_rand.Next(MIN_ID, MAX_ID), "Nechami", "0525381648", "Nechami@gmail.com", true, Position.Manager, "5555", "Hatikva 6", 31.958240, 34.879992, 10));
+            s_dal!.Volunteer.Create(new(215553504, "Nechami", "0525381648", "Nechami@gmail.com", true, Position.Manager, "5555", "Hatikva 6", 31.958240, 34.879992, 10));
             for (int i = 0; i < 15; i++)
             {
                 s_dal!.Volunteer.Create(new(
-                    s_rand.Next(MIN_ID, MAX_ID),
+                    //s_rand.Next(MIN_ID, MAX_ID),
+                    israeliIds[i],
                     names[i],
                     phons[i],
-                    $"{names[i]}@gmail.com",
+                    $"{names[i].Replace(" ", "")}@gmail.com",
                     true, Position.Volunteer,
                     phons[i].Substring(5, 4), //a password created by manager
                     addresses[i],
@@ -126,48 +129,157 @@ public class Initialization
   (31.7743, 35.2245),
   (32.9274, 35.0871),
   (32.7922, 35.0342)};
-            string[] descriptions =
-                      { "An elderly woman who wants to end her life due to loneliness and lack of meaning",
-            "A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection",
-"A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home",
-"A young woman with postpartum depression feeling unable to function as a mother",
-"A man in his 40s struggling to cope with job loss and expressing hopelessness about the future",
-"A high school teacher feeling burned out and unable to balance work with personal life",
-"A student overwhelmed by academic stress and exams, considering dropping out of university",
-"An older adult recently widowed, feeling lost and unable to move forward",
-"A teenage girl with self-esteem issues, believing she is not as worthy as her peers",
-"A single mother experiencing heavy emotional and financial pressure with little support from her surroundings" };
-            DateTime start = new DateTime(2022, 1, 1);
+        string[] descriptions = {
+    "An elderly woman who wants to end her life due to loneliness and lack of meaning",
+    "A teenage boy struggling to cope with classroom bullying and expressing fears of social rejection",
+    "A young adult in his 20s experiencing panic attacks in daily life and finding it difficult to leave his home",
+    "A young woman with postpartum depression feeling unable to function as a mother",
+    "A man in his 40s struggling to cope with job loss and expressing hopelessness about the future",
+    "A high school teacher feeling burned out and unable to balance work with personal life",
+    "A student overwhelmed by academic stress and exams, considering dropping out of university",
+    "An older adult recently widowed, feeling lost and unable to move forward",
+    "A teenage girl with self-esteem issues, believing she is not as worthy as her peers",
+    "A single mother experiencing heavy emotional and financial pressure with little support from her surroundings",
+    "A soldier recently discharged from the army struggling to adjust to civilian life",
+    "A refugee coping with trauma from war and separation from family",
+    "A young entrepreneur facing repeated business failures and feeling defeated",
+    "A child of divorced parents feeling torn between two households",
+    "A man in his 50s facing an identity crisis after early retirement",
+    "A caregiver exhausted from taking care of a chronically ill parent",
+    "A woman experiencing social isolation after moving to a new city",
+    "A teenager addicted to social media and feeling disconnected in real life",
+    "A recent graduate feeling aimless and unsure about future career plans",
+    "A man struggling with gambling addiction and hiding it from his family",
+    "A nurse emotionally overwhelmed by constant exposure to patient suffering",
+    "A woman battling chronic illness and feeling like a burden to her family",
+    "A high school senior anxious about college admissions and future expectations",
+    "A young man dealing with body image issues and negative self-talk",
+    "A middle-aged man going through a painful divorce and custody battle",
+    "A woman in an abusive relationship feeling trapped and helpless",
+    "A child dealing with the sudden death of a sibling",
+    "A man feeling depressed after immigrating and facing cultural dissonance",
+    "A mother of a child with special needs feeling unsupported and exhausted",
+    "A professional athlete who had to retire early due to injury",
+    "An introverted teenager who feels invisible at school and home",
+    "A man suffering from insomnia due to financial stress",
+    "A young woman coping with a recent miscarriage and grief",
+    "An artist feeling creatively blocked and doubting their talent",
+    "A new teacher struggling with classroom management and self-doubt",
+    "A person struggling with obsessive-compulsive behaviors interfering with daily life",
+    "A woman unable to find a partner and feeling unlovable",
+    "A man diagnosed with a terminal illness and fearing death",
+    "A teenager struggling with anger issues and frequent outbursts",
+    "A university student experiencing severe homesickness",
+    "A widower in his 70s refusing to engage in any social activity",
+    "A firefighter suffering from PTSD after a traumatic rescue",
+    "A single father overwhelmed by parenting responsibilities",
+    "A young adult facing discrimination due to ethnicity or religion",
+    "A woman struggling to care for her children while working multiple jobs",
+    "A man recently released from prison and unable to find work",
+    "A college student dealing with social anxiety and isolation",
+    "A woman in a high-pressure job experiencing constant anxiety",
+    "A man going through a midlife crisis and questioning life choices",
+    "A teenager whose best friend moved away and feels abandoned"
+};
+
+        DateTime start = new DateTime(2025, 1, 1);
             for (int i = 0; i < 50; i++)
             {
-                DateTime startingTime = start.AddDays(s_rand.Next((int)(s_dal!.Config!.Clock - start).TotalDays));
+                DateTime startingTime = start.AddDays(s_rand.Next(0,365));
                 s_dal!.Call.Create(new Call(
                 (CallType)s_rand.Next(Enum.GetValues(typeof(CallType)).Length),
                 addresses[i],
                 coordinates[i].latitude,
                 coordinates[i].longitude,
                 startingTime,
-                startingTime.AddMinutes(s_rand.Next(30, 60)),
-                descriptions[s_rand.Next(descriptions.Length)]
+                startingTime.AddDays(s_rand.Next(1, 30)),
+                descriptions[i]
                 ));
             };
         }
-        private static void CreateAssignment()
+    //private static void CreateAssignment()
+    //{
+    //    List<Volunteer> volunteerList = s_dal!.Volunteer.ReadAll();
+    //    List<Call> callsList = s_dal!.Call.ReadAll();
+    //    for (int i = 0; i < 50; i++)
+    //    {
+    //        DateTime?[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
+    //        s_dal!.Assignment.Create(new Assignment(
+    //            callsList[i].Id,
+    //            volunteerList[s_rand.Next(volunteerList.Count)].Id,
+    //            callsList[i].OpeningTime.AddMinutes(s_rand.Next(0, 60)),
+    //            endingTimeOptions[s_rand.Next(endingTimeOptions.Length)],
+    //            (EndingTimeType)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length - 1)
+    //            ));
+    //    };
+    //}
+    private static void CreateAssignment()
+    {
+        List<Volunteer> volunteers = s_dal!.Volunteer.ReadAll();
+        List<Call> calls = s_dal!.Call.ReadAll();
+        List<Assignment> assignments = new();
+
+        // רק 80% מהמתנדבים יהיו זמינים להקצאות
+        List<Volunteer> activeVolunteers = volunteers
+            .OrderBy(_ => s_rand.Next())
+            .Take((int)(volunteers.Count * 0.8))
+            .ToList();
+
+        foreach (var call in calls)
         {
-            List<Volunteer> volunteerList = s_dal!.Volunteer.ReadAll();
-            List<Call> callsList = s_dal!.Call.ReadAll();
-            for (int i = 0; i < 50; i++)
+            // כמה הקצאות יהיו לקריאה זו (0–3)
+            int numAssignments = s_rand.Next(0, 4);
+
+            for (int i = 0; i < numAssignments; i++)
             {
-                DateTime?[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
-                s_dal!.Assignment.Create(new Assignment(
-                    callsList[i].Id,
-                    volunteerList[s_rand.Next(volunteerList.Count)].Id,
-                    callsList[i].OpeningTime.AddMinutes(s_rand.Next(0, 60)),
-                    endingTimeOptions[s_rand.Next(endingTimeOptions.Length)],
-                    (EndingTimeType)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length - 1)
-                    ));
-            };
+                var volunteer = activeVolunteers[s_rand.Next(activeVolunteers.Count)];
+
+                // בדיקה: האם למתנדב כבר יש הקצאה פתוחה?
+                bool hasOpenAssignment = assignments.Any(a =>
+                    a.VolunteerId == volunteer.Id && a.EndingTimeOfTreatment == null);
+
+                if (hasOpenAssignment)
+                    continue; // דלג על מתנדב עם טיפול פעיל
+
+                // זמן כניסה לטיפול בין פתיחה לסיום
+                DateTime entry = RandomBetween(call.OpeningTime, call.MaxTimeFinishCalling ?? call.OpeningTime.AddHours(2));
+
+                // 70% סיכוי לסיים את הטיפול
+                DateTime? end = s_rand.NextDouble() < 0.7
+                    ? entry.AddMinutes(s_rand.Next(10, 60))
+                    : null;
+
+                // סוג סיום אם יש
+                EndingTimeType? type = end == null
+                    ? null
+                    : (EndingTimeType?)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length);
+
+                // הוספה לרשימת ההקצאות
+                assignments.Add(new Assignment(
+                    call.Id,
+                    volunteer.Id,
+                    entry,
+                    end,
+                    type
+                ));
+            }
         }
+
+        // שמירה לדאטה
+        foreach (var a in assignments)
+        {
+            s_dal.Assignment.Create(a);
+        }
+    }
+
+    // פונקציית עזר להגריל תאריך
+    private static DateTime RandomBetween(DateTime start, DateTime end)
+    {
+        if (start >= end) return start;
+        var range = (end - start).TotalMinutes;
+        return start.AddMinutes(s_rand.Next((int)range));
+    }
+
 
     //public static void Do(IDal dal) //stage 2
     public static void Do() //stage 4

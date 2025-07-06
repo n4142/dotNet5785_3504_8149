@@ -824,7 +824,7 @@ class Program
                 Console.WriteLine("Enter Assignment ID: ");
                 if (int.TryParse(Console.ReadLine(), out int assignmentId))
                 {
-                    s_bl.Call.CancelCallTreatment(requestorId, assignmentId);
+                    s_bl.Call.CancelCallTreatment(false,requestorId, assignmentId);
                     Console.WriteLine("Call cancelled successfully.");
                 }
                 else

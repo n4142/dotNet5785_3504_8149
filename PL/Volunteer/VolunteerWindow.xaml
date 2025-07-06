@@ -54,6 +54,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Text="Volunteer Details" FontSize="22" FontWeight="Bold" Margin="0,0,0,10" Foreground="#0F425F" HorizontalAlignment="Center"/>
@@ -136,18 +137,43 @@
                         </StackPanel>
                     </ScrollViewer>
 
-                    <StackPanel Margin="10" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNotNull}}">
+                    <!--<StackPanel Grid.Row="2" Margin="10" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNotNull}}">
                         <TextBlock Text="Current Call:" FontWeight="Bold" />
 
                         <TextBlock Text="{Binding CurrentCall.Description}" />
                         <TextBlock Text="{Binding CurrentCall.Status}" />
 
-                        <Button Content="Cancel This Call" Click="CancelCall_Click" Width="150" Margin="5"/>
-                        <Button Content="End of treatment" Click="EndOfTreatment_Click" Width="150" Margin="5"/>
+                        <Button Content="Cancel This Call" Click="CancelCall_Click" Width="80" Margin="5"/>
+                        <Button Content="End of treatment" Click="EndOfTreatment_Click" Width="80" Margin="5"/>
+                    </StackPanel>-->
+                    <StackPanel Grid.Row="2" Margin="10" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNotNull}}">
+                        <Border BorderThickness="1" BorderBrush="#0F425F" CornerRadius="8" Padding="10" Background="#F5FAFF" Margin="0,10">
+                            <StackPanel>
+                                <TextBlock Text="Current Call In Progress" FontSize="16" FontWeight="Bold" Foreground="#0F425F" Margin="0,0,0,10"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Description:" Width="120" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding CurrentCall.Description}" TextWrapping="Wrap"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                    <TextBlock Text="Status:" Width="120" FontWeight="SemiBold"/>
+                                    <TextBlock Text="{Binding CurrentCall.Status}" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                                    <Button Content="Cancel Call" Click="CancelCall_Click"
+                        Background="#E06666" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Width="130"/>
+                                    <Button Content="End Treatment" Click="EndOfTreatment_Click"
+                        Background="#93C47D" Foreground="White" Style="{StaticResource RoundedButtonStyle}" Width="130"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
 
+
                     <!-- Buttons -->
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <!--<StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
                         <Button Content="Calls History" Click="ShowClosedCalls_Click" HorizontalAlignment="Left" Width="120" Margin="5"/>
                         <Button Content="{Binding ButtonCallText}" Click="ChooseCall_Click" HorizontalAlignment="Left" Background="#B9D15F" Width="120" Margin="5" Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNull}}"/>
                         <Button Content="Delete Volunteer" Click="DeleteVolunteer_Click" HorizontalAlignment="Left" Width="120" Margin="5">
@@ -159,7 +185,51 @@
                             </Button.Visibility>
                         </Button>
                         <Button Content="Close"  Click="ButtonClose_Click" Background="#F9B350" Width="80" Style="{StaticResource RoundedButtonStyle}"/>
+                    </StackPanel>-->
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+
+                        <!-- Calls History Button -->
+                        <Button Content="Calls History"
+            Click="ShowClosedCalls_Click"
+            Background="#6D9EEB"
+            Foreground="White"
+            Width="130"
+            Style="{StaticResource RoundedButtonStyle}"/>
+
+                        <!-- Choose Call Button -->
+                        <Button Content="{Binding ButtonCallText}"
+            Click="ChooseCall_Click"
+            Background="#B9D15F"
+            Foreground="White"
+            Width="130"
+            Style="{StaticResource RoundedButtonStyle}"
+            Visibility="{Binding CurrentCall, Converter={StaticResource NullToVisibleIfNull}}"/>
+
+                        <!-- Delete Button -->
+                        <Button Content="Delete Volunteer"
+            Click="DeleteVolunteer_Click"
+            Background="#D9534F"
+            Foreground="White"
+            Width="130"
+            Style="{StaticResource RoundedButtonStyle}">
+                            <Button.Visibility>
+                                <MultiBinding Converter="{StaticResource ManagerAndNotNewVolunteerToVisibilityConverter}">
+                                    <Binding Path="ManagerMode"/>
+                                    <Binding Path="CurrentVolunteer.Id"/>
+                                </MultiBinding>
+                            </Button.Visibility>
+                        </Button>
+
+                        <!-- Close Button -->
+                        <Button Content="Close"
+            Click="ButtonClose_Click"
+            Background="#F9B350"
+            Foreground="White"
+            Width="100"
+            Style="{StaticResource RoundedButtonStyle}"/>
                     </StackPanel>
+
 
                 </Grid>
             </Border>
