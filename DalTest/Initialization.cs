@@ -5,18 +5,13 @@ using DO;
 
 public class Initialization
     {
-    //private static ICall? s_dalCall;
-    //private static IVolunteer? s_dalVolunteer;
-    //private static IAssignment? s_dalAssignment;
-    //private static IConfig? s_dalConfig;
+    
     private static IDal? s_dal; //stage 2
 
     private static readonly Random s_rand = new();
         private static void CreateVolunteer()
         {
-        //const int MIN_ID = 100000000;
-        //const int MAX_ID = 999999999;
-            int[] israeliIds =
+        int[] israeliIds =
                 { 605656537, 852170240, 639825686, 590901518, 963951819, 255336760, 612332221, 407664853, 890530835, 578539355, 680082534, 201438678, 678719766, 421671066, 245068002, 417482171 };
         string[] names =
                 {"Danah Cohen", "Yossi Levi", "Michal Rosenberg", "Alon Goldstein", "Shira Peled", "Roi Barak", "Netta Shemesh", "Tomer Saban", "Lian Bloch", "Ido Melamed", "Yael Peretz", "Eliyah Kahanov", "Maya Hershkowitz", "Gilad Oren", "Efrat Kaplan"};
@@ -30,7 +25,6 @@ public class Initialization
             for (int i = 0; i < 15; i++)
             {
                 s_dal!.Volunteer.Create(new(
-                    //s_rand.Next(MIN_ID, MAX_ID),
                     israeliIds[i],
                     names[i],
                     phons[i],
@@ -197,22 +191,7 @@ public class Initialization
                 ));
             };
         }
-    //private static void CreateAssignment()
-    //{
-    //    List<Volunteer> volunteerList = s_dal!.Volunteer.ReadAll();
-    //    List<Call> callsList = s_dal!.Call.ReadAll();
-    //    for (int i = 0; i < 50; i++)
-    //    {
-    //        DateTime?[] endingTimeOptions = { null, callsList[i].MaxTimeFinishCalling, callsList[i].OpeningTime.AddMinutes(s_rand.Next(5, 59)) };
-    //        s_dal!.Assignment.Create(new Assignment(
-    //            callsList[i].Id,
-    //            volunteerList[s_rand.Next(volunteerList.Count)].Id,
-    //            callsList[i].OpeningTime.AddMinutes(s_rand.Next(0, 60)),
-    //            endingTimeOptions[s_rand.Next(endingTimeOptions.Length)],
-    //            (EndingTimeType)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length - 1)
-    //            ));
-    //    };
-    //}
+    
     private static void CreateAssignment()
     {
         List<Volunteer> volunteers = s_dal!.Volunteer.ReadAll();
@@ -227,6 +206,11 @@ public class Initialization
 
         foreach (var call in calls)
         {
+            // דילוג על קריאות שפג תוקפן
+            if (call.MaxTimeFinishCalling.HasValue &&
+                call.MaxTimeFinishCalling.Value < s_dal.Config.Clock)
+                continue;
+
             // כמה הקצאות יהיו לקריאה זו (0–3)
             int numAssignments = s_rand.Next(0, 4);
 
@@ -239,22 +223,30 @@ public class Initialization
                     a.VolunteerId == volunteer.Id && a.EndingTimeOfTreatment == null);
 
                 if (hasOpenAssignment)
-                    continue; // דלג על מתנדב עם טיפול פעיל
+                    continue;
 
                 // זמן כניסה לטיפול בין פתיחה לסיום
                 DateTime entry = RandomBetween(call.OpeningTime, call.MaxTimeFinishCalling ?? call.OpeningTime.AddHours(2));
+
+                // ודא שלא יוצרים טיפול אחרי הזמן המקסימלי
+                if (call.MaxTimeFinishCalling.HasValue && entry > call.MaxTimeFinishCalling.Value)
+                    continue;
 
                 // 70% סיכוי לסיים את הטיפול
                 DateTime? end = s_rand.NextDouble() < 0.7
                     ? entry.AddMinutes(s_rand.Next(10, 60))
                     : null;
 
+                // אם סיום הטיפול לאחר הזמן המותר – בטל
+                if (end.HasValue && call.MaxTimeFinishCalling.HasValue &&
+                    end.Value > call.MaxTimeFinishCalling.Value)
+                    end = null;
+
                 // סוג סיום אם יש
                 EndingTimeType? type = end == null
                     ? null
                     : (EndingTimeType?)s_rand.Next(Enum.GetValues(typeof(EndingTimeType)).Length);
 
-                // הוספה לרשימת ההקצאות
                 assignments.Add(new Assignment(
                     call.Id,
                     volunteer.Id,
@@ -271,14 +263,13 @@ public class Initialization
             s_dal.Assignment.Create(a);
         }
     }
-
-    // פונקציית עזר להגריל תאריך
     private static DateTime RandomBetween(DateTime start, DateTime end)
     {
         if (start >= end) return start;
         var range = (end - start).TotalMinutes;
         return start.AddMinutes(s_rand.Next((int)range));
     }
+
 
 
     //public static void Do(IDal dal) //stage 2

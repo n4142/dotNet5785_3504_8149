@@ -13,10 +13,7 @@ namespace PL.Volunteer
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public VolunteerSortBy SelectedSortBy { get; set; } = VolunteerSortBy.Id;
         public bool? SelectedIsActive { get; set; } = null;
-
-        //public CallType SelectedCallType { get; set; } = CallType.All;
-
-        public IEnumerable<VolunteerInList> VolunteerList
+                public IEnumerable<VolunteerInList> VolunteerList
         {
             get { return (IEnumerable<VolunteerInList>)GetValue(VolunteerListProperty); }
             set { SetValue(VolunteerListProperty, value); }
@@ -56,8 +53,8 @@ namespace PL.Volunteer
 
             VolunteerList = allVolunteers.ToList();
 
-            if (!VolunteerList.Any())
-                MessageBox.Show("No volunteers found.");
+            //if (!VolunteerList.Any())
+            //    MessageBox.Show("No volunteers found.");
         }
 
 
@@ -90,15 +87,6 @@ namespace PL.Volunteer
             s_bl.Volunteer.RemoveObserver(VolunteerListObserver);
         }
 
-        //private void CallTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (CallTypeComboBox.SelectedItem is CallType selected)
-        //    {
-        //        SelectedCallType = selected;
-        //        QueryVolunteerList();
-        //    }
-        //}
-        
         private void AddVolunteer_Click(object sender, RoutedEventArgs e)
         {
             new VolunteerWindow().Show();

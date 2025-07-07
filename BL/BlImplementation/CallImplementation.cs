@@ -436,46 +436,7 @@ internal class CallImplementation : BlApi.ICall
         return calls;
     }
 
-    //public IEnumerable<OpenCallInList> GetOpenCallsForVolunteerSelection(int volunteerId, BO.CallType? callTypeFilter = null, OpenCallInList? sortField = null)
-    //{
-    //    DO.Volunteer volunteer;
-    //    List<DO.Call> calls;
-    //    lock (AdminManager.BlMutex)
-    //    {
-    //        volunteer = _dal.Volunteer.Read(volunteerId);
-    //        calls = _dal.Call.ReadAll()
-    //            .Where(c => CallManager.GetCallStatus(c.Id).ToString() == "Open" || CallManager.GetCallStatus(c.Id).ToString() == "OpenAtRisk")
-    //            .ToList();
-    //    }
-
-    //    if (callTypeFilter != null)
-    //        calls = calls.Where(c => (BO.CallType)c.MyCall == callTypeFilter).ToList();
-
-    //    if (sortField != null)
-    //    {
-    //        var property = typeof(BO.CallInList).GetProperty(sortField.ToString());
-    //        if (property != null)
-    //        {
-    //            calls = calls.OrderBy(c => property.GetValue(c)).ToList();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        calls = calls.OrderBy(c => c.Id).ToList();
-    //    }
-
-    //    IEnumerable<OpenCallInList> openCallsList = calls.Select(c => new OpenCallInList
-    //    {
-    //        Id = c.Id,
-    //        CallType = (BO.CallType)c.MyCall,
-    //        Description = c.VerbalDescription,
-    //        Address = c.FullAddressCall,
-    //        OpenTime = c.OpeningTime,
-    //        MaxEndTime = c.MaxTimeFinishCalling,
-    //        DistanceFromVolunteer = CalculateDistance(volunteer.Latitude.Value, volunteer.Longitude.Value, c.Latitude, c.Longitude)
-    //    });
-    //    return openCallsList;
-    //}
+   
 
     public IEnumerable<OpenCallInList> GetOpenCallsForVolunteerSelection( int volunteerId,BO.CallType? callTypeFilter = null, OpenCallInList? sortField = null)
     {

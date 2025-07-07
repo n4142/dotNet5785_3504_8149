@@ -25,7 +25,7 @@
     <CurrentAddress>Herzl St 1, Tel Aviv</CurrentAddress>
     <Latitude>32.0595</Latitude>
     <Longitude>34.7705</Longitude>
-    <MaxDistance>17</MaxDistance>
+    <MaxDistance>19</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -39,7 +39,7 @@
     <CurrentAddress>Ben Yehuda St 10, Haifa</CurrentAddress>
     <Latitude>32.8195</Latitude>
     <Longitude>34.9983</Longitude>
-    <MaxDistance>13</MaxDistance>
+    <MaxDistance>18</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -53,7 +53,7 @@
     <CurrentAddress>Hanevi'im St 15, Jerusalem</CurrentAddress>
     <Latitude>31.7857</Latitude>
     <Longitude>35.2208</Longitude>
-    <MaxDistance>6</MaxDistance>
+    <MaxDistance>12</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -67,7 +67,7 @@
     <CurrentAddress>Rothschild Blvd 50, Tel Aviv</CurrentAddress>
     <Latitude>32.0633</Latitude>
     <Longitude>34.7735</Longitude>
-    <MaxDistance>5</MaxDistance>
+    <MaxDistance>18</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -81,7 +81,7 @@
     <CurrentAddress>Jabotinsky St 125, Ramat Gan</CurrentAddress>
     <Latitude>32.0885</Latitude>
     <Longitude>34.8037</Longitude>
-    <MaxDistance>10</MaxDistance>
+    <MaxDistance>13</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -95,7 +95,7 @@
     <CurrentAddress>King George St 20, Jerusalem</CurrentAddress>
     <Latitude>31.7762</Latitude>
     <Longitude>35.2137</Longitude>
-    <MaxDistance>13</MaxDistance>
+    <MaxDistance>11</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -109,7 +109,7 @@
     <CurrentAddress>Allenby St 45, Tel Aviv</CurrentAddress>
     <Latitude>32.0641</Latitude>
     <Longitude>34.7698</Longitude>
-    <MaxDistance>11</MaxDistance>
+    <MaxDistance>9</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -123,7 +123,7 @@
     <CurrentAddress>Bialik St 7, Ramat Gan</CurrentAddress>
     <Latitude>32.0827</Latitude>
     <Longitude>34.8235</Longitude>
-    <MaxDistance>7</MaxDistance>
+    <MaxDistance>8</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -137,7 +137,7 @@
     <CurrentAddress>Dizengoff St 100, Tel Aviv</CurrentAddress>
     <Latitude>32.0758</Latitude>
     <Longitude>34.7742</Longitude>
-    <MaxDistance>0</MaxDistance>
+    <MaxDistance>2</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -151,7 +151,7 @@
     <CurrentAddress>Weizmann St 5, Rehovot</CurrentAddress>
     <Latitude>31.8947</Latitude>
     <Longitude>34.8112</Longitude>
-    <MaxDistance>6</MaxDistance>
+    <MaxDistance>8</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -165,7 +165,21 @@
     <CurrentAddress>Yehuda Halevi St 30, Tel Aviv</CurrentAddress>
     <Latitude>32.0622</Latitude>
     <Longitude>34.7701</Longitude>
-    <MaxDistance>16</MaxDistance>
+    <MaxDistance>17</MaxDistance>
+    <MyDistance>Air</MyDistance>
+  </Volunteer>
+  <Volunteer>
+    <Id>201438678</Id>
+    <FullName>Eliyah Kahanov</FullName>
+    <Phone>0527631459</Phone>
+    <Email>EliyahKahanov@gmail.com</Email>
+    <IsActive>true</IsActive>
+    <MyPosition>Volunteer</MyPosition>
+    <Password>3145</Password>
+    <CurrentAddress>Hertzl St 10, Beer Sheva</CurrentAddress>
+    <Latitude>31.2518</Latitude>
+    <Longitude>34.7913</Longitude>
+    <MaxDistance>11</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -179,7 +193,7 @@
     <CurrentAddress>Sokolov St 15, Herzliya</CurrentAddress>
     <Latitude>32.1663</Latitude>
     <Longitude>34.8426</Longitude>
-    <MaxDistance>8</MaxDistance>
+    <MaxDistance>2</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -193,7 +207,7 @@
     <CurrentAddress>Begin Blvd 8, Ashdod</CurrentAddress>
     <Latitude>31.8025</Latitude>
     <Longitude>34.6457</Longitude>
-    <MaxDistance>16</MaxDistance>
+    <MaxDistance>8</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
   <Volunteer>
@@ -207,35 +221,7 @@
     <CurrentAddress>Ben Gurion St 1, Bat Yam</CurrentAddress>
     <Latitude>32.0153</Latitude>
     <Longitude>34.7504</Longitude>
-    <MaxDistance>3</MaxDistance>
-    <MyDistance>Air</MyDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>215040767</Id>
-    <FullName>נחמה גבירר</FullName>
-    <Phone>0527648203</Phone>
-    <Email>s@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>12345678</Password>
-    <CurrentAddress>התקוה 6</CurrentAddress>
-    <Latitude xsi:nil="true" />
-    <Longitude xsi:nil="true" />
-    <MaxDistance>50</MaxDistance>
-    <MyDistance>Walk</MyDistance>
-  </Volunteer>
-  <Volunteer>
-    <Id>201438678</Id>
-    <FullName>Eliyah Kahanov</FullName>
-    <Phone>0527631459</Phone>
-    <Email>EliyahKahanov@gmail.com</Email>
-    <IsActive>true</IsActive>
-    <MyPosition>Volunteer</MyPosition>
-    <Password>3145</Password>
-    <CurrentAddress>Hertzl St 10, Beer Sheva</CurrentAddress>
-    <Latitude>31.2518</Latitude>
-    <Longitude>34.7913</Longitude>
-    <MaxDistance>1700</MaxDistance>
+    <MaxDistance>10</MaxDistance>
     <MyDistance>Air</MyDistance>
   </Volunteer>
 </ArrayOfVolunteer>

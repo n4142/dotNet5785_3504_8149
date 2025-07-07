@@ -13,26 +13,6 @@ namespace Helpers
         private static IDal s_dal = Factory.Get; //stage 4
         internal static ObserverManager Observers = new(); //stage 5
 
-        //public static BO.CallStatus GetCallStatus(int callId)
-        //{
-        //    lock (AdminManager.BlMutex)
-        //    {
-        //        var call = s_dal.Call.Read(callId) ?? throw new KeyNotFoundException($"Call with ID {callId} not found.");
-        //        var assignment = s_dal.Assignment.ReadAll().Find(a => a.CallId == callId);
-        //        TimeSpan? timeLeft = call.MaxTimeFinishCalling - AdminManager.Now;
-
-        //        if (call.MaxTimeFinishCalling.HasValue && timeLeft < TimeSpan.Zero)
-        //            return BO.CallStatus.Expired;
-        //        if (assignment != null && timeLeft <= s_dal.Config.RiskRange)
-        //            return BO.CallStatus.InProgressAtRisk;
-        //        if (assignment != null)
-        //            return BO.CallStatus.InProgress;
-        //        if (timeLeft <= s_dal.Config.RiskRange)
-        //            return BO.CallStatus.OpenAtRisk;
-
-        //        return BO.CallStatus.Open;
-        //    }
-        //}
         public static BO.CallStatus GetCallStatus(int callId)
         {
             lock (AdminManager.BlMutex)

@@ -14,36 +14,7 @@ internal class Tools
     /// <summary>
     /// the function gets an address and if the address is legal returns its longitude and latitude        
     /// </summary>      
-    //public static async Task<(double Latitude, double Longitude)> GetCoordinatesFromAddress(string address)
-    //{
-    //    string baseUrl = "https://nominatim.openstreetmap.org/search";
-    //    string requestUrl = $"{baseUrl}?q={Uri.EscapeDataString(address)}&format=json";
-
-    //    using (var httpClient = new HttpClient())
-    //    {
-
-    //            var response = await httpClient.GetStringAsync(requestUrl);
-    //            var json = JArray.Parse(response);
-
-    //            if (json.Count > 0)
-    //            {
-    //                double latitude = (double)json[0]["lat"];
-    //                double longitude = (double)json[0]["lon"];
-    //                return (latitude, longitude);
-    //            }
-
-    //        else
-    //        {
-
-    //            return (0, 0); // Return default values if an error occurs  
-    //        }
-
-    //        //else
-    //        //{
-    //        //    throw new Exception("No results were found for the address.");
-    //        //}
-    //    }
-    //}
+     
     public static async Task<(double Latitude, double Longitude)> GetCoordinatesFromAddress(string address)
     {
         string baseUrl = "https://nominatim.openstreetmap.org/search";
